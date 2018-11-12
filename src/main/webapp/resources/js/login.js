@@ -2,7 +2,7 @@
  * 
  */
 $(function() {
-	var userloginurl = '/ik/user/userlogin';
+	var userloginurl = '/ik/useradmin/userlogin';
 	$('#login-btn').click(function() {
 		$.ajax({
 			async : false,
@@ -12,7 +12,8 @@ $(function() {
 			url : userloginurl,
 			data : {
 				userAccount : $('input[name=account]').val(),
-				userPwd : $('input[name=pwd]').val()
+				userPwd : $('input[name=pwd]').val(),
+				kaptcha:$('input[name=kaptcha]').val()
 			},
 			success : function(data) {
 				if (data.success) {
@@ -20,6 +21,7 @@ $(function() {
 					window.location.href ='';
 				} else {
 					alert(data.errMsg);
+					$('#kaptcha_img').click();
 				}
 			}
 		});

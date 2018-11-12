@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>会员登录</title>
-<link rel="stylesheet" href="./resources/css/login.css">
+<link rel="stylesheet" href="../resources/css/login.css">
 </head>
 <body>
 
@@ -24,6 +24,15 @@
 				<td><input type="password" class="input1" name="pwd"></td>
 			</tr>
 			<tr>
+				<td class="td1">验证码</td>
+				<td><input type="text" class="input1" name="kaptcha"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><img id="kaptcha_img" alt="点击更换" title="点击更换"
+					src="../Kaptcha" onclick="changeVerifyCode(this)"></td>
+			</tr>
+
+			<tr>
 				<td colspan="2">
 					<div class="btn-red">
 						<input type="submit" value="登录" id="login-btn">
@@ -35,6 +44,8 @@
 	</div>
 
 	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="./resources/js/login.js"></script>
+	<script type="text/javascript" src="../resources/js/login.js"></script>
+	<script type="text/javascript"
+		src="../resources/js/common/commonutil.js"></script>
 </body>
 </html>
