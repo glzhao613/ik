@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gz.ik.dao.AdminDao">
+	<select id="queryadmin" resultType="com.gz.ik.entity.Admin">
+		SELECT admin_account,admin_pwd,admin_module
+		FROM admin
+		WHERE admin_account=#{account}
+	</select>
+</mapper>
