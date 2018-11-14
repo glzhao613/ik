@@ -12,5 +12,10 @@ public class AdminController {
 	private String getLoginPage() {
 		return "adminlogin";
 	}
+	
+	@RequestMapping(value="/register",method=RequestMethod.GET)
+	private String getregister() {
+		return "adminregister";
+	}
 
 }
