@@ -2,8 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>管理员登录</title>
-<link rel="stylesheet" href="./resources/css/login.css">
+<title>管理员注册</title>
+<link rel="stylesheet" href="../resources/css/login.css">
 </head>
 <body>
 
@@ -18,20 +18,20 @@
 			<table>
 				<tr>
 					<td class="td1">用户名</td>
-					<td><input type="text" class="input1" name="username"></td>
+					<td><input type="text" class="input1" name="adminname"></td>
 				</tr>
 				<tr>
 					<td class="td1">密码</td>
 					<td><input type="password" class="input1" name="password"></td>
 				</tr>
 				<tr>
-					<td class="td1" colspan="2"><input type="checkbox"
-						name="remember" value="true" checked="checked"> 记住用户名</td>
+					<td class="td1">管理员类型</td>
+					<td><input type="text" class="input1" name="admintype"></td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<div class="btn-red">
-							<input type="submit" value="登录" id="login-btn">
+							<input type="submit" value="注册" id="register-btn">
 						</div>
 					</td>
 				</tr>
@@ -39,5 +39,7 @@
 
 		</form>
 	</div>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../resources/js/registeradmin.js"></script>
 </body>
 </html>
