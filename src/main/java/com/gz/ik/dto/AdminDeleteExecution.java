@@ -3,9 +3,9 @@ package com.gz.ik.dto;
 import java.util.List;
 
 import com.gz.ik.entity.Admin;
-import com.gz.ik.enums.AdminRegisterStateEnum;
+import com.gz.ik.enums.AdminDeleteStateEnum;
 
-public class AdminRegisterExecution {
+public class AdminDeleteExecution {
 	
 	//结果状态
 	private int state;
@@ -19,27 +19,27 @@ public class AdminRegisterExecution {
 	
 	private List<Admin> adminlist;
 	
-	public AdminRegisterExecution() {
+	public AdminDeleteExecution() {
 		super();
 	}
 	
-	//管理员注册操作失败的构造器
-	public AdminRegisterExecution(AdminRegisterStateEnum stateEnum) {
+	//管理员登陆操作失败的构造器
+	public AdminDeleteExecution(AdminDeleteStateEnum stateEnum) {
 		super();
 		this.state = stateEnum.getState();
 		this.stateInfo = stateEnum.getStateInfo();
 	}
 	
-	//管理员注册操作成功的构造器
-	public AdminRegisterExecution(AdminRegisterStateEnum stateEnum,Admin admin) {
+	//管理员登陆操作成功的构造器
+	public AdminDeleteExecution(AdminDeleteStateEnum stateEnum,Admin admin) {
 		super();
 		this.state = stateEnum.getState();
 		this.stateInfo = stateEnum.getStateInfo();
 		this.admin = admin;
 	}
 	
-	//管理员注册操作成功的构造器
-	public AdminRegisterExecution(AdminRegisterStateEnum stateEnum,List<Admin> adminlist) {
+	//管理员登陆操作成功的构造器
+	public AdminDeleteExecution(AdminDeleteStateEnum stateEnum,List<Admin> adminlist) {
 		super();
 		this.state = stateEnum.getState();
 		this.stateInfo = stateEnum.getStateInfo();

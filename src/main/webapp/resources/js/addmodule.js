@@ -2,25 +2,22 @@
  * 
  */
 $(function() {
-	var adminloginurl = '/ik/adminad/adminlogin';
-	$('#login-btn').click(function() {
+	var moduleaddurl = '/ik/modulead/moduleadd';
+	$('#add-btn').click(function() {
+		alert(1111);
 		$.ajax({
 			async : false,
 			cache : false,
 			type : 'post',
 			dataType : 'json',
-			url : adminloginurl,
+			url : moduleaddurl,
 			data : {
-				adminaccount : $('input[name=adminname]').val(),
-				adminpwd : $('input[name=password]').val()
+				modulename : $('input[name=modulename]').val()
 			},
 			success : function(data) {
 				switch (data.success){
-				case 0:
-					alert('超级管理员登录成功');
-					window.location.href ='';
 				case 1:
-					alert('管理员登录成功');
+					alert('模块添加成功');
 					window.location.href ='';
 				case -1:
 					alert(data.errMsg);

@@ -2,10 +2,10 @@ package com.gz.ik.dto;
 
 import java.util.List;
 
-import com.gz.ik.entity.Admin;
-import com.gz.ik.enums.AdminRegisterStateEnum;
+import com.gz.ik.entity.Module;
+import com.gz.ik.enums.ModuleQuerStateEnum;
 
-public class AdminRegisterExecution {
+public class ModuleQuerExecution {
 	
 	//结果状态
 	private int state;
@@ -15,35 +15,35 @@ public class AdminRegisterExecution {
 	
 	private int count;
 	
-	private Admin admin;
+	private Module module;
 	
-	private List<Admin> adminlist;
+	private List<Module> modulelist;
 	
-	public AdminRegisterExecution() {
+	public ModuleQuerExecution() {
 		super();
 	}
 	
-	//管理员注册操作失败的构造器
-	public AdminRegisterExecution(AdminRegisterStateEnum stateEnum) {
+	//管理员登陆操作失败的构造器
+	public ModuleQuerExecution(ModuleQuerStateEnum stateEnum) {
 		super();
 		this.state = stateEnum.getState();
 		this.stateInfo = stateEnum.getStateInfo();
 	}
 	
-	//管理员注册操作成功的构造器
-	public AdminRegisterExecution(AdminRegisterStateEnum stateEnum,Admin admin) {
+	//管理员登陆操作成功的构造器
+	public ModuleQuerExecution(ModuleQuerStateEnum stateEnum,Module module) {
 		super();
 		this.state = stateEnum.getState();
 		this.stateInfo = stateEnum.getStateInfo();
-		this.admin = admin;
+		this.module = module;
 	}
 	
-	//管理员注册操作成功的构造器
-	public AdminRegisterExecution(AdminRegisterStateEnum stateEnum,List<Admin> adminlist) {
+	//管理员登陆操作成功的构造器
+	public ModuleQuerExecution(ModuleQuerStateEnum stateEnum,List<Module> modulelist) {
 		super();
 		this.state = stateEnum.getState();
 		this.stateInfo = stateEnum.getStateInfo();
-		this.adminlist = adminlist;
+		this.modulelist = modulelist;
 	}
 
 	public int getState() {
@@ -70,21 +70,23 @@ public class AdminRegisterExecution {
 		this.count = count;
 	}
 
-	public Admin getAdmin() {
-		return admin;
+	public Module getModule() {
+		return module;
 	}
 
-	public void setAdmin(Admin admin) {
-		this.admin = admin;
+	public void setModule(Module module) {
+		this.module = module;
 	}
 
-	public List<Admin> getAdminlist() {
-		return adminlist;
+	public List<Module> getModulelist() {
+		return modulelist;
 	}
 
-	public void setAdminlist(List<Admin> adminlist) {
-		this.adminlist = adminlist;
+	public void setModulelist(List<Module> modulelist) {
+		this.modulelist = modulelist;
 	}
+
+
 	
 	
 }
