@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gz.ik.dao.ModuleDao">
+	<insert id="insertmodule" useGeneratedKeys="true" keyColumn="module_id" keyProperty="moduleId">
+		INSERT INTO module(
+		module_name
+		)
+		VALUES(
+		#{moduleName}
+		)
+	
+	</insert>
+	
+	<select id="querymodule" resultType="com.gz.ik.entity.Module">
+		SELECT module_id,module_name
+		FROM module
+		WHERE module_name=#{moduleName}
+	
+	</select>
+
+	<update id="upadtemodule" parameterType="com.gz.ik.entity.Module">
+	update module
+	<set>
+		<if test="moduleName!=null">module_name=#{moduleName},</if>	
+	</set>
+	where module_id=#{moduleId}
+	</update>
+	
+	<delete id="deletemodule">
+		delete
+		from module
+		where module_id=#{moduleId}
+	</delete>
+	
+	<delete id="deleteadminmodule">
+		delete
+		from admin
+		where admin_module=#{moduleId}
+	</delete>
+
+</mapper>

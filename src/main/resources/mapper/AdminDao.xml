@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gz.ik.dao.AdminDao">
+	<select id="queryadmin" resultType="com.gz.ik.entity.Admin">
+		SELECT admin_account,admin_pwd,admin_module,admin_type
+		FROM admin
+		WHERE admin_account=#{adminAccount}
+	</select>
+	
+	<insert id="insertadmin" useGeneratedKeys="true" keyColumn="admin_id" keyProperty="adminId">
+		INSERT INTO admin(
+		admin_module,admin_account,admin_pwd,admin_type,admin_name)
+		VALUES
+		(#{adminModule.moduleId},#{adminAccount},#{adminPwd},#{adminType},#{adminName})
+	
+	</insert>
+	
+	<update id="updateadmin" parameterType="com.gz.ik.entity.Admin">
+		update admin
+		<set>
+			<if test="adminAccount!=null">admin_account=#{adminAccount},</if>
+			<if test="adminPwd!=null">admin_pwd=#{adminPwd},</if>
+			<if test="adminType!=null">admin_type=#{adminType},</if>
+			<if test="adminName!=null">admin_name=#{adminName},</if>
+			<if test="adminModule!=null">admin_module=#{adminModule.moduleId},</if>
+		</set>
+		where admin_account=#{adminAccount}
+	</update>
+	
+	<delete id="deleteadmin">
+		delete
+		from admin
+		where admin_account=#{adminAccount}
+		
+	
+	</delete>
+</mapper>

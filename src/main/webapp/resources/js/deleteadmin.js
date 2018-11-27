@@ -2,25 +2,21 @@
  * 
  */
 $(function() {
-	var adminloginurl = '/ik/adminad/adminlogin';
-	$('#login-btn').click(function() {
+	var admindeleteurl = '/ik/adminad/admindelete';
+	$('#delete-btn').click(function() {
 		$.ajax({
 			async : false,
 			cache : false,
 			type : 'post',
 			dataType : 'json',
-			url : adminloginurl,
+			url : admindeleteurl,
 			data : {
-				adminaccount : $('input[name=adminname]').val(),
-				adminpwd : $('input[name=password]').val()
+				adminaccount : $('input[name=adminaccount]').val()
 			},
 			success : function(data) {
 				switch (data.success){
-				case 0:
-					alert('超级管理员登录成功');
-					window.location.href ='';
 				case 1:
-					alert('管理员登录成功');
+					alert('管理员删除成功');
 					window.location.href ='';
 				case -1:
 					alert(data.errMsg);
