@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gz.ik.dao.NewsDao">
+	<select id="queryOneNews" resultType="com.gz.ik.entity.News">
+		SELECT * 
+		FROM news 
+		WHERE news_title=#{newsTitle}
+	</select>
+	
+	<select id="queryNews" resultType="com.gz.ik.entity.News">
+		SELECT * 
+		FROM news 
+		LIMIT #{start},#{pageCount}
+	</select>
+	
+	<select id="queryAllNews" resultType="com.gz.ik.entity.News">
+		SELECT * FROM news
+	</select>
+	
+	<insert id="insertNews" useGeneratedKeys="true" keyColumn="news_id" keyProperty="newsId">
+		INSERT INTO news(news_type,news_editor,news_title,news_article,news_date,news_img)
+		VALUES(#{courseType.courseTypeId},#{admin.admin.adminId},#{newsTitle},#{newsArticle},#{newsDate},#{newsImg})
+	</insert>
+</mapper>

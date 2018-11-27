@@ -10,7 +10,7 @@ public class News {
 	private String newsImg;
 	
 	private CourseType courseType;
-	private Teacher courseTeacher;
+	private Admin admin;
 	
 	public Integer getNewsId() {
 		return newsId;
@@ -48,11 +48,11 @@ public class News {
 	public void setCourseType(CourseType courseType) {
 		this.courseType = courseType;
 	}
-	public Teacher getCourseTeacher() {
-		return courseTeacher;
+	public Admin getAdmin() {
+		return admin;
 	}
-	public void setCourseTeacher(Teacher courseTeacher) {
-		this.courseTeacher = courseTeacher;
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
 	}
 	
 	
