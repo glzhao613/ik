@@ -14,12 +14,18 @@ public class FileUtil {
 		String os = System.getProperty("os.name");
 		String basePath = "";
 		if (os.toLowerCase().startsWith("win")) {
-			basePath = "D:/projectdev/image/";
+			basePath = "D:/ik/image/";
 		} else {
-			basePath = "/home/xiangzepro/";
+			basePath = "/home/ik_img/";
 		}
 		basePath = basePath.replace("/", seperator);
 		return basePath;
+	}
+	
+	public static String getUserImgPath() {
+		String imgPath = "/upload/images/item/user/";
+		imgPath = imgPath.replace("/", seperator);
+		return imgPath;
 	}
 
 	public static String getHeadLineImagePath() {
@@ -32,6 +38,12 @@ public class FileUtil {
 		String shopCategoryImagePath = "/upload/images/item/shopcategory/";
 		shopCategoryImagePath = shopCategoryImagePath.replace("/", seperator);
 		return shopCategoryImagePath;
+	}
+	
+	public static String getUserImagePath() {
+		String personInfoImagePath = "/upload/images/item/user/";
+		personInfoImagePath = personInfoImagePath.replace("/", seperator);
+		return personInfoImagePath;
 	}
 	
 	public static String getPersonInfoImagePath() {

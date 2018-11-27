@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>创建用户</title>
+<link rel="stylesheet" href="../resources/css/login.css">
+</head>
+<body>
+
+	<div class="login">
+		<div class="header">
+			<h1>
+			</h1>
+
+		</div>
+		<table>
+			<tr>
+				<td class="td1">创建账号</td>
+				<td><input type="text" class="input1" name="account"></td>
+			</tr>
+			<tr>
+				<td class="td1">设置密码</td>
+				<td><input type="password" class="input1" name="pwd"></td>
+			</tr>
+			<tr>
+				<td class="td1">已购课程</td>
+				<td><select id="courselist" class="input1" multiple="multiple"></select></td>
+			</tr>
+
+			<tr>
+				<td colspan="2">
+					<div class="btn-red">
+						<input type="submit" value="确认添加" id="login-btn">
+					</div>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../resources/js/updatauserpwd.js"></script>
+	<script type="text/javascript"
+		src="../resources/js/common/commonutil.js"></script>
+</body>
+</html>

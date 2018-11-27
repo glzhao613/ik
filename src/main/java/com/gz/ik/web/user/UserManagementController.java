@@ -62,6 +62,37 @@ public class UserManagementController {
 
 		return modelMap;
 	}
+	
+
+	@RequestMapping(value = "/userupdatapwd", method = RequestMethod.POST)
+	@ResponseBody
+	private Map<String, Object> updataUserPwd(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		User user = new User();
+		User sessionUser = (User)(request.getSession().getAttribute("loginuser"));
+		String userPwd = HttpServletRequestUtil.getString(request, "userpwd");
+		String newPwd = HttpServletRequestUtil.getString(request, "newpwd");
+		if (userPwd != null&& newPwd!=null) {
+			user.setUserAccount(sessionUser.getUserAccount());
+			user.setUserPwd(userPwd);
+			UserExecution ue = userService.updataUserPwd(user, newPwd);
+			if (ue.getState() == UserStateEnum.UPDATAPWD_SUCCESS.getState()) {
+				modelMap.put("success", true);
+				request.getSession().setAttribute("loginuser", null);
+
+			} else {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", ue.getStateInfo());
+			}
+
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "请输入信息");
+		}
+
+
+		return modelMap;
+	}
 
 
 	
