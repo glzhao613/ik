@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 			if (t_user != null) {
 				return new UserExecution(UserStateEnum.EXIST_ACCOUNT);
 			} else {
-				user.setUserImg(basePath + "/default.png");
+				user.setUserImg(basePath + "default.png");
 				num = userDao.insertUser(user);
 				if (num <= 0) {
 					return new UserExecution(UserStateEnum.REG_FAlSE);
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
 					t_user = userDao.queryUserByUserAccount(user.getUserAccount());
 					UC uc = new UC();
 					uc.setuId(t_user.getUserId());
-					for (Course c : t_user.getCourseList()) {
+					for (Course c : user.getCourseList()) {
 						uc.setcId(c.getCourseId());
 						if (userDao.savaUserCourse(uc) <= 0) {
 							return new UserExecution(UserStateEnum.REG_FAlSE);
@@ -153,7 +153,7 @@ public class UserServiceImpl implements UserService {
 		}else {
 			if(img!=null) {
 				t_user = userDao.queryUserByUserAccount(user.getUserAccount());
-				if(!t_user.getUserImg().equals(basePath + "/default.png")) {
+				if(!t_user.getUserImg().equals(basePath + "default.png")) {
 					FileUtil.deleteFile(t_user.getUserImg());
 				}
 				addUserImg(user, img);

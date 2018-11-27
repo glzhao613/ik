@@ -1,6 +1,8 @@
 package com.gz.ik.web.user;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gz.ik.dto.UserExecution;
+import com.gz.ik.entity.Course;
 import com.gz.ik.entity.User;
 import com.gz.ik.enums.UserStateEnum;
 import com.gz.ik.service.UserService;
@@ -93,7 +96,35 @@ public class UserManagementController {
 
 		return modelMap;
 	}
+	
+	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
+	@ResponseBody
+	private Map<String, Object> userAdd(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		System.out.println("");
+		User user = new User();
+		String account = HttpServletRequestUtil.getString(request, "useraccount");
+		String pwd = HttpServletRequestUtil.getString(request, "userpwd");
+		int courseId=HttpServletRequestUtil.getInt(request, "course");
+		System.out.println(account+pwd+courseId+"");
+		user.setUserAccount(account);
+		user.setUserPwd(pwd);
+		Course course=new Course();
+		course.setCourseId(courseId);
+		List<Course> list=new ArrayList<>();
+		list.add(course);
+		user.setCourseList(list);
+		UserExecution ue= userService.userAdd(user);
+		if (ue.getState() == UserStateEnum.REG_SUCCESS.getState()) {
+			modelMap.put("success", true);
+			modelMap.put("useraccount", ue.getUser().getUserAccount());
 
-
+		}else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", ue.getStateInfo());
+			
+		}
+		return modelMap;
+	}
 	
 }

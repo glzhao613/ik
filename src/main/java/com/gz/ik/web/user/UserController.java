@@ -17,5 +17,10 @@ public class UserController {
 	private String getUpdataPwdPage() {
 		return "updatauserpwd";
 	}
+	
+	@RequestMapping(value = "/adduser", method = RequestMethod.GET)
+	private String getAddUserPage() {
+		return "adduser";
+	}
 
 }

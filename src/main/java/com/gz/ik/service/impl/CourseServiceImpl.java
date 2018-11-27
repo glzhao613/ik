@@ -3,6 +3,7 @@ package com.gz.ik.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.gz.ik.dao.CourseDao;
 import com.gz.ik.dto.CourseExecution;
@@ -10,6 +11,7 @@ import com.gz.ik.entity.Course;
 import com.gz.ik.enums.CourseStateEnum;
 import com.gz.ik.service.CourseService;
 
+@Service
 public class CourseServiceImpl implements CourseService {
 
 	@Autowired
