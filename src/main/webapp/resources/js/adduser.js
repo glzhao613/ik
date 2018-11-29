@@ -25,7 +25,6 @@ $(function() {
 
 	$("#login-btn").click(function() {
 
-		alert("进入");
 		$.ajax({
 			async : false,
 			cache : false,

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息修改</title>
+    <link rel="stylesheet" href="../resources/css/form.css">
+</head>
+<body>
+<div class="smart-green">
+    <h1>信息修改
+        <span>填写需要修改的信息</span>
+    </h1>
+    <label>
+        <span>昵称:</span>
+        <input id="name" type="text" name="name" class="error" placeholder="如需修改请输入修改内容"/>
+        <div class="error-msg"></div>
+    </label>
+
+    <label>
+        <span>电话:</span>
+        <input id="tel" type="text" name="tel" class="error" placeholder="如需修改请输入修改内容"/>
+        <div class="error-msg"></div>
+    </label>
+
+
+    <label>
+        <span>头像 :</span>
+        <input id="uimg" type="file" name="uimg"/>
+        <div class="error-msg"></div>
+    </label>
+
+    <label>
+        <span>签名 :</span>
+        <textarea id="des" name="des"  placeholder="如需修改请输入修改内容"></textarea>
+        <div class="error-msg"></div>
+    </label>
+    <div class="success-msg"></div>
+    <label>
+        <span>&nbsp;</span>
+        <input type="submit" class="button" id="btn" value="确认修改"/>
+    </label>
+</div>
+
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../resources/js/updatauserinfo.js"></script>
+	<script type="text/javascript"
+		src="../resources/js/common/commonutil.js"></script>
+
+</body>
+</html>
