@@ -143,31 +143,7 @@ public class UserServiceImpl implements UserService {
 		return new UserExecution(UserStateEnum.DELCOURSE_SUCCESS);
 	}
 
-	@Override
-	public UserExecution updataUserInfo(User user, CommonsMultipartFile img) throws RuntimeException {
-		String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-		User t_user = null;
-		int num=0;
-		if (user == null || user.getUserAccount()==null) {
-			return new UserExecution(UserStateEnum.NULL_INPUT);
-		}else {
-			if(img!=null) {
-				t_user = userDao.queryUserByUserAccount(user.getUserAccount());
-				if(!t_user.getUserImg().equals(basePath + "default.png")) {
-					FileUtil.deleteFile(t_user.getUserImg());
-				}
-				addUserImg(user, img);
-				
-			}
-			num=userDao.updataUser(user);
-			if(num<=0) {
-				return new UserExecution(UserStateEnum.UPDATAINFO_FALSE);
-			}
-			
-		}
-		t_user = userDao.queryUserByUserAccount(user.getUserAccount());
-		return new UserExecution(UserStateEnum.UPDATAINFO_SUCCESS,t_user);
-	}*/
+	*/
 	
 	@Override
 	public UserExecution updataUserPwd(User user, String newPwd) throws RuntimeException {
@@ -194,14 +170,45 @@ public class UserServiceImpl implements UserService {
 		
 		return new UserExecution(UserStateEnum.UPDATAPWD_SUCCESS);
 	}
+	
+	@Override
+	@Transactional
+	public UserExecution updataUserInfo(User user, CommonsMultipartFile img) throws RuntimeException {
+		String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+		User t_user = null;
+		int num=0;
+		if (user == null && img==null) {
+			return new UserExecution(UserStateEnum.NULL_INPUT);
+		}else {
+			if(user.getUserAccount()==null) {
+				return new UserExecution(UserStateEnum.NO_LOGIN);
+			}else {
+				if(img!=null) {
+					t_user = userDao.queryUserByUserAccount(user.getUserAccount());
+					if(!t_user.getUserImg().equals(basePath + "default.png")) {
+						FileUtil.deleteFile(t_user.getUserImg());
+					}
+					addUserImg(user, img);
+					
+				}
+				num=userDao.updataUser(user);
+				if(num<=0) {
+					return new UserExecution(UserStateEnum.UPDATAINFO_FALSE);
+				}
+				
+			}	
+		}
+		t_user = userDao.queryUserByUserAccount(user.getUserAccount());
+		return new UserExecution(UserStateEnum.UPDATAINFO_SUCCESS,t_user);
+	}
 
 	
-/*	private void addUserImg(User user, CommonsMultipartFile img) {
+	private void addUserImg(User user, CommonsMultipartFile img) {
 		String dest = FileUtil.getUserImgPath();
 		String imgAddr = ImageUtil.generateThumbnail(img, dest);
 		user.setUserImg(imgAddr);
 	}
-*/
+
 
 	
 

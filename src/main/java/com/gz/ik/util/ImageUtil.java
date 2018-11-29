@@ -17,7 +17,7 @@ public class ImageUtil {
 		String relativeAddr = targetAddr + realFileName + extension;
 		File dest = new File(FileUtil.getImgBasePath() + relativeAddr);
 		try {
-			Thumbnails.of(thumbnail.getInputStream()).size(200, 200).outputQuality(0.25f).toFile(dest);
+			Thumbnails.of(thumbnail.getInputStream()).size(400, 400).outputQuality(0.5f).toFile(dest);
 		} catch (IOException e) {
 			throw new RuntimeException("创建缩略图失败：" + e.toString());
 		}
@@ -31,7 +31,7 @@ public class ImageUtil {
 		String relativeAddr = targetAddr + realFileName + extension;
 		File dest = new File(FileUtil.getImgBasePath() + relativeAddr);
 		try {
-			Thumbnails.of(thumbnail.getInputStream()).size(337, 640).outputQuality(0.5f).toFile(dest);
+			Thumbnails.of(thumbnail.getInputStream()).size(300, 600).outputQuality(0.5f).toFile(dest);
 		} catch (IOException e) {
 			throw new RuntimeException("创建缩略图失败：" + e.toString());
 		}

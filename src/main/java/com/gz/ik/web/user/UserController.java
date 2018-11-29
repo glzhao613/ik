@@ -22,5 +22,10 @@ public class UserController {
 	private String getAddUserPage() {
 		return "adduser";
 	}
+	
+	@RequestMapping(value = "/updatainfo", method = RequestMethod.GET)
+	private String getUpdataInfoPage() {
+		return "updatauserinfo";
+	}
 
 }

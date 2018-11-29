@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.gz.ik.dto.UserExecution;
 import com.gz.ik.entity.Course;
@@ -24,10 +27,9 @@ import com.gz.ik.util.HttpServletRequestUtil;
 @Controller
 @RequestMapping("/useradmin")
 public class UserManagementController {
-	
+
 	@Autowired
 	private UserService userService;
-	
 
 	@RequestMapping(value = "/userlogin", method = RequestMethod.POST)
 	@ResponseBody
@@ -65,17 +67,16 @@ public class UserManagementController {
 
 		return modelMap;
 	}
-	
 
 	@RequestMapping(value = "/userupdatapwd", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> updataUserPwd(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		User user = new User();
-		User sessionUser = (User)(request.getSession().getAttribute("loginuser"));
+		User sessionUser = (User) (request.getSession().getAttribute("loginuser"));
 		String userPwd = HttpServletRequestUtil.getString(request, "userpwd");
 		String newPwd = HttpServletRequestUtil.getString(request, "newpwd");
-		if (userPwd != null&& newPwd!=null) {
+		if (userPwd != null && newPwd != null) {
 			user.setUserAccount(sessionUser.getUserAccount());
 			user.setUserPwd(userPwd);
 			UserExecution ue = userService.updataUserPwd(user, newPwd);
@@ -93,38 +94,78 @@ public class UserManagementController {
 			modelMap.put("errMsg", "请输入信息");
 		}
 
-
 		return modelMap;
 	}
-	
+
 	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> userAdd(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		System.out.println("");
 		User user = new User();
 		String account = HttpServletRequestUtil.getString(request, "useraccount");
 		String pwd = HttpServletRequestUtil.getString(request, "userpwd");
-		int courseId=HttpServletRequestUtil.getInt(request, "course");
-		System.out.println(account+pwd+courseId+"");
+		int courseId = HttpServletRequestUtil.getInt(request, "course");
+		// System.out.println(account + pwd + courseId + "");
 		user.setUserAccount(account);
 		user.setUserPwd(pwd);
-		Course course=new Course();
+		Course course = new Course();
 		course.setCourseId(courseId);
-		List<Course> list=new ArrayList<>();
+		List<Course> list = new ArrayList<>();
 		list.add(course);
 		user.setCourseList(list);
-		UserExecution ue= userService.userAdd(user);
+		UserExecution ue = userService.userAdd(user);
 		if (ue.getState() == UserStateEnum.REG_SUCCESS.getState()) {
 			modelMap.put("success", true);
 			modelMap.put("useraccount", ue.getUser().getUserAccount());
 
-		}else {
+		} else {
 			modelMap.put("success", false);
 			modelMap.put("errMsg", ue.getStateInfo());
-			
+
 		}
 		return modelMap;
 	}
-	
+
+	@RequestMapping(value = "/userupdatainfo", method = RequestMethod.POST)
+	@ResponseBody
+	private Map<String, Object> updataUserInfo(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String name = HttpServletRequestUtil.getString(request, "name");
+		String tel = HttpServletRequestUtil.getString(request, "tel");
+		String des = HttpServletRequestUtil.getString(request, "des");
+		User user = null;
+
+		// 图片获取
+		MultipartHttpServletRequest multipartRequest = null;
+		CommonsMultipartFile img = null;
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+		if (multipartResolver.isMultipart(request)) {
+			multipartRequest = (MultipartHttpServletRequest) request;
+			img = (CommonsMultipartFile) multipartRequest.getFile("uImg");
+		}
+		if (name != null || tel != null || des != tel || img != null) {
+			user = new User();
+			User loginUser = (User) request.getSession().getAttribute("loginuser");
+			user.setUserAccount(loginUser.getUserAccount());
+			user.setUserName(name);
+			user.setUserTel(tel);
+			user.setUserDes(des);
+			UserExecution ue = userService.updataUserInfo(user, img);
+			if (ue.getState() == UserStateEnum.UPDATAINFO_SUCCESS.getState()) {
+				modelMap.put("success", true);
+				request.getSession().setAttribute("loginuser", ue.getUser());
+
+			} else {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", ue.getStateInfo());
+
+			}
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "没有输入要修改的信息");
+		}
+
+		return modelMap;
+	}
+
 }

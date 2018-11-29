@@ -28,30 +28,6 @@ public class FileUtil {
 		return imgPath;
 	}
 
-	public static String getHeadLineImagePath() {
-		String headLineImagePath = "/upload/images/item/headtitle/";
-		headLineImagePath = headLineImagePath.replace("/", seperator);
-		return headLineImagePath;
-	}
-
-	public static String getShopCategoryImagePath() {
-		String shopCategoryImagePath = "/upload/images/item/shopcategory/";
-		shopCategoryImagePath = shopCategoryImagePath.replace("/", seperator);
-		return shopCategoryImagePath;
-	}
-	
-	public static String getUserImagePath() {
-		String personInfoImagePath = "/upload/images/item/user/";
-		personInfoImagePath = personInfoImagePath.replace("/", seperator);
-		return personInfoImagePath;
-	}
-	
-	public static String getPersonInfoImagePath() {
-		String personInfoImagePath = "/upload/images/item/personinfo/";
-		personInfoImagePath = personInfoImagePath.replace("/", seperator);
-		return personInfoImagePath;
-	}
-
 	public static String getShopImagePath(long shopId) {
 		StringBuilder shopImagePathBuilder = new StringBuilder();
 		shopImagePathBuilder.append("/upload/images/item/shop/");

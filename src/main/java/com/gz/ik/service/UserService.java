@@ -12,13 +12,15 @@ public interface UserService {
 	
 	UserExecution userAdd(User user) throws RuntimeException;
 	
+	UserExecution updataUserInfo(User user,CommonsMultipartFile img) throws RuntimeException;
+	
 	/*		UserExecution userDel(String userAccount) throws RuntimeException;
 	
 	UserExecution addUserCourse(User user) throws RuntimeException;
 	
 	UserExecution delUserCourse(User user) throws RuntimeException;
 	
-	UserExecution updataUserInfo(User user,CommonsMultipartFile img) throws RuntimeException;*/
+	*/
 	
 	UserExecution updataUserPwd(User user,String newPwd) throws RuntimeException;
 	
