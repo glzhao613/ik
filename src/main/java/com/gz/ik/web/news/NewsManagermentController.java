@@ -1,12 +1,14 @@
 package com.gz.ik.web.news;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,26 +46,37 @@ public class NewsManagermentController {
 		return newsMap;
 	}
 	
-	@RequestMapping(value="/newspaging",method=RequestMethod.POST)
+	@RequestMapping(value="/newspaging/{currentPage}",method=RequestMethod.GET)
 	@ResponseBody
-	private Map<String,Object> querNews(HttpServletRequest request){
+	private Map<String,Object> querNews(@PathVariable Integer currentPage){
 		Map<String, Object> newsPagingMap = new HashMap<String, Object>();
 		Map<String, Object> pageMap = new HashMap<String, Object>();
-		int currentPage = 1;
+		if(currentPage == null){
+			currentPage = 1;
+		}
+		newsPagingMap.put("currentPage", currentPage);
 		int pageCount = 1;
+		newsPagingMap.put("pageCount", pageCount);
 		int start = (currentPage - 1) * pageCount;
 		pageMap.put("start", start);
 		pageMap.put("pageCount", pageCount);
 		NewsQuerExecution nqe = newsService.QuerCheck(pageMap);
 		if(nqe.getState()==NewsQuerStateEnum.QUERY_SUCCESS.getState()){
-			newsPagingMap.put("success", 1);
-			// 若查询成功，则加入
-			newsPagingMap.put("newsList", nqe.getNewsList());
+			newsPagingMap.put("success", true);
+			List<News> newslist = nqe.getNewsList();
+			// 若查询成功，则加入Map中
+			newsPagingMap.put("newsList",newslist );
 			
 		}
 		else{
-			newsPagingMap.put("success", -1);
+			newsPagingMap.put("success", false);
 			newsPagingMap.put("errMsg", nqe.getStateInfo());
+		}
+		NewsQuerExecution nqe1 = newsService.QuerAllCheck();
+		if(nqe1.getState()==NewsQuerStateEnum.QUERY_SUCCESS.getState()){
+			List<News> newslist1 = nqe1.getNewsList();
+			//查询所有记录成功，把总记录条数加入Map中
+			newsPagingMap.put("totalNews", newslist1.size());
 		}
 		return newsPagingMap;
 	}

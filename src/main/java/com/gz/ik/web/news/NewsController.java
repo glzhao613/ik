@@ -8,11 +8,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/news")
 public class NewsController {
 	@RequestMapping(value = "/newsinfo", method = RequestMethod.GET)
-	private String getnews(){
+	private String getquerynews(){
 		return "news";
 	}
 	@RequestMapping(value = "/newspaging",method =  RequestMethod.GET)
 	private String getnewspaging(){
 		return "newspaging";
 	}
+	@RequestMapping(value = "/newsadd",method =  RequestMethod.GET)
+	private String getaddnews(){
+		return "newsadd";
+	}
+	
 }

@@ -9,7 +9,7 @@ public class News {
 	private Date newsDate;
 	private String newsImg;
 	
-	private CourseType courseType;
+	private NewsType newsType;
 	private Admin admin;
 	
 	public Integer getNewsId() {
@@ -42,11 +42,11 @@ public class News {
 	public void setNewsImg(String newsImg) {
 		this.newsImg = newsImg;
 	}
-	public CourseType getCourseType() {
-		return courseType;
+	public NewsType newsType() {
+		return newsType;
 	}
-	public void setCourseType(CourseType courseType) {
-		this.courseType = courseType;
+	public void setCourseType(NewsType newsType) {
+		this.newsType = newsType;
 	}
 	public Admin getAdmin() {
 		return admin;

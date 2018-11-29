@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="queryNews" resultType="com.gz.ik.entity.News">
-		SELECT * 
+		SELECT  news_id,news_title,news_article,news_date,news_img
 		FROM news 
 		LIMIT #{start},#{pageCount}
 	</select>

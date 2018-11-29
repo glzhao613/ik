@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加资讯</title>
+    <link rel="stylesheet" href="../resources/css/news.css">
+</head>
+<body>
+<form action="" method="post" class="smart-green">
+    <h1>资讯编辑
+        <span>添加资讯信息.</span>
+    </h1>
+    <label>
+    	<span>资讯类型：</span>
+    		<select>
+    			<option value="新闻类型">新闻类型</option>
+    		</select>
+    	<div class="error-msg"></div>
+    </label>
+    <label>
+        <span>资讯标题 :</span>
+        <input id="newsId" type="text" name="newsID" class="error" placeholder="请输入资讯标题"/>
+        <div class="error-msg"></div>
+    </label>
+
+    <label>
+        <span>资讯内容 :</span>
+        <textarea id="newsArticle" name="newsARTICLE" placeholder="请输入资讯内容"></textarea>
+        <div class="error-msg"></div>
+    </label>
+
+    <label>
+        <span>资讯图片 :</span>
+        <input id="address" type="text" value="" name="adminname"/>
+        <div class="error-msg"></div>
+    </label>
+
+    <div class="success-msg"></div>
+    <label>
+        <span>&nbsp;</span>
+        <input type="submit" class="button" value="提交" id="add-btn"/>
+    </label>
+    <input type='hidden' name='csrfmiddlewaretoken' value='SfHkbL4feo1G00sJQtbO7TtLN4c2BUwa' />
+</form>
+
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../resources/js/newsadd.js"></script>
+	<script type="text/javascript" src="../resources/js/common/commonutil.js"></script>
+</body>
+</html>

@@ -7,10 +7,20 @@
 <script type="text/javascript" src="../resources/js/newspaging.js"></script>
 </head>
 <body>
-<form action="" method = "post">
-	<input type="submit" id="paging-dispaly" value="显示分页数据">
-	
-</form>
-<p id="display"></p>
+	<div>
+		<table  border="1" id="display"></table>
+    </div>
+    <div id="paging">
+    	<input type="button" onclick="previousPage()" value="上一页">
+    	<input type="button" onclick="nextPage()" value="下一页">
+    	<br>
+    	当前第<span id="currentPage"></span>页
+    	<br>
+    	总共有<span id="totalPage"></span>页
+    	<br>
+    	<input type="button" onclick="jumpPage()" value="跳转">到第<input type="text" name="jumoPage">页
+    	<br>
+    	当前每页显示<span id="count"></span>条数据
+    </div>
 </body>
 </html>
