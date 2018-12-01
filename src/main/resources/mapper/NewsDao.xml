@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="queryNews" resultType="com.gz.ik.entity.News">
-		SELECT  news_id,news_title,news_article,news_date,news_img
+		SELECT  news_id,news_title,news_article,news_date
 		FROM news 
 		LIMIT #{start},#{pageCount}
 	</select>
@@ -19,8 +19,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM news
 	</select>
 	
+	<select id="queryNewsType" resultType="com.gz.ik.entity.NewsType">
+		SELECT *
+		FROM news_type
+	</select>
+	
+	<select id="queryNewsByID" resultType="com.gz.ik.entity.News">
+		SELECT *
+		FROM news
+		WHERE news_id=#{newsId}
+	</select>
+	
 	<insert id="insertNews" useGeneratedKeys="true" keyColumn="news_id" keyProperty="newsId">
 		INSERT INTO news(news_type,news_editor,news_title,news_article,news_date,news_img)
-		VALUES(#{courseType.courseTypeId},#{admin.admin.adminId},#{newsTitle},#{newsArticle},#{newsDate},#{newsImg})
+		VALUES(#{newsType.newsTypeId},#{admin.adminId},#{newsTitle},#{newsArticle},#{newsDate},#{newsImg})
 	</insert>
+	
+	<delete id="deleteNews">
+		DELETE
+		FROM news
+		WHERE news_id=#{newsId}
+	</delete>
+	
 </mapper>

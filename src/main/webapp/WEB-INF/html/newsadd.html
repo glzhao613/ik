@@ -12,27 +12,22 @@
     </h1>
     <label>
     	<span>资讯类型：</span>
-    		<select>
-    			<option value="新闻类型">新闻类型</option>
+    		<select  id="newsType">
     		</select>
-    	<div class="error-msg"></div>
     </label>
     <label>
         <span>资讯标题 :</span>
-        <input id="newsId" type="text" name="newsID" class="error" placeholder="请输入资讯标题"/>
-        <div class="error-msg"></div>
+        <input id="newsId" type="text" name="newsTitle" class="error" placeholder="请输入资讯标题"/>
     </label>
 
     <label>
         <span>资讯内容 :</span>
-        <textarea id="newsArticle" name="newsARTICLE" placeholder="请输入资讯内容"></textarea>
-        <div class="error-msg"></div>
+        <textarea id="newsArticle" name="newsArticle" placeholder="请输入资讯内容"></textarea>
     </label>
 
     <label>
         <span>资讯图片 :</span>
-        <input id="address" type="text" value="" name="adminname"/>
-        <div class="error-msg"></div>
+        <input id="newsImg" type="file"  name="newsImg"/>
     </label>
 
     <div class="success-msg"></div>
@@ -40,7 +35,6 @@
         <span>&nbsp;</span>
         <input type="submit" class="button" value="提交" id="add-btn"/>
     </label>
-    <input type='hidden' name='csrfmiddlewaretoken' value='SfHkbL4feo1G00sJQtbO7TtLN4c2BUwa' />
 </form>
 
 	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>资讯删除</title>
+<link rel="stylesheet" href="../resources/css/news.css">
+</head>
+<body>
+<form action="" method="post" class="smart-green">
+    <h1>资讯删除
+        <span>删除资讯信息.</span>
+    </h1>
+    
+	<div >
+		<table  border="1" width="100%"  id="del-display"></table>
+	</div>
+	
+	<div id="paging">
+    	<input type="button" onclick="previousPage()" value="上一页">
+    	<input type="button" onclick="nextPage()" value="下一页">
+    	<br>
+    	当前第<span id="currentPage"></span>页<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    	总共有<span id="totalPage"></span>页<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    	<input type="button"  onclick="jumpPage()" value="跳转">到第<input type="text"  id="del-jump" name="jumoPage">页
+    	<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    	当前每页显示<span id="count"></span>条数据
+    </div>
+
+    <label>
+        <span>资讯ID :</span>
+        <input id="newsId" type="text" name="newsId" class="error" placeholder="请输入要删除资讯的ID"/>
+    </label>
+    
+    <div class="success-msg"></div>
+    <label>
+        <span>&nbsp;</span>
+        <input type="submit" class="button" value="提交" id="del-btn"/>
+    </label>
+</form>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../resources/js/newsdelete.js"></script>
+</body>
+</html>

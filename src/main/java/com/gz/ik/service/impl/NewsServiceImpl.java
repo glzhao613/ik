@@ -1,9 +1,11 @@
 package com.gz.ik.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.gz.ik.dao.NewsDao;
 import com.gz.ik.dto.NewsAddExecution;
@@ -11,11 +13,14 @@ import com.gz.ik.dto.NewsDeleteExecution;
 import com.gz.ik.dto.NewsQuerExecution;
 import com.gz.ik.dto.NewsUpdateExecution;
 import com.gz.ik.entity.News;
+import com.gz.ik.entity.NewsType;
 import com.gz.ik.enums.NewsAddStateEnum;
 import com.gz.ik.enums.NewsDeleteStateEnum;
 import com.gz.ik.enums.NewsQuerStateEnum;
 import com.gz.ik.enums.NewsUpdateStateEnum;
 import com.gz.ik.service.NewsService;
+import com.gz.ik.util.FileUtil;
+import com.gz.ik.util.ImageUtil;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -25,9 +30,9 @@ public class NewsServiceImpl implements NewsService {
 
 
 	@Override
-	public NewsAddExecution AddCheck(News news) throws RuntimeException {
+	public NewsAddExecution addCheck(News news,CommonsMultipartFile img) throws RuntimeException {
 		News t_news = null;
-		if(news == null){
+		if(news.getNewsTitle() == null || news.getNewsArticle() == null){
 			return new NewsAddExecution(NewsAddStateEnum.NULL_INPUT);
 		}
 		else{
@@ -37,6 +42,10 @@ public class NewsServiceImpl implements NewsService {
 			}
 			else{
 				int count;
+				if(img != null){
+					addNewsImg(news,img);
+				}
+				System.out.println(news.getNewsImg());
 				count = newsDao.insertNews(news);
 				if(count > 0){
 					return new NewsAddExecution(NewsAddStateEnum.ADD_SUCCESS);
@@ -49,12 +58,12 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public NewsDeleteExecution DeleteCheck(News news) throws RuntimeException {
+	public NewsDeleteExecution deleteCheck(News news) throws RuntimeException {
 		if(news == null){
 			return new NewsDeleteExecution(NewsDeleteStateEnum.NULL_INPUT);
 		}
 		else{
-			News t_news = newsDao.queryOneNews(news.getNewsTitle());
+			News t_news = newsDao.queryNewsByID(news);
 			if(t_news == null){
 				return new NewsDeleteExecution(NewsDeleteStateEnum.ERROR_NOTEXIST);
 			}
@@ -72,7 +81,7 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public NewsUpdateExecution UpdateCheck(News news) throws RuntimeException {
+	public NewsUpdateExecution updateCheck(News news) throws RuntimeException {
 		if(news == null){
 			return new NewsUpdateExecution(NewsUpdateStateEnum.NULL_INPUT);
 		}
@@ -88,7 +97,7 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public NewsQuerExecution QuerOneCheck(News news) throws RuntimeException {
+	public NewsQuerExecution querOneCheck(News news) throws RuntimeException {
 		News t_news = null;
 		if(news == null){
 			return new NewsQuerExecution(NewsQuerStateEnum.NULL_INPUT);
@@ -105,13 +114,29 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public NewsQuerExecution QuerCheck(Map<String,Object> pageMap) throws RuntimeException {	
+	public NewsQuerExecution querCheck(Map<String,Object> pageMap) throws RuntimeException {	
 		return new NewsQuerExecution(NewsQuerStateEnum.QUERY_SUCCESS,newsDao.queryNews(pageMap));
 	}
 
 	@Override
-	public NewsQuerExecution QuerAllCheck() throws RuntimeException {
+	public NewsQuerExecution querAllCheck() throws RuntimeException {
 		return new NewsQuerExecution(NewsQuerStateEnum.QUERY_SUCCESS,newsDao.queryAllNews());
+	}
+
+	@Override
+	public List<NewsType> queryNewsType() throws RuntimeException {
+		return newsDao.queryNewsType();
+	}
+	
+	private void addNewsImg(News news, CommonsMultipartFile img) {
+		String dest = FileUtil.getNewsImgPath();
+		String imgAddr = ImageUtil.generateThumbnail(img, dest);
+		news.setNewsImg(imgAddr);
+	}
+
+	@Override
+	public News queryNewsByID(News news) throws RuntimeException {
+		return newsDao.queryNewsByID(news);
 	}
 
 }
