@@ -58,7 +58,9 @@ public class ModuleManagermentController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		Module module=new Module();
 		String moduleName=HttpServletRequestUtil.getString(request, "modulename");
+		String moduleManageUrl=HttpServletRequestUtil.getString(request, "modulemanageurl");
 		module.setModuleName(moduleName);
+		module.setModuleManageUrl(moduleManageUrl);
 		ModuleAddExecution ad=moduleService.AddCheck(module);
 		if (ad.getState() == ModuleAddStateEnum.PASS.getState()) {
 			modelMap.put("success", 1);
@@ -79,8 +81,12 @@ public class ModuleManagermentController {
 		Module module=new Module();
 		int moduleId=HttpServletRequestUtil.getInt(request, "moduleid");
 		String moduleName=HttpServletRequestUtil.getString(request, "modulename");
+		String moduleUrl=HttpServletRequestUtil.getString(request, "moduleurl");
+		String moduleManageUrl=HttpServletRequestUtil.getString(request, "modulemanageurl");
 		module.setModuleId(moduleId);
 		module.setModuleName(moduleName);
+		module.setModuleUrl(moduleUrl);
+		module.setModuleManageUrl(moduleManageUrl);
 		ModuleUpdateExecution ad=moduleService.UpdateCheck(module);
 		if(ad.getState() == ModuleUpdateStateEnum.PASS.getState()) {
 			modelMap.put("success", 1);

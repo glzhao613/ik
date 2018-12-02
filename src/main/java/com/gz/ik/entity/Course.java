@@ -1,5 +1,6 @@
 package com.gz.ik.entity;
 
+
 public class Course {
 	
 	private Integer courseId;
@@ -60,6 +61,9 @@ public class Course {
 	public void setCourseType(CourseType courseType) {
 		this.courseType = courseType;
 	}
+	
+	
+	
 	
 	
 

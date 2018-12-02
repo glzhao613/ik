@@ -27,5 +27,11 @@ public class AdminController {
 	private String getdelete() {
 		return "admindelete";
 	}
+	
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	private String getAdminPage() {
+		return "adminPage";
+	}
+	
 
 }

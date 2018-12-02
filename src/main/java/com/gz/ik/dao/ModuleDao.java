@@ -1,5 +1,7 @@
 package com.gz.ik.dao;
 
+import java.util.List;
+
 import com.gz.ik.entity.Module;
 
 public interface ModuleDao {
@@ -8,6 +10,7 @@ public interface ModuleDao {
 	int insertmodule(Module module);
 	
 	/*查询模块*/
+	List<Module> querymodulelist(Module module);
 	Module querymodule(String modulename);
 	
 	/*更新模块*/

@@ -1,5 +1,8 @@
 package com.gz.ik.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -109,5 +112,14 @@ public class ModuleServicelmpl implements ModuleService {
 			}
 		}
 	}
+
+
+	@Override
+	public ModuleQuerExecution QuerListCheck(Map<String, Object> pageMap) throws RuntimeException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }

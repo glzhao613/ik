@@ -14,5 +14,41 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="queryCourse2" parameterType="com.gz.ik.entity.Course" resultType="com.gz.ik.entity.Course">
+		SELECT *
+		FROM course
+		WHERE course_name=#{courseName}
+	
+	</select>
+	
+	<insert id="insertCourse" useGeneratedKeys="true" keyColumn="course_id" keyProperty="courseId">
+		INSERT INTO course(
+		course_type,course_teacher,course_name,course_des,course_price,course_img,course_hour
+		) VALUES
+		(#{courseType.courseTypeId},#{courseTeacher.teacherId},#{courseName},#{courseDes},#{coursePrice},
+		#{courseImg},#{courseHour}
+		)
+	</insert>
+	
+	<delete id="deleteCourse">
+		delete
+		from course
+		where course_id=#{courseId}
+	
+	</delete>
+	
+	<update id="updateCourse" parameterType="com.gz.ik.entity.Course">
+		update course
+		<set>
+			<if test="courseType!=null">course_type=#{courseType.courseTypeId},</if>
+			<if test="courseTeacher!=null">course_teacher=#{courseTeacher.teacherId},</if>
+			<if test="courseName!=null">course_name=#{courseName},</if>
+			<if test="courseDes!=null">course_des=#{courseDes},</if>
+			<if test="coursePrice!=null">course_price=#{coursePrice},</if>
+			<if test="courseImg!=null">course_img=#{courseImg},</if>
+			<if test="courseHour!=null">course_hour=#{courseHour},</if>
+		</set>
+	</update>
 
 </mapper>

@@ -1,5 +1,8 @@
 package com.gz.ik.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,18 +75,12 @@ public class AdminServicelmpl implements AdminService{
 
 	@Override
 	public AdminUpdateExecution updateCheck(Admin admin) throws RuntimeException {
-		System.out.println(admin.getAdminAccount());
-		if(admin.getAdminType()==0) {
-			return new AdminUpdateExecution(AdminUpdateStateEnum.NULL_PERMISS);
+		int count=adminDao.updateadmin(admin);
+		if(count>0) {
+			return new AdminUpdateExecution(AdminUpdateStateEnum.PASS,admin);
 		}
 		else {
-			int count=adminDao.updateadmin(admin);
-			if(count>0) {
-				return new AdminUpdateExecution(AdminUpdateStateEnum.PASS,admin);
-			}
-			else {
-				return new AdminUpdateExecution(AdminUpdateStateEnum.ERROR);
-			}
+			return new AdminUpdateExecution(AdminUpdateStateEnum.ERROR);
 		}
 	}
 
@@ -102,6 +99,23 @@ public class AdminServicelmpl implements AdminService{
 			}
 			else {
 				return new AdminDeleteExecution(AdminDeleteStateEnum.ERROR);
+			}
+		}
+	}
+
+	@Override
+	public AdminExecution querCheck(Map<String, Object> pageMap) throws RuntimeException {
+		List<Admin> q_admin=null;
+		if(pageMap==null) {
+			return new AdminExecution(AdminStateEnum.NULL_INPUT);
+		}
+		else {
+			q_admin=adminDao.queryadminlist(pageMap);
+			if(q_admin==null) {
+				return new AdminExecution(AdminStateEnum.QUER_ERRO);
+			}
+			else {
+				return new AdminExecution(AdminStateEnum.QUER_PASS,q_admin);
 			}
 		}
 	}

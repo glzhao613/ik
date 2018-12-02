@@ -27,6 +27,12 @@ public class FileUtil {
 		imgPath = imgPath.replace("/", seperator);
 		return imgPath;
 	}
+	
+	public static String getCourseImgPath() {
+		String imgPath = "/upload/images/item/course/";
+		imgPath = imgPath.replace("/", seperator);
+		return imgPath;
+	}
 
 	public static String getShopImagePath(long shopId) {
 		StringBuilder shopImagePathBuilder = new StringBuilder();

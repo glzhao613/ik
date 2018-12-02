@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>课程添加</title>
+    <link rel="stylesheet" href="../resources/css/form.css">
+</head>
+<body>
+<div class="smart-green">
+    <h1>课程添加
+        <span>填写需要添加的课程</span>
+    </h1>
+    <label>
+        <span>课程类型:</span>
+        <select id="coursetypelist" class="error"></select>
+        <div class="error-msg"></div>
+    </label>
+
+    <label>
+        <span>课程教师:</span>
+        <select id="teacherlist" class="error"></select>
+        <div class="error-msg"></div>
+    </label>
+
+
+    <label>
+        <span>课程图 :</span>
+        <input id="cimg" type="file" name="cimg"/>
+        <div class="error-msg"></div>
+    </label>
+
+    <label>
+        <span>课程名称:</span>
+        <input id="tel" type="text" name="coursename" class="error" placeholder="请输入该课程的名称"/>
+        <div class="error-msg"></div>
+    </label>
+    
+    <label>
+        <span>课程描述:</span>
+        <input id="tel" type="text" name="coursedes" class="error" placeholder="请输入该课程的描述"/>
+        <div class="error-msg"></div>
+    </label>
+    
+    <label>
+        <span>课程价格:</span>
+        <input id="tel" type="text" name="courseprice" class="error" placeholder="请输入该课程的价格"/>
+        <div class="error-msg"></div>
+    </label>
+    
+    <label>
+        <span>课程课时:</span>
+        <input id="tel" type="text" name="coursehour" class="error" placeholder="请输入该课程的课时"/>
+        <div class="error-msg"></div>
+    </label>
+    
+    <div class="success-msg"></div>
+    <label>
+        <span>&nbsp;</span>
+        <input type="submit" class="button" id="course-btn" value="确认添加"/>
+    </label>
+</div>
+
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../resources/js/addcourseinfo.js"></script>
+
+</body>
+</html>

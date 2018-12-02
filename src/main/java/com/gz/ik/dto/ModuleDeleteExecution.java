@@ -23,14 +23,14 @@ public class ModuleDeleteExecution {
 		super();
 	}
 	
-	//管理员登陆操作失败的构造器
+	//模块删除操作失败的构造器
 	public ModuleDeleteExecution(ModuleDeleteStateEnum stateEnum) {
 		super();
 		this.state = stateEnum.getState();
 		this.stateInfo = stateEnum.getStateInfo();
 	}
 	
-	//管理员登陆操作成功的构造器
+	//模块删除操作成功的构造器
 	public ModuleDeleteExecution(ModuleDeleteStateEnum stateEnum,Module module) {
 		super();
 		this.state = stateEnum.getState();
@@ -38,7 +38,7 @@ public class ModuleDeleteExecution {
 		this.module = module;
 	}
 	
-	//管理员登陆操作成功的构造器
+	//模块删除操作成功的构造器
 	public ModuleDeleteExecution(ModuleDeleteStateEnum stateEnum,List<Module> modulelist) {
 		super();
 		this.state = stateEnum.getState();

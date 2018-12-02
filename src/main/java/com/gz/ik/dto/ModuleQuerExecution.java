@@ -23,14 +23,14 @@ public class ModuleQuerExecution {
 		super();
 	}
 	
-	//管理员登陆操作失败的构造器
+	//模块查询操作失败的构造器
 	public ModuleQuerExecution(ModuleQuerStateEnum stateEnum) {
 		super();
 		this.state = stateEnum.getState();
 		this.stateInfo = stateEnum.getStateInfo();
 	}
 	
-	//管理员登陆操作成功的构造器
+	//模块查询操作成功的构造器
 	public ModuleQuerExecution(ModuleQuerStateEnum stateEnum,Module module) {
 		super();
 		this.state = stateEnum.getState();
@@ -38,7 +38,7 @@ public class ModuleQuerExecution {
 		this.module = module;
 	}
 	
-	//管理员登陆操作成功的构造器
+	//模块查询操作成功的构造器
 	public ModuleQuerExecution(ModuleQuerStateEnum stateEnum,List<Module> modulelist) {
 		super();
 		this.state = stateEnum.getState();
