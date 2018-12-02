@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gz.ik.dao.CommentsDao">
+
+	<select id="queryComments"
+		parameterType="com.gz.ik.entity.Comments"
+		resultType="com.gz.ik.entity.Comments">
+		SELECT *
+		FROM comments
+		<where>
+			<if test="commentId!=null">AND comment_id=#{commentId}</if>
+			<if test="commentUser!=null">
+				<if test="commentUser.userId!=null">AND comment_user=#{commentUser.userId}</if>
+			</if>
+			<if test="commentCourse!=null">
+				<if test="commentCourse.courseId!=null">AND comment_course=#{commentCourse.courseId}</if>
+			</if>
+		</where>
+	</select>
+
+	<delete id="delComments"
+		parameterType="com.gz.ik.entity.Comments">
+		DELETE
+		FROM comments
+		<where>
+			<if test="commentId!=null">AND comment_id=#{commentId}</if>
+			<if test="commentUser!=null">
+				<if test="commentUser.userId!=null">AND comment_user=#{commentUser.userId}</if>
+			</if>
+			<if test="commentCourse!=null">
+				<if test="commentCourse.courseId!=null">AND comment_course=#{commentCourse.courseId}</if>
+			</if>
+		</where>
+	</delete>
+	
+	<select id="queryCommentsList" resultType="com.gz.ik.entity.Comments">
+		SELECT *
+		FROM user
+		ORDER BY
+		user_id
+		LIMIT #{rowIndex},#{pageSize}
+	</select>
+
+
+
+
+
+</mapper>

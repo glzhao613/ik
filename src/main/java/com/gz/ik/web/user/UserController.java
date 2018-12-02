@@ -27,5 +27,20 @@ public class UserController {
 	private String getUpdataInfoPage() {
 		return "updatauserinfo";
 	}
+	
+	@RequestMapping(value = "/usercourse", method = RequestMethod.GET)
+	private String getUserCoursePage() {
+		return "usercourse";
+	}
+	
+	@RequestMapping(value = "/showuser", method = RequestMethod.GET)
+	private String getShowUserPage() {
+		return "showuser";
+	}
+	
+	@RequestMapping(value = "/addusercourse", method = RequestMethod.GET)
+	private String getAddUserCoursePage() {
+		return "addusercourse";
+	}
 
 }

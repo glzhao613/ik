@@ -42,10 +42,10 @@ public class News {
 	public void setNewsImg(String newsImg) {
 		this.newsImg = newsImg;
 	}
-	public NewsType newsType() {
+	public NewsType getnewsType() {
 		return newsType;
 	}
-	public void setCourseType(NewsType newsType) {
+	public void setNewsType(NewsType newsType) {
 		this.newsType = newsType;
 	}
 	public Admin getAdmin() {

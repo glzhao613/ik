@@ -11,6 +11,19 @@
 		WHERE user_account=#{account}
 	</select>
 
+	<select id="queryUserList" resultType="com.gz.ik.entity.User">
+		SELECT *
+		FROM user
+		ORDER BY
+		user_id
+		LIMIT #{rowIndex},#{pageSize}
+	</select>
+
+	<select id="queryUserCount" resultType="int">
+		SELECT COUNT(*)
+		FROM user
+	</select>
+
 	<insert id="insertUser" parameterType="com.gz.ik.entity.User"
 		useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id">
 		INSERT
@@ -39,40 +52,20 @@
 		where user_account=#{userAccount}
 	</update>
 
-	<insert id="savaUserCourse" parameterType="com.gz.ik.entity.UC">
-		INSERT
-		INTO
-		u_c(u_id,c_id)
-		VALUES
-		(#{uId},#{cId})
-	</insert>
-
-	<delete id="delUserCourse" parameterType="com.gz.ik.entity.UC">
-		DELETE
-		FROM u_c
-		WHERE
-		u_id=#{uId} AND c_id=#{cId}
-	</delete>
-
-	<delete id="delUserAllCourse">
-		DELETE
-		FROM u_c
-		WHERE
-		u_id=#{uId}
-	</delete>
 
 	<resultMap type="com.gz.ik.entity.Course" id="courseMapper">
 		<id column="course_id" property="courseId" />
 		<result column="course_name" property="courseName" />
+		<result column="course_des" property="courseDes" />
 	</resultMap>
 
 	<select id="queryCourseByUserId" resultMap="courseMapper">
-		SELECT course_id,course_name
+		SELECT
+		course_id,course_name
 		FROM u_c,course
-		WHERE u_id=#{userId} AND c_id=course_id
+		WHERE u_id=#{userId} AND
+		c_id=course_id
 	</select>
-
-
 
 
 

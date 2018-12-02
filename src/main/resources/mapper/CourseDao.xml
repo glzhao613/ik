@@ -22,6 +22,19 @@
 	
 	</select>
 	
+	<select id="queryCourseList" resultType="com.gz.ik.entity.Course">
+		SELECT *
+		FROM course
+		ORDER BY
+		course_id
+		LIMIT #{rowIndex},#{pageSize}
+	</select>
+	
+	<select id="queryCourseCount" resultType="int">
+		SELECT COUNT(*)
+		FROM course
+	</select>
+	
 	<insert id="insertCourse" useGeneratedKeys="true" keyColumn="course_id" keyProperty="courseId">
 		INSERT INTO course(
 		course_type,course_teacher,course_name,course_des,course_price,course_img,course_hour

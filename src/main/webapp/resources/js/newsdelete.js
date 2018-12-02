@@ -6,6 +6,27 @@ $(function(){
 	$("#totalPage").html(Math.ceil(data.totalNews / data.pageCount));
 	$("#count").html(data.pageCount);
 	showData();
+	
+	var newsdeleteurl = "/ik/newsadm/deletenews";
+	$('#del-btn').click(function(){
+		$.ajax({
+			async : false,
+			cache : false,
+			type : 'post',
+			dataType : 'json',
+			url : newsdeleteurl,
+			data : {
+				newsID : $('input[name=newsId]').val()
+			},
+			success : function(data){
+				if(data.success){
+					alert("资讯删除成功！");
+				}else{
+					alert(data.errMsg);
+				}
+			}
+		});
+	});
 });
 
 function previousPage(){
@@ -39,6 +60,7 @@ function jumpPage(){
 	getData(jumpPage);
 	$("#currentPage").html(data.currentPage);
 	showData();
+	
 }
 
 function getData(currentPage){
@@ -57,16 +79,13 @@ function getData(currentPage){
 }
 
 function showData(){
-	var temp = "<tr><th>资讯ID</th><th>资讯标题</th><th>资讯内容</th><th>编辑日期</th></tr>";
+	var temp = "<tr><th>资讯ID</th><th>资讯标题</th></tr>";
 	var t = "</td><td>";
 	data.newsList.map(function(item,index){
-		temp += "<tr><td>" + item.newsId + t + item.newsTitle +  t + item.newsArticle 
-		+  t + getDate(item.newsDate) + "</td></tr>";
+		temp += "<tr><td>" + item.newsId + t + item.newsTitle + "</td></tr>";
 	});
-	$("#display").html(temp);	
+	$("#del-display").html(temp);	
 }
-
-
 function getDate(tm){
 	var time = new Date(parseInt(tm)).toLocaleString();
 	return time;

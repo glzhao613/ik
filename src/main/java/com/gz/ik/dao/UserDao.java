@@ -2,8 +2,9 @@ package com.gz.ik.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.gz.ik.entity.Course;
-import com.gz.ik.entity.UC;
 import com.gz.ik.entity.User;
 
 public interface UserDao {
@@ -15,7 +16,19 @@ public interface UserDao {
 	 */
 	User queryUserByUserAccount(String account);
 	
+	/**
+	 * 分页查询用户
+	 * @param rowIndex
+	 * @param pageSize
+	 * @return
+	 */
+	List<User> queryUserList(@Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
 	
+	/**
+	 * 查询用户总数
+	 * @return
+	 */
+	int queryUserCount();
 
 	/**
 	 * 新建用户
@@ -39,28 +52,6 @@ public interface UserDao {
 	 */
 	int updataUser(User user);
 	
-	
-	/**
-	 * 保存用户购买的课程到U_C表
-	 * @param uc
-	 * @return 保存成功的数量
-	 */
-	int savaUserCourse(UC uc);
-	
-	/**
-	 * 删除用户购买的课程
-	 * @param uc
-	 * @return
-	 */
-	int delUserCourse(UC uc);
-	
-	
-	/**
-	 * 删除用户的所有课程
-	 * @param uId
-	 * @return
-	 */
-	int delUserAllCourse(Integer uId);
 	
 	/**
 	 * 查询用户已经购买的课程
