@@ -27,4 +27,9 @@ public class TeacherController {
 	private String getDeletePage() {
 		return "deleteteacher";
 	}
+	
+	@RequestMapping(value = "/showteacher", method = RequestMethod.GET)
+	private String getShowTeacherPage() {
+		return "showteacher";
+	}
 }

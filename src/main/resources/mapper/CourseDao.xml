@@ -15,16 +15,52 @@
 		</where>
 	</select>
 	
-	<select id="queryCourse2" parameterType="com.gz.ik.entity.Course" resultType="com.gz.ik.entity.Course">
+	<select id="queryCourseId" parameterType="com.gz.ik.entity.Course" resultType="com.gz.ik.entity.Course">
+		SELECT *
+		FROM course
+		WHERE course_id=#{courseId}
+	
+	</select>
+	
+	<select id="queryCourseName" parameterType="com.gz.ik.entity.Course" resultType="com.gz.ik.entity.Course">
 		SELECT *
 		FROM course
 		WHERE course_name=#{courseName}
 	
 	</select>
 	
-	<select id="queryCourseList" resultType="com.gz.ik.entity.Course">
-		SELECT *
-		FROM course
+	<resultMap id="CourseMap" type="com.gz.ik.entity.Course">
+		<id column="course_id" property="courseId" />
+		<result column="course_name" property="courseName" />
+		<result column="course_des" property="courseDes" />
+		<result column="course_price" property="coursePrice" />
+		<result column="course_img" property="courseImg" />
+		<result column="course_hour" property="courseHour" />
+		<association property="courseType" column="course_type"
+			javaType="com.gz.ik.entity.CourseType">
+			<id column="course_type_id" property="courseTypeId" />
+			<result column="course_type_name" property="courseTypeName" />
+		</association>
+		<association property="courseTeacher" column="course_teacher"
+			javaType="com.gz.ik.entity.Teacher">
+			<id column="teacher_id" property="teacherId" />
+			<result column="teacher_name" property="teacherName" />
+		</association>
+	</resultMap>
+	
+	<select id="queryCourseList" resultType="com.gz.ik.entity.Course" resultMap="CourseMap">
+		SELECT co.course_id,co.course_name,co.course_des,co.course_price,co.course_img,co.course_hour,cty.course_type_name,ct.teacher_name
+		FROM course co LEFT JOIN course_type cty ON co.course_type=cty.course_type_id LEFT
+		JOIN teacher ct ON co.course_teacher=ct.teacher_id
+		<where>
+			<if test="course.courseId!=null">AND co.course_id=#{course.courseId}</if>
+			<if test="course.courseType!=null">
+				<if test="course.courseType.courseTypeId!=null">AND co.course_type=#{course.courseType.courseTypeId}</if>
+			</if>
+			<if test="course.courseTeacher!=null">
+				<if test="course.courseTeacher.teacherId!=null">AND co.course_teacher=#{course.courseTeacher.teacherId}</if>
+			</if>
+		</where>
 		ORDER BY
 		course_id
 		LIMIT #{rowIndex},#{pageSize}
@@ -62,6 +98,7 @@
 			<if test="courseImg!=null">course_img=#{courseImg},</if>
 			<if test="courseHour!=null">course_hour=#{courseHour},</if>
 		</set>
+		where course_id=#{courseId}
 	</update>
 
 </mapper>

@@ -16,12 +16,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="querymodule" resultType="com.gz.ik.entity.Module">
 		SELECT module_id,module_name,module_url,module_manage_url
 		FROM module
-		WHERE module_name=#{moduleName}
+		WHERE module_id=#{moduleId}
 	
 	</select>
 	
-	<select id="querymodulelist" resultType="com.gz.ik.entity.Module">
-		SELECT module_id,module_name
+	<select id="queryModuleList" resultType="com.gz.ik.entity.Module">
+		SELECT *
+		FROM module
+		ORDER BY
+		module_id
+		LIMIT #{rowIndex},#{pageSize}
+	</select>
+	
+	<select id="queryModuleCount" resultType="int">
+		SELECT COUNT(*)
 		FROM module
 	</select>
 

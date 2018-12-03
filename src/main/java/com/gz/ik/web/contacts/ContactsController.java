@@ -22,4 +22,9 @@ public class ContactsController {
 	private String getDeletePage() {
 		return "contactsdelete";
 	}
+	
+	@RequestMapping(value = "/showcontacts", method = RequestMethod.GET)
+	private String getShowPage() {
+		return "showcontacts";
+	}
 }

@@ -10,9 +10,11 @@ public interface CourseDao {
 	
 	List<Course> queryCourse(Course course);
 	
-	Course queryCourse2(String courseName);
+	Course queryCourseId(int courseId);
 	
-	List<Course> queryCourseList(@Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
+	Course queryCourseName(String courseName);
+	
+	List<Course> queryCourseList(@Param("course") Course course,@Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
 	
 	int queryCourseCount();
 	

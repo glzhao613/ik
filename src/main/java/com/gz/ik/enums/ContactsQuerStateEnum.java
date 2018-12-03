@@ -1,7 +1,7 @@
 package com.gz.ik.enums;
 
 public enum ContactsQuerStateEnum {
-	PASS(1, "联系人查询成功"), NULL_INPUT(-1, "输入为空"),ERROR(-2,"联系人查询失败");
+	PASS(1, "联系人查询成功"), NULL_INPUT(-1, "输入为空"),ERROR(-2,"联系人查询失败"),GET_FALSE(-3,"获取列表失败"),GET_SECCESS(2,"获取列表成功");
 	private int state;
 
 	private String stateInfo;

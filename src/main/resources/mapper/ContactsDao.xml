@@ -10,10 +10,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE contact_id=#{contactId}
 	</select>
 	
-	<select id="quercontactlist" resultType="com.gz.ik.entity.Contacts">
-		SELECT contact_id,contact_tel,contact_name,contact_email,contact_article
+	<select id="queryContactsList" resultType="com.gz.ik.entity.Contacts">
+		SELECT *
 		FROM contacts
+		ORDER BY
+		contact_id
+		LIMIT #{rowIndex},#{pageSize}
+	</select>
 	
+	<select id="queryContactsCount" resultType="int">
+		SELECT COUNT(*)
+		FROM contacts
 	</select>
 	
 	<insert id="insertcontacts" useGeneratedKeys="true" keyColumn="contact_id" keyProperty="contactId">

@@ -7,10 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gz.ik.dao.CourseTypeDao;
+import com.gz.ik.dto.CourseExecution;
 import com.gz.ik.dto.CourseTypeExecution;
+import com.gz.ik.entity.Course;
 import com.gz.ik.entity.CourseType;
+import com.gz.ik.enums.CourseStateEnum;
 import com.gz.ik.enums.CourseTypeStateEnum;
 import com.gz.ik.service.CourseTypeService;
+import com.gz.ik.util.PageCalculator;
 
 @Service
 public class CourseTypeServicelmpl implements CourseTypeService {
@@ -82,7 +86,7 @@ public class CourseTypeServicelmpl implements CourseTypeService {
 			if(dc_courseType) {
 				d_courseType=courseTypeDao.deleteCourseType(courseType.getCourseTypeId());
 				if(d_courseType) {
-					return new CourseTypeExecution(CourseTypeStateEnum.DELETE_PASS);
+					return new CourseTypeExecution(CourseTypeStateEnum.DELETE_PASS,courseType);
 				}
 				else {
 					return new CourseTypeExecution(CourseTypeStateEnum.DELETE_ERRO);
@@ -109,6 +113,23 @@ public class CourseTypeServicelmpl implements CourseTypeService {
 				return new CourseTypeExecution(CourseTypeStateEnum.UPDATE_ERRO);
 			}
 		}
+	}
+
+	@Override
+	public CourseTypeExecution showCourseTypeList(int pageIndex, int pageSize) throws RuntimeException {
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		List<CourseType> courseTypeList = null;
+		courseTypeList = courseTypeDao.queryCourseTypeList(rowIndex, pageSize);
+		int count = courseTypeDao.queryCourseTypeCount();
+		CourseTypeExecution ce = new CourseTypeExecution();
+		if (courseTypeList != null && courseTypeList.size() > 0) {
+			ce.setState(CourseTypeStateEnum.GET_SECCESS.getState());
+			ce.setCourseTypeList(courseTypeList);
+			ce.setCount(count);
+		} else {
+			ce.setState(CourseTypeStateEnum.GET_FALSE.getState());
+		}
+		return ce;
 	}
 
 

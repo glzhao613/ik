@@ -20,6 +20,19 @@
 				AND course_type__id=#{courseTypeId}
 			</if>
 		</where>
+	</select>
+	
+	<select id="queryCourseTypeList" resultType="com.gz.ik.entity.CourseType">
+		SELECT *
+		FROM course_type
+		ORDER BY
+		course_type_id
+		LIMIT #{rowIndex},#{pageSize}
+	</select>
+	
+	<select id="queryCourseTypeCount" resultType="int">
+		SELECT COUNT(*)
+		FROM course_type
 	</select>	
 	
 	<insert id="insertCourseType" useGeneratedKeys="true" keyColumn="course_type_id" keyProperty="courseTypeId">

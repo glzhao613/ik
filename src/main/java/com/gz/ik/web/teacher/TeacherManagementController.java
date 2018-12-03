@@ -15,11 +15,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import com.gz.ik.dto.CourseTypeExecution;
+import com.gz.ik.dto.CourseExecution;
 import com.gz.ik.dto.TeacherExecution;
-import com.gz.ik.entity.CourseType;
 import com.gz.ik.entity.Teacher;
-import com.gz.ik.enums.CourseTypeStateEnum;
+import com.gz.ik.enums.CourseStateEnum;
 import com.gz.ik.enums.TeacherStateEnum;
 import com.gz.ik.service.TeacherService;
 import com.gz.ik.util.HttpServletRequestUtil;
@@ -59,7 +58,7 @@ public class TeacherManagementController {
 		Teacher teacher=new Teacher();
 		String teacherName=HttpServletRequestUtil.getString(request, "teachername");
 		String teacherDes=HttpServletRequestUtil.getString(request, "teacherdes");
-		
+		System.out.println(teacherDes);
 		// 图片获取
 		MultipartHttpServletRequest multipartRequest = null;
 		CommonsMultipartFile img = null;
@@ -129,6 +128,7 @@ public class TeacherManagementController {
 		TeacherExecution ce=teacherService.deleteTeacher(teacher);
 		if(ce.getState() == TeacherStateEnum.DELETE_PASS.getState()) {
 			modelMap.put("success", true);
+			modelMap.put("teachername", ce.getTeacher().getTeacherName());
 			
 		}else {
 			modelMap.put("success", false);
@@ -137,5 +137,46 @@ public class TeacherManagementController {
 		}
 
 		return modelMap;
+	}
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> showTeacherList(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+		int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+
+		if ((pageIndex > -1) && (pageSize > -1)) {
+			TeacherExecution ce = teacherService.showTeacherList(pageIndex, pageSize);
+			if (ce.getState() == TeacherStateEnum.GET_SECCESS.getState()) {
+				modelMap.put("courseList", ce.getTeacherList());
+				modelMap.put("count", (ce.getCount() - 1) / pageSize + 1);
+				modelMap.put("success", true);
+			} else {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", ce.getStateInfo());
+
+			}
+
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty pageSize or pageIndex");
+		}
+		return modelMap;
+	}
+	
+	@RequestMapping(value = "/setid", method = RequestMethod.POST)
+	@ResponseBody
+	private Map<String, Object> setByTeacherId(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int teacherId = HttpServletRequestUtil.getInt(request, "teacherid");
+		if (teacherId != -1) {
+			request.getSession().setAttribute("byteacherid", teacherId);
+			modelMap.put("success", true);
+		} else {
+			modelMap.put("success", false);
+		}
+		return modelMap;
+
 	}
 }

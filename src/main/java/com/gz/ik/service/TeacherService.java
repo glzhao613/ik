@@ -20,4 +20,5 @@ public interface TeacherService {
 	
 	TeacherExecution deleteTeacher(Teacher teacher) throws RuntimeException;
 
+	TeacherExecution showTeacherList(int pageIndex, int pageSize) throws RuntimeException;
 }

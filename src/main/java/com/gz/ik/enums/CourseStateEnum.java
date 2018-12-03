@@ -2,7 +2,7 @@ package com.gz.ik.enums;
 
 public enum CourseStateEnum {
 
-	QUERY_SECCESS(1,"查询列表成功"),QUERY_NULL(-1,"未能查询到数据"),UPDATE_PASS(2,"更新成功"),UPDATE_ERRO(-2,"更新失败"),UPDATE_NULL(-3,"输入为空");
+	QUERY_SECCESS(1,"查询列表成功"),QUERY_NULL(-1,"未能查询到数据"),UPDATE_PASS(2,"更新成功"),UPDATE_ERRO(-2,"更新失败"),UPDATE_NULL(-3,"输入为空"),GET_FALSE(-4,"获取列表失败"),GET_SECCESS(3,"获取列表成功");
 
 	private int state;
 

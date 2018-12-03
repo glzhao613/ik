@@ -13,5 +13,5 @@ public interface AdminService {
 	AdminRegisterExecution registerCheck(Admin admin) throws RuntimeException;
 	AdminUpdateExecution updateCheck(Admin admin) throws RuntimeException;
 	AdminDeleteExecution deleteCheck(Admin admin) throws RuntimeException;
-	AdminExecution querCheck(Map<String, Object> pageMap) throws RuntimeException;
+	AdminExecution showAdminList(Admin admin,int pageIndex, int pageSize) throws RuntimeException;
 }

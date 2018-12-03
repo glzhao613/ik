@@ -1,5 +1,7 @@
 package com.gz.ik.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,11 +9,15 @@ import com.gz.ik.dao.ContactsDao;
 import com.gz.ik.dto.ContactsDeleteExecution;
 import com.gz.ik.dto.ContactsInsertExecution;
 import com.gz.ik.dto.ContactsQuerExecution;
+import com.gz.ik.dto.TeacherExecution;
 import com.gz.ik.entity.Contacts;
+import com.gz.ik.entity.Teacher;
 import com.gz.ik.enums.ContactsDeleteStateEnum;
 import com.gz.ik.enums.ContactsInsertStateEnum;
 import com.gz.ik.enums.ContactsQuerStateEnum;
+import com.gz.ik.enums.TeacherStateEnum;
 import com.gz.ik.service.ContactsService;
+import com.gz.ik.util.PageCalculator;
 
 @Service
 public class ContactsServiceImpl implements ContactsService {
@@ -73,6 +79,23 @@ public class ContactsServiceImpl implements ContactsService {
 				return new ContactsDeleteExecution(ContactsDeleteStateEnum.ERROR);
 			}
 		}
+	}
+
+	@Override
+	public ContactsQuerExecution showContactsList(int pageIndex, int pageSize) throws RuntimeException {
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		List<Contacts> contactsList = null;
+		contactsList = contactsDao.queryContactsList(rowIndex, pageSize);
+		int count = contactsDao.queryContactsCount();
+		ContactsQuerExecution te = new ContactsQuerExecution();
+		if (contactsList != null && contactsList.size() > 0) {
+			te.setState(ContactsQuerStateEnum.GET_SECCESS.getState());
+			te.setContactslist(contactsList);
+			te.setCount(count);
+		} else {
+			te.setState(ContactsQuerStateEnum.GET_FALSE.getState());
+		}
+		return te;
 	}
 	
 	

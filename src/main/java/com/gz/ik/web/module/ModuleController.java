@@ -27,4 +27,9 @@ public class ModuleController {
 	private String getdelete() {
 		return "moduledelete";
 	}
+	
+	@RequestMapping(value="/showmodule",method=RequestMethod.GET)
+	private String getShowModule() {
+		return "showmodule";
+	}
 }

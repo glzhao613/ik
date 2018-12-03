@@ -9,12 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.gz.ik.dao.TeacherDao;
+import com.gz.ik.dto.CourseExecution;
 import com.gz.ik.dto.TeacherExecution;
+import com.gz.ik.entity.Course;
 import com.gz.ik.entity.Teacher;
+import com.gz.ik.enums.CourseStateEnum;
 import com.gz.ik.enums.TeacherStateEnum;
 import com.gz.ik.service.TeacherService;
 import com.gz.ik.util.FileUtil;
 import com.gz.ik.util.ImageUtil;
+import com.gz.ik.util.PageCalculator;
 
 @Service
 public class TeacherServicelmpl implements TeacherService {
@@ -113,7 +117,7 @@ public class TeacherServicelmpl implements TeacherService {
 			if(dc_teacher) {
 				d_teacher=teacherDao.deleteteacher(teacher.getTeacherId());
 				if(d_teacher) {
-					return new TeacherExecution(TeacherStateEnum.DELETE_PASS);
+					return new TeacherExecution(TeacherStateEnum.DELETE_PASS,teacher);
 				}
 				else {
 					return new TeacherExecution(TeacherStateEnum.DELETE_ERRO);
@@ -129,6 +133,23 @@ public class TeacherServicelmpl implements TeacherService {
 		String dest = FileUtil.getUserImgPath();
 		String imgAddr = ImageUtil.generateThumbnail(img, dest);
 		teacher.setTeacherImg(imgAddr);
+	}
+
+	@Override
+	public TeacherExecution showTeacherList(int pageIndex, int pageSize) throws RuntimeException {
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		List<Teacher> teacherList = null;
+		teacherList = teacherDao.queryTeacherList(rowIndex, pageSize);
+		int count = teacherDao.queryTeacherCount();
+		TeacherExecution te = new TeacherExecution();
+		if (teacherList != null && teacherList.size() > 0) {
+			te.setState(TeacherStateEnum.GET_SECCESS.getState());
+			te.setTeacherList(teacherList);
+			te.setCount(count);
+		} else {
+			te.setState(TeacherStateEnum.GET_FALSE.getState());
+		}
+		return te;
 	}
 
 
