@@ -28,6 +28,12 @@ public class FileUtil {
 		return imgPath;
 	}
 	
+	public static String getCourseImgPath() {
+		String imgPath = "/upload/images/item/course/";
+		imgPath = imgPath.replace("/", seperator);
+		return imgPath;
+	}
+	
 	public static String getNewsImgPath() {
 		String imgPath = "/upload/images/item/news/";
 		imgPath = imgPath.replace("/", seperator);

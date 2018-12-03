@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gz.ik.dao.TeacherDao">
+	<select id="queryteacherlist" resultType="com.gz.ik.entity.Teacher">
+		SELECT *
+		FROM teacher
+		<where>
+			<if test="teacherId!=null">
+				AND teacher_id=#{teacherId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryteacher" resultType="com.gz.ik.entity.Teacher">
+		SELECT *
+		FROM teacher
+		WHERE teacher_name=#{teacherName}
+	</select>
+	
+	<insert id="insertteacher" useGeneratedKeys="true" keyColumn="teacher_id" keyProperty="teacherId">
+		INSERT INTO teacher(
+		teacher_name,teacher_des,teacher_img
+		) VALUES (
+		#{teacherName},#{teacherDes},#{teacherImg}
+		)
+	</insert>
+	
+	<update id="updateteacher" parameterType="com.gz.ik.entity.Teacher">
+		update teacher
+		<set>
+			<if test="teacherName!=null">teacher_name=#{teacherName},</if>
+			<if test="teacherDes!=null">teacher_des=#{teacherDes},</if>
+			<if test="teacherImg!=null">teacher_img=#{teacherImg},</if>
+		</set>
+	</update>
+	
+	<delete id="deleteteacher">
+		delete
+		from teacher
+		where teacher_id=#{teacherId}
+	</delete>
+	
+	<delete id="deleteteacherC">
+		delete
+		from course
+		where course_teacher=#{teacherId}
+	</delete>
+</mapper>

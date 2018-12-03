@@ -9,6 +9,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE admin_account=#{adminAccount}
 	</select>
 	
+	<select id="queryadminlist" resultType="com.gz.ik.entity.Admin">
+		SELECT admin_account,admin_pwd,admin_module,admin_type
+		FROM admin
+		LIMIT #{star},#{count}
+	</select>
+	
 	<insert id="insertadmin" useGeneratedKeys="true" keyColumn="admin_id" keyProperty="adminId">
 		INSERT INTO admin(
 		admin_module,admin_account,admin_pwd,admin_type,admin_name)

@@ -23,14 +23,14 @@ public class AdminDeleteExecution {
 		super();
 	}
 	
-	//管理员登陆操作失败的构造器
+	//管理员删除操作失败的构造器
 	public AdminDeleteExecution(AdminDeleteStateEnum stateEnum) {
 		super();
 		this.state = stateEnum.getState();
 		this.stateInfo = stateEnum.getStateInfo();
 	}
 	
-	//管理员登陆操作成功的构造器
+	//管理员删除操作成功的构造器
 	public AdminDeleteExecution(AdminDeleteStateEnum stateEnum,Admin admin) {
 		super();
 		this.state = stateEnum.getState();
@@ -38,7 +38,7 @@ public class AdminDeleteExecution {
 		this.admin = admin;
 	}
 	
-	//管理员登陆操作成功的构造器
+	//管理员删除操作成功的构造器
 	public AdminDeleteExecution(AdminDeleteStateEnum stateEnum,List<Admin> adminlist) {
 		super();
 		this.state = stateEnum.getState();

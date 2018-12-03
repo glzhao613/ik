@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>教师注册</title>
+    <link rel="stylesheet" href="../resources/css/form.css">
+</head>
+<body>
+<div class="smart-green">
+    <h1>教师添加
+        <span>填写需要添加的教师</span>
+    </h1>
+    <label>
+        <span>教师姓名:</span>
+        <input id="teachername" type="text" name="teachername" class="error" placeholder="请输入该教师的姓名"/>
+        <div class="error-msg"></div>
+    </label>
+
+    <label>
+        <span>教师简介 :</span>
+        <textarea id="teacherdes" name="teacherdes"  placeholder="请输入教师简介"></textarea>
+        <div class="error-msg"></div>
+    </label>
+
+
+    <label>
+        <span>教师图 :</span>
+        <input id="timg" type="file" name="timg"/>
+        <div class="error-msg"></div>
+    </label>
+    
+    <div class="success-msg"></div>
+    <label>
+        <span>&nbsp;</span>
+        <input type="submit" class="button" id="teacher-btn" value="确认添加"/>
+    </label>
+</div>
+
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../resources/js/addteacherinfo.js"></script>
+
+</body>
+</html>

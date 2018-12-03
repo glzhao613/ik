@@ -15,12 +15,10 @@ $(function() {
 			},
 			success : function(data) {
 				switch (data.success){
-				case 1:
-					alert('模块查询成功');
+				case ad.getAdminlist():
+					alert('查询成功');
 					window.location.href ='';
 				case -1:
-					alert(data.errMsg);
-				case -2:
 					alert(data.errMsg);
 				}
 			}

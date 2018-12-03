@@ -1,7 +1,7 @@
 package com.gz.ik.enums;
 
 public enum AdminUpdateStateEnum {
-	PASS(1, "更新成功"), ERROR(-1,"更新失败"),NULL_PERMISS(-2,"无权限操作");
+	PASS(1, "更新成功"), ERROR(-1,"更新失败");
 	private int state;
 
 	private String stateInfo;

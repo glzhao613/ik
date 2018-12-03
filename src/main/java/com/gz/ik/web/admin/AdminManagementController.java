@@ -106,14 +106,13 @@ public class AdminManagementController {
 		Module module=new Module();
 		String adminAct = HttpServletRequestUtil.getString(request, "adminaccount");
 		String adminPwd = HttpServletRequestUtil.getString(request, "adminpwd");
-		Integer adminTy=HttpServletRequestUtil.getInt(request, "admintype");
 		Integer moduleId=HttpServletRequestUtil.getInt(request, "moduleid");
 		String adminName=HttpServletRequestUtil.getString(request, "adminname");
 		
 		module.setModuleId(moduleId);
 		admin.setAdminAccount(adminAct);
 		admin.setAdminPwd(adminPwd);
-		admin.setAdminType(adminTy);
+		admin.setAdminType(1);
 		admin.setAdminModule(module);
 		admin.setAdminName(adminName);
 		
@@ -152,5 +151,23 @@ public class AdminManagementController {
 			modelMap.put("errMsg", "请输入信息");
 		}
 		return modelMap;
+	}
+	
+	@RequestMapping(value = "/adminPage", method = RequestMethod.POST)
+	@ResponseBody
+	private Map<String, Object> adminPage(HttpServletRequest request){
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		int currentPage = 1;
+		pageMap.put("count",5);
+		pageMap.put("star", (currentPage - 1) * 5);
+		AdminExecution ad = adminService.querCheck(pageMap);
+		if(ad.getState() == AdminStateEnum.QUER_PASS.getState()) {
+			pageMap.put("adminlist",ad.getAdminlist());
+		}
+		else {
+			pageMap.put("adminlist",-1);
+		}
+		return pageMap;
+		
 	}
 }

@@ -1,10 +1,15 @@
 package com.gz.ik.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.gz.ik.entity.Admin;
 
 
 
 public interface AdminDao {
+	List<Admin> queryadminlist(Map<String, Object> pageMap);
+	
 	/*通过账号判断是否有这个管理员*/
 	Admin queryadmin (String account);
 	
