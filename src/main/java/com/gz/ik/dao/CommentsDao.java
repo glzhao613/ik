@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.gz.ik.entity.Comments;
-import com.gz.ik.entity.Course;
 
 public interface CommentsDao {
 	
@@ -29,7 +28,9 @@ public interface CommentsDao {
 	 * @param pageSize
 	 * @return
 	 */
-	List<Comments> queryCommentsList(@Param("course") Course course,@Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
+	List<Comments> queryCommentsList(@Param("comments") Comments comments,@Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
+	
+	int insertComments(Comments comments);
 	
 
 }

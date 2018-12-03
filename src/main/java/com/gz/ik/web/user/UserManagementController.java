@@ -200,7 +200,7 @@ public class UserManagementController {
 		int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
 		int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
 		if (request.getSession().getAttribute("byuserid") != null) {
-			request.getSession().removeAttribute("byuser");
+			request.getSession().removeAttribute("byuserid");
 		}
 		if ((pageIndex > -1) && (pageSize > -1)) {
 			UserExecution ue = userService.getUserList(pageIndex, pageSize);

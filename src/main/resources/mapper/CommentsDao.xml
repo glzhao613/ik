@@ -4,20 +4,41 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gz.ik.dao.CommentsDao">
 
-	<select id="queryComments"
-		parameterType="com.gz.ik.entity.Comments"
-		resultType="com.gz.ik.entity.Comments">
-		SELECT *
-		FROM comments
+	<resultMap id="commentsMap" type="com.gz.ik.entity.Comments">
+		<id column="comment_id" property="commentId" />
+		<result column="comment_article" property="commentArticle" />
+		<result column="comment_date" property="commentDate" />
+		<association property="commentUser" column="comment_user"
+			javaType="com.gz.ik.entity.User">
+			<id column="user_id" property="userId" />
+			<result column="user_account" property="userAccount" />
+		</association>
+		<association property="commentCourse"
+			column="comment_course" javaType="com.gz.ik.entity.Course">
+			<id column="course_id" property="courseId" />
+			<result column="course_name" property="courseName" />
+		</association>
+	</resultMap>
+
+	<select id="queryCommentsList"
+		parameterType="com.gz.ik.entity.Comments" resultMap="commentsMap">
+		SELECT
+		cm.comment_id,cm.comment_article,cm.comment_date,u.user_id,u.user_account,c.course_id,c.course_name
+		FROM comments cm LEFT JOIN user u ON cm.comment_user=u.user_id LEFT
+		JOIN course c ON cm.comment_course=c.course_id
 		<where>
-			<if test="commentId!=null">AND comment_id=#{commentId}</if>
-			<if test="commentUser!=null">
-				<if test="commentUser.userId!=null">AND comment_user=#{commentUser.userId}</if>
+			<if test="comments.commentId!=null">AND cm.comment_id=#{comments.commentId}</if>
+			<if test="comments.commentUser!=null">
+				<if test="comments.commentUser.userId!=null">AND cm.comment_user=#{comments.commentUser.userId}</if>
 			</if>
-			<if test="commentCourse!=null">
-				<if test="commentCourse.courseId!=null">AND comment_course=#{commentCourse.courseId}</if>
+			<if test="comments.commentCourse!=null">
+				<if test="comments.commentCourse.courseId!=null">AND cm.comment_course=#{comments.commentCourse.courseId}
+				</if>
 			</if>
 		</where>
+		ORDER BY
+		comment_course
+		LIMIT #{rowIndex},#{pageSize}
 	</select>
 
 	<delete id="delComments"
@@ -34,14 +55,32 @@
 			</if>
 		</where>
 	</delete>
-	
-	<select id="queryCommentsList" resultType="com.gz.ik.entity.Comments">
+	<select id="queryComments"
+		parameterType="com.gz.ik.entity.Comments"
+		resultType="com.gz.ik.entity.Comments">
 		SELECT *
-		FROM user
-		ORDER BY
-		user_id
-		LIMIT #{rowIndex},#{pageSize}
+		FROM comments
+		<where>
+			<if test="commentId!=null">AND comment_id=#{commentId}</if>
+			<if test="commentUser!=null">
+				<if test="commentUser.userId!=null">AND comment_user=#{commentUser.userId}</if>
+			</if>
+			<if test="commentCourse!=null">
+				<if test="commentCourse.courseId!=null">AND comment_course=#{commentCourse.courseId}</if>
+			</if>
+		</where>
 	</select>
+
+
+	<insert id="insertComments"
+		parameterType="com.gz.ik.entity.Comments" useGeneratedKeys="true"
+		keyProperty="commentId" keyColumn="comment_id">
+		INSERT
+		INTO
+		comments(comment_user,comment_course,comment_article,comment_date)
+		VALUES
+		(#{commentUser.userId},#{commentCourse.courseId},#{commentArticle},#{commentDate})
+	</insert>
 
 
 
