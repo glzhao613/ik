@@ -27,4 +27,9 @@ public class CourseTypeController {
 	private String getDeletePage() {
 		return "deletecoursetype";
 	}
+	
+	@RequestMapping(value = "/showcoursetype", method = RequestMethod.GET)
+	private String getShowcourseTypePage() {
+		return "showcoursetype";
+	}
 }

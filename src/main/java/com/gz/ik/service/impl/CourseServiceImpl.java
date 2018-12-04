@@ -4,25 +4,39 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.gz.ik.dao.CommentsDao;
 import com.gz.ik.dao.CourseDao;
+import com.gz.ik.dao.UCDao;
 import com.gz.ik.dto.CourseDeleteExecution;
 import com.gz.ik.dto.CourseExecution;
 import com.gz.ik.dto.CourseInsertExecution;
+import com.gz.ik.entity.Comments;
 import com.gz.ik.entity.Course;
+import com.gz.ik.entity.Files;
+import com.gz.ik.entity.UC;
 import com.gz.ik.enums.CourseDeleteStateEnum;
 import com.gz.ik.enums.CourseInsertStateEnum;
 import com.gz.ik.enums.CourseStateEnum;
 import com.gz.ik.service.CourseService;
 import com.gz.ik.util.FileUtil;
 import com.gz.ik.util.ImageUtil;
+import com.gz.ik.util.PageCalculator;
 
 @Service
 public class CourseServiceImpl implements CourseService {
 
 	@Autowired
 	private CourseDao courseDao;
+	
+	@Autowired
+	private CommentsDao commentsDao;
+	
+	private UCDao ucDao;
+	
+	
 	
 	@Override
 	public CourseExecution getCourseList() throws RuntimeException {
@@ -36,7 +50,7 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public CourseExecution getCourse(Course course) throws RuntimeException {
-		Course g_course=courseDao.queryCourse2(course.getCourseName());
+		Course g_course=courseDao.queryCourseName(course.getCourseName());
 		if(g_course!=null) {
 			return new CourseExecution(CourseStateEnum.QUERY_SECCESS,g_course);
 		}
@@ -52,7 +66,7 @@ public class CourseServiceImpl implements CourseService {
 			return new CourseInsertExecution(CourseInsertStateEnum.INPUT_NULL);
 		}
 		else {
-			ig_course=courseDao.queryCourse2(course.getCourseName());
+			ig_course=courseDao.queryCourseName(course.getCourseName());
 			if(ig_course==null) {
 				addCourseImg(course, img);
 				int i_course=courseDao.insertCourse(course);
@@ -69,17 +83,27 @@ public class CourseServiceImpl implements CourseService {
 		}
 	}
 
-
+	@Transactional
 	@Override
-	public CourseDeleteExecution deleteCourse(Course course) throws RuntimeException {
+	public CourseDeleteExecution deleteCourse(Course course,Comments comments,UC uc,Files files) throws RuntimeException {
 		if(course==null) {
 			return new CourseDeleteExecution(CourseDeleteStateEnum.INPUT_NULL);
 		}
 		else {
 			boolean d_course=false;
+			int d_comments=0;
+			int d_uc=0;
+			d_comments=commentsDao.delComments(comments);
+			if(d_comments<=0) {
+				return new CourseDeleteExecution(CourseDeleteStateEnum.ERRO);
+			}
+			d_uc=ucDao.delUC(uc);
+			if(d_uc<=0) {
+				return new CourseDeleteExecution(CourseDeleteStateEnum.ERRO);
+			}
 			d_course=courseDao.deleteCourse(course.getCourseId());
 			if(d_course) {
-				return new CourseDeleteExecution(CourseDeleteStateEnum.PASS);
+				return new CourseDeleteExecution(CourseDeleteStateEnum.PASS,course);
 			}
 			else {
 				return new CourseDeleteExecution(CourseDeleteStateEnum.ERRO);
@@ -102,10 +126,7 @@ public class CourseServiceImpl implements CourseService {
 		}
 		else {
 			if(img!=null) {
-				q_course=courseDao.queryCourse2(course.getCourseName());
-				if(q_course==null) {
-					return new CourseExecution(CourseStateEnum.UPDATE_ERRO);
-				}
+				q_course=courseDao.queryCourseId(course.getCourseId());
 				FileUtil.deleteFile(q_course.getCourseImg());
 				addCourseImg(course,img);
 			}
@@ -119,4 +140,20 @@ public class CourseServiceImpl implements CourseService {
 		}
 	}
 
+	@Override
+	public CourseExecution showCourseList(Course course,int pageIndex, int pageSize) throws RuntimeException {
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		List<Course> courseList = null;
+		courseList = courseDao.queryCourseList(course,rowIndex, pageSize);
+		int count = courseDao.queryCourseCount();
+		CourseExecution ce = new CourseExecution();
+		if (courseList != null && courseList.size() > 0) {
+			ce.setState(CourseStateEnum.GET_SECCESS.getState());
+			ce.setCourseList(courseList);
+			ce.setCount(count);
+		} else {
+			ce.setState(CourseStateEnum.GET_FALSE.getState());
+		}
+		return ce;
+	}
 }

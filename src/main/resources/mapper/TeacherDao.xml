@@ -19,6 +19,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE teacher_name=#{teacherName}
 	</select>
 	
+	<select id="queryTeacherList" resultType="com.gz.ik.entity.Teacher">
+		SELECT *
+		FROM teacher
+		ORDER BY
+		teacher_id
+		LIMIT #{rowIndex},#{pageSize}
+	</select>
+	
+	<select id="queryTeacherCount" resultType="int">
+		SELECT COUNT(*)
+		FROM teacher
+	</select>
+	
 	<insert id="insertteacher" useGeneratedKeys="true" keyColumn="teacher_id" keyProperty="teacherId">
 		INSERT INTO teacher(
 		teacher_name,teacher_des,teacher_img

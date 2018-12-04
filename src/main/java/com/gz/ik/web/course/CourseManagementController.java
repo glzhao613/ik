@@ -18,12 +18,18 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.gz.ik.dto.CourseDeleteExecution;
 import com.gz.ik.dto.CourseExecution;
 import com.gz.ik.dto.CourseInsertExecution;
+import com.gz.ik.dto.UserExecution;
+import com.gz.ik.entity.Comments;
 import com.gz.ik.entity.Course;
 import com.gz.ik.entity.CourseType;
+import com.gz.ik.entity.Files;
+import com.gz.ik.entity.Module;
 import com.gz.ik.entity.Teacher;
+import com.gz.ik.entity.UC;
 import com.gz.ik.enums.CourseDeleteStateEnum;
 import com.gz.ik.enums.CourseInsertStateEnum;
 import com.gz.ik.enums.CourseStateEnum;
+import com.gz.ik.enums.UserStateEnum;
 import com.gz.ik.service.CourseService;
 import com.gz.ik.util.HttpServletRequestUtil;
 
@@ -123,19 +129,26 @@ public class CourseManagementController {
 		return modelMap;
 	}
 
-	@RequestMapping(value = "/Deletecourse",method = RequestMethod.POST)
+	@RequestMapping(value = "/deletecourse",method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> deletecourse(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		Course course=new Course();
+		Comments comments=new Comments();
+		UC uc=new UC();
+		Files files=new Files();
 		
-		int courseId=HttpServletRequestUtil.getInt(request, "courseid");
+		int courseId=(int) request.getSession().getAttribute("bycourseid") ;
 		
 		course.setCourseId(courseId);
+		comments.setCommentCourse(course);
+		uc.setcId(courseId);
+		files.setFileCourse(course);
 		
-		CourseDeleteExecution ad=courseService.deleteCourse(course);
+		CourseDeleteExecution ad=courseService.deleteCourse(course,comments,uc,files);
 		if(ad.getState() == CourseDeleteStateEnum.PASS.getState()) {
 			modelMap.put("success", 1);
+			modelMap.put("coursename", ad.getCourse().getCourseName());
 		}
 		else {
 			modelMap.put("success", -1);
@@ -152,13 +165,13 @@ public class CourseManagementController {
 		Course course=new Course();
 		Teacher teacher=new Teacher();
 		CourseType courseType=new CourseType();
+		int courseId=(int) request.getSession().getAttribute("bycourseid") ;
 		int courseTy=HttpServletRequestUtil.getInt(request, "coursety");
 		int courseTeacher=HttpServletRequestUtil.getInt(request, "courseteacher");
 		String courseName=HttpServletRequestUtil.getString(request, "coursename");
 		String courseDes=HttpServletRequestUtil.getString(request, "coursedes");
 		float coursePrice=HttpServletRequestUtil.getFloat(request, "courseprice");
 		int courseHour=HttpServletRequestUtil.getInt(request, "coursehour");
-		System.out.println(coursePrice);
 		// 图片获取
 		MultipartHttpServletRequest multipartRequest = null;
 		CommonsMultipartFile img = null;
@@ -175,6 +188,7 @@ public class CourseManagementController {
 		course.setCourseDes(courseDes);
 		course.setCoursePrice(coursePrice);
 		course.setCourseHour(courseHour);
+		course.setCourseId(courseId);
 		
 		course.setCourseType(courseType);
 		CourseExecution ad=courseService.updateCourse(course, img);
@@ -188,6 +202,57 @@ public class CourseManagementController {
 			modelMap.put("errMsg", ad.getStateInfo());
 		}
 		
+		return modelMap;
+	}
+	
+	@RequestMapping(value = "/setid", method = RequestMethod.POST)
+	@ResponseBody
+	private Map<String, Object> setByCourseId(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int courseId = HttpServletRequestUtil.getInt(request, "courseid");
+		if (courseId != -1) {
+			request.getSession().setAttribute("bycourseid", courseId);
+			modelMap.put("success", true);
+		} else {
+			modelMap.put("success", false);
+		}
+		return modelMap;
+
+	}
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> showCourseList(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+		int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+		Course course=new Course();
+		if (request.getSession().getAttribute("bycoursetypeid") != null) {
+			CourseType courseType=new CourseType();
+			courseType.setCourseTypeId((int)request.getSession().getAttribute("bycoursetypeid"));
+			course.setCourseType(courseType);
+		}
+		if (request.getSession().getAttribute("byteacherid") != null) {
+			Teacher teacher=new Teacher();
+			teacher.setTeacherId((int)request.getSession().getAttribute("byteacherid"));
+			course.setCourseTeacher(teacher);
+		}
+		if ((pageIndex > -1) && (pageSize > -1)) {
+			CourseExecution ce = courseService.showCourseList(course,pageIndex, pageSize);
+			if (ce.getState() == CourseStateEnum.GET_SECCESS.getState()) {
+				modelMap.put("courseList", ce.getCourseList());
+				modelMap.put("count", (ce.getCount() - 1) / pageSize + 1);
+				modelMap.put("success", true);
+			} else {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", ce.getStateInfo());
+
+			}
+
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty pageSize or pageIndex");
+		}
 		return modelMap;
 	}
 	

@@ -8,16 +8,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gz.ik.dao.ModuleDao;
+import com.gz.ik.dto.AdminExecution;
 import com.gz.ik.dto.ModuleAddExecution;
 import com.gz.ik.dto.ModuleDeleteExecution;
 import com.gz.ik.dto.ModuleQuerExecution;
 import com.gz.ik.dto.ModuleUpdateExecution;
+import com.gz.ik.entity.Admin;
 import com.gz.ik.entity.Module;
+import com.gz.ik.enums.AdminStateEnum;
 import com.gz.ik.enums.ModuleAddStateEnum;
 import com.gz.ik.enums.ModuleDeleteStateEnum;
 import com.gz.ik.enums.ModuleQuerStateEnum;
 import com.gz.ik.enums.ModuleUpdateStateEnum;
 import com.gz.ik.service.ModuleService;
+import com.gz.ik.util.PageCalculator;
 
 @Service
 public class ModuleServicelmpl implements ModuleService {
@@ -33,7 +37,7 @@ public class ModuleServicelmpl implements ModuleService {
 			return new ModuleAddExecution(ModuleAddStateEnum.NULL_INPUT);
 		}
 		else {
-			i_module=moduleDao.querymodule(module.getModuleName());
+			i_module=moduleDao.querymodule(module.getModuleId());
 			if(i_module!=null) {
 				return new ModuleAddExecution(ModuleAddStateEnum.ID_ERROR);
 			}
@@ -58,7 +62,7 @@ public class ModuleServicelmpl implements ModuleService {
 			return new ModuleQuerExecution(ModuleQuerStateEnum.NULL_INPUT);
 		}
 		else {
-			i_module=moduleDao.querymodule(module.getModuleName());
+			i_module=moduleDao.querymodule(module.getModuleId());
 			if(i_module!=null) {
 				return new ModuleQuerExecution(ModuleQuerStateEnum.PASS,i_module);
 			}
@@ -95,13 +99,11 @@ public class ModuleServicelmpl implements ModuleService {
 		else {
 			boolean da_module=false;
 			boolean d_module=false;
-			Module i_module=null;
-			i_module=moduleDao.querymodule(module.getModuleName());
-			da_module=moduleDao.deleteadminmodule(i_module.getModuleId());
+			da_module=moduleDao.deleteadminmodule(module.getModuleId());
 			if(da_module) {
-				d_module=moduleDao.deletemodule(i_module.getModuleId());
+				d_module=moduleDao.deletemodule(module.getModuleId());
 				if(d_module) {
-					return new ModuleDeleteExecution(ModuleDeleteStateEnum.PASS);
+					return new ModuleDeleteExecution(ModuleDeleteStateEnum.PASS,module);
 				}
 				else {
 					return new ModuleDeleteExecution(ModuleDeleteStateEnum.ERROR);
@@ -115,10 +117,24 @@ public class ModuleServicelmpl implements ModuleService {
 
 
 	@Override
-	public ModuleQuerExecution QuerListCheck(Map<String, Object> pageMap) throws RuntimeException {
-		// TODO Auto-generated method stub
-		return null;
+	public ModuleQuerExecution getModuleList(int pageIndex, int pageSize) throws RuntimeException {
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		List<Module> moduleList = null;
+		moduleList = moduleDao.queryModuleList(rowIndex, pageSize);
+		int count = moduleDao.queryModuleCount();
+		ModuleQuerExecution ad = new ModuleQuerExecution();
+		if (moduleList != null && moduleList.size() > 0) {
+			ad.setState(ModuleQuerStateEnum.GET_SECCESS.getState());
+			ad.setModulelist(moduleList);
+			ad.setCount(count);
+		} else {
+			ad.setState(ModuleQuerStateEnum.GET_FALSE.getState());
+		}
+		return ad;
 	}
+
+
+
 
 
 

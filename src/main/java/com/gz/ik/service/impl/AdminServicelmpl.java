@@ -11,12 +11,16 @@ import com.gz.ik.dto.AdminDeleteExecution;
 import com.gz.ik.dto.AdminExecution;
 import com.gz.ik.dto.AdminRegisterExecution;
 import com.gz.ik.dto.AdminUpdateExecution;
+import com.gz.ik.dto.CourseExecution;
 import com.gz.ik.entity.Admin;
+import com.gz.ik.entity.Course;
 import com.gz.ik.enums.AdminDeleteStateEnum;
 import com.gz.ik.enums.AdminRegisterStateEnum;
 import com.gz.ik.enums.AdminStateEnum;
 import com.gz.ik.enums.AdminUpdateStateEnum;
+import com.gz.ik.enums.CourseStateEnum;
 import com.gz.ik.service.AdminService;
+import com.gz.ik.util.PageCalculator;
 
 
 @Service
@@ -87,37 +91,32 @@ public class AdminServicelmpl implements AdminService{
 	@Override
 	public AdminDeleteExecution deleteCheck(Admin admin) throws RuntimeException {
 		boolean yn=false;
-		Admin d_admin;
-		d_admin=adminDao.queryadmin(admin.getAdminAccount());
-		if(d_admin.getAdminType()==0) {
-			return new AdminDeleteExecution(AdminDeleteStateEnum.NULL_PERMISS);
+
+		
+		yn = adminDao.deleteadmin(admin.getAdminId());
+		if (yn) {
+			return new AdminDeleteExecution(AdminDeleteStateEnum.PASS, admin);
+		} else {
+			return new AdminDeleteExecution(AdminDeleteStateEnum.ERROR);
 		}
-		else {
-			yn=adminDao.deleteadmin(admin.getAdminAccount());
-			if(yn) {
-				return new AdminDeleteExecution(AdminDeleteStateEnum.PASS);
-			}
-			else {
-				return new AdminDeleteExecution(AdminDeleteStateEnum.ERROR);
-			}
-		}
+		
 	}
 
 	@Override
-	public AdminExecution querCheck(Map<String, Object> pageMap) throws RuntimeException {
-		List<Admin> q_admin=null;
-		if(pageMap==null) {
-			return new AdminExecution(AdminStateEnum.NULL_INPUT);
+	public AdminExecution showAdminList(Admin admin,int pageIndex, int pageSize) throws RuntimeException {
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		List<Admin> adminList = null;
+		adminList = adminDao.queryAdminList(admin,rowIndex, pageSize);
+		int count = adminDao.queryAdminCount();
+		AdminExecution ad = new AdminExecution();
+		if (adminList != null && adminList.size() > 0) {
+			ad.setState(AdminStateEnum.GET_SECCESS.getState());
+			ad.setAdminlist(adminList);
+			ad.setCount(count);
+		} else {
+			ad.setState(AdminStateEnum.GET_FALSE.getState());
 		}
-		else {
-			q_admin=adminDao.queryadminlist(pageMap);
-			if(q_admin==null) {
-				return new AdminExecution(AdminStateEnum.QUER_ERRO);
-			}
-			else {
-				return new AdminExecution(AdminStateEnum.QUER_PASS,q_admin);
-			}
-		}
+		return ad;
 	}
 	
 }

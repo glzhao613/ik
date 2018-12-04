@@ -27,4 +27,9 @@ public class CourseController {
 	private String getUpdatePage() {
 		return "updatecourse";
 	}
+	
+	@RequestMapping(value = "/showcourse", method = RequestMethod.GET)
+	private String getShowCoursePage() {
+		return "showcourse";
+	}
 }

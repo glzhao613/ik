@@ -81,18 +81,31 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public NewsUpdateExecution updateCheck(News news) throws RuntimeException {
+	public NewsUpdateExecution updateCheck(News news,CommonsMultipartFile img) throws RuntimeException {
+		News t_news =null;
 		if(news == null){
 			return new NewsUpdateExecution(NewsUpdateStateEnum.NULL_INPUT);
 		}
 		else{
-			int count = newsDao.updateNews(news);
-			if(count > 0){
-				return new NewsUpdateExecution(NewsUpdateStateEnum.UPDATE_SUCCESS);
-			}
-			else{
+			t_news = newsDao.queryNewsByID(news);
+			if(t_news == null){
 				return new NewsUpdateExecution(NewsUpdateStateEnum.UPDATE_FAILED);
+			}else{
+				if(img != null){
+					addNewsImg(news,img);
+				}
+				if(t_news.getNewsImg() != null){
+					FileUtil.deleteFile(t_news.getNewsImg());
+				}
+				int count = newsDao.updateNews(news);
+				if(count > 0){
+					return new NewsUpdateExecution(NewsUpdateStateEnum.UPDATE_SUCCESS);
+				}
+				else{
+					return new NewsUpdateExecution(NewsUpdateStateEnum.UPDATE_FAILED);
+				}
 			}
+			
 		}
 	}
 
@@ -103,7 +116,12 @@ public class NewsServiceImpl implements NewsService {
 			return new NewsQuerExecution(NewsQuerStateEnum.NULL_INPUT);
 		}
 		else{
-			t_news = newsDao.queryOneNews(news.getNewsTitle());
+			if(news.getNewsId() != null){
+				t_news = newsDao.queryNewsByID(news);
+			}
+			else{
+				t_news = newsDao.queryOneNews(news.getNewsTitle());
+			}
 			if(t_news != null){
 				return new NewsQuerExecution(NewsQuerStateEnum.QUERY_SUCCESS,t_news);
 			}

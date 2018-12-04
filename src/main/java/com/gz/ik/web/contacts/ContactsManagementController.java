@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gz.ik.dto.ContactsDeleteExecution;
 import com.gz.ik.dto.ContactsInsertExecution;
 import com.gz.ik.dto.ContactsQuerExecution;
+import com.gz.ik.dto.ModuleQuerExecution;
 import com.gz.ik.entity.Contacts;
 import com.gz.ik.enums.ContactsDeleteStateEnum;
 import com.gz.ik.enums.ContactsInsertStateEnum;
 import com.gz.ik.enums.ContactsQuerStateEnum;
+import com.gz.ik.enums.ModuleQuerStateEnum;
 import com.gz.ik.service.ContactsService;
 import com.gz.ik.util.HttpServletRequestUtil;
 
@@ -103,7 +105,46 @@ public class ContactsManagementController {
 		return modelMap;
 	}
 
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> showmoduleList(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+		int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
 
+		if ((pageIndex > -1) && (pageSize > -1)) {
+			ContactsQuerExecution ae = contactService.showContactsList(pageIndex, pageSize);
+			if (ae.getState() == ContactsQuerStateEnum.GET_SECCESS.getState()) {
+				modelMap.put("contactsList", ae.getContactslist());
+				modelMap.put("count", (ae.getCount() - 1) / pageSize + 1);
+				modelMap.put("success", true);
+			} else {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", ae.getStateInfo());
+
+			}
+
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty pageSize or pageIndex");
+		}
+		return modelMap;
+	}
+	
+	@RequestMapping(value = "/setid", method = RequestMethod.POST)
+	@ResponseBody
+	private Map<String, Object> setByContactsId(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int contactsId = HttpServletRequestUtil.getInt(request, "contactsid");
+		if (contactsId != -1) {
+			request.getSession().setAttribute("bycontactsid", contactsId);
+			modelMap.put("success", true);
+		} else {
+			modelMap.put("success", false);
+		}
+		return modelMap;
+
+	}
 
 	
 }

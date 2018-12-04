@@ -3,16 +3,43 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gz.ik.dao.AdminDao">
+	<resultMap id="adminMap" type="com.gz.ik.entity.Admin">
+		<id column="admin_id" property="adminId" />
+		<result column="admin_account" property="adminAccount" />
+		<result column="admin_pwd" property="adminPwd" />
+		<result column="admin_type" property="adminType" />
+		<result column="admin_name" property="adminName" />
+		<association property="adminModule" column="admin_module"
+			javaType="com.gz.ik.entity.Module">
+			<id column="module_id" property="moduleId" />
+			<result column="module_name" property="moduleName" />
+		</association>
+	</resultMap>
+		
+	<select id="queryAdminList" resultType="com.gz.ik.entity.Admin" resultMap="adminMap">
+		SELECT ad.admin_id,ad.admin_account,ad.admin_type,ad.admin_name,mo.module_name
+		FROM admin ad LEFT JOIN module mo ON ad.admin_module=mo.module_id
+		<where>
+			<if test="admin.adminId!=null">AND ad.admin_id=#{admin.adminId}</if>
+			<if test="admin.adminModule!=null">
+				<if test="admin.adminModule.moduleId!=null">AND ad.admin_module=#
+				{admin.adminModule.moduleId}</if>
+			</if>
+		</where>
+		ORDER BY
+		admin_id
+		LIMIT #{rowIndex},#{pageSize}
+	</select>
+	
 	<select id="queryadmin" resultType="com.gz.ik.entity.Admin">
 		SELECT admin_account,admin_pwd,admin_module,admin_type
 		FROM admin
 		WHERE admin_account=#{adminAccount}
 	</select>
 	
-	<select id="queryadminlist" resultType="com.gz.ik.entity.Admin">
-		SELECT admin_account,admin_pwd,admin_module,admin_type
+	<select id="queryAdminCount" resultType="int">
+		SELECT COUNT(*)
 		FROM admin
-		LIMIT #{star},#{count}
 	</select>
 	
 	<insert id="insertadmin" useGeneratedKeys="true" keyColumn="admin_id" keyProperty="adminId">
@@ -32,13 +59,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="adminName!=null">admin_name=#{adminName},</if>
 			<if test="adminModule!=null">admin_module=#{adminModule.moduleId},</if>
 		</set>
-		where admin_account=#{adminAccount}
+		where admin_id=#{adminId}
 	</update>
 	
 	<delete id="deleteadmin">
 		delete
 		from admin
-		where admin_account=#{adminAccount}
+		where admin_id=#{adminId}
 		
 	
 	</delete>

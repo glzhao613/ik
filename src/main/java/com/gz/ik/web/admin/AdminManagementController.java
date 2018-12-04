@@ -14,11 +14,13 @@ import com.gz.ik.dto.AdminDeleteExecution;
 import com.gz.ik.dto.AdminExecution;
 import com.gz.ik.dto.AdminRegisterExecution;
 import com.gz.ik.dto.AdminUpdateExecution;
+import com.gz.ik.dto.CourseTypeExecution;
 import com.gz.ik.entity.Admin;
 import com.gz.ik.entity.Module;
 import com.gz.ik.enums.AdminRegisterStateEnum;
 import com.gz.ik.enums.AdminStateEnum;
 import com.gz.ik.enums.AdminUpdateStateEnum;
+import com.gz.ik.enums.CourseTypeStateEnum;
 import com.gz.ik.service.AdminService;
 import com.gz.ik.util.HttpServletRequestUtil;
 
@@ -104,11 +106,13 @@ public class AdminManagementController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		Admin admin=new Admin();
 		Module module=new Module();
+		int adminId = HttpServletRequestUtil.getInt(request, "adminid");
 		String adminAct = HttpServletRequestUtil.getString(request, "adminaccount");
 		String adminPwd = HttpServletRequestUtil.getString(request, "adminpwd");
 		Integer moduleId=HttpServletRequestUtil.getInt(request, "moduleid");
 		String adminName=HttpServletRequestUtil.getString(request, "adminname");
 		
+		admin.setAdminId(adminId);
 		module.setModuleId(moduleId);
 		admin.setAdminAccount(adminAct);
 		admin.setAdminPwd(adminPwd);
@@ -135,12 +139,13 @@ public class AdminManagementController {
 	private Map<String, Object> adminDelete(HttpServletRequest request){
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		Admin admin=new Admin();
-		String adminAct = HttpServletRequestUtil.getString(request, "adminaccount");
-		if (adminAct != null) {
-			admin.setAdminAccount(adminAct);
+		int adminId = HttpServletRequestUtil.getInt(request, "adminid");
+		if (adminId >0) {
+			admin.setAdminId(adminId);
 			AdminDeleteExecution ad = adminService.deleteCheck(admin);
 			if (ad.getState() == AdminStateEnum.PASS.getState()) {
 				modelMap.put("success", 1);
+				modelMap.put("adminname", ad.getAdmin().getAdminName());
 			} 
 			else {
 				modelMap.put("success", -1);
@@ -153,21 +158,49 @@ public class AdminManagementController {
 		return modelMap;
 	}
 	
-	@RequestMapping(value = "/adminPage", method = RequestMethod.POST)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	private Map<String, Object> adminPage(HttpServletRequest request){
-		Map<String, Object> pageMap = new HashMap<String, Object>();
-		int currentPage = 1;
-		pageMap.put("count",5);
-		pageMap.put("star", (currentPage - 1) * 5);
-		AdminExecution ad = adminService.querCheck(pageMap);
-		if(ad.getState() == AdminStateEnum.QUER_PASS.getState()) {
-			pageMap.put("adminlist",ad.getAdminlist());
+	private Map<String, Object> showadminList(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+		int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+		Admin admin=new Admin();
+		if (request.getSession().getAttribute("bymoduleid") != null) {
+			Module module=new Module();
+			module.setModuleId((int)request.getSession().getAttribute("bycourseid"));
+			admin.setAdminModule(module);
 		}
-		else {
-			pageMap.put("adminlist",-1);
+		if ((pageIndex > -1) && (pageSize > -1)) {
+			AdminExecution ae = adminService.showAdminList(admin,pageIndex, pageSize);
+			if (ae.getState() == AdminStateEnum.GET_SECCESS.getState()) {
+				modelMap.put("adminList", ae.getAdminlist());
+				modelMap.put("count", (ae.getCount() - 1) / pageSize + 1);
+				modelMap.put("success", true);
+			} else {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", ae.getStateInfo());
+
+			}
+
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty pageSize or pageIndex");
 		}
-		return pageMap;
-		
+		return modelMap;
+	}
+	
+	@RequestMapping(value = "/setid", method = RequestMethod.POST)
+	@ResponseBody
+	private Map<String, Object> setByAdminId(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int adminId = HttpServletRequestUtil.getInt(request, "adminid");
+		if (adminId != -1) {
+			request.getSession().setAttribute("byadminid", adminId);
+			modelMap.put("success", true);
+		} else {
+			modelMap.put("success", false);
+		}
+		return modelMap;
+
 	}
 }

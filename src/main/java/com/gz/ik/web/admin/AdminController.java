@@ -28,9 +28,9 @@ public class AdminController {
 		return "admindelete";
 	}
 	
-	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	@RequestMapping(value = "/showadmin", method = RequestMethod.GET)
 	private String getAdminPage() {
-		return "adminPage";
+		return "showadmin";
 	}
 	
 

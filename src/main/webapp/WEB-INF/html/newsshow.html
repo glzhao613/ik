@@ -2,13 +2,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>分页管理</title>
+<title>资讯管理</title>
+<link rel="stylesheet" href="../resources/css/table.css">
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="../resources/js/newspaging.js"></script>
+<script type="text/javascript" src="../resources/js/newsshow.js"></script>
 </head>
 <body>
+        <h1>资讯列表</h1>
+        <p><a href="/ik/news/newsadd"><input type="button" value="添加"></a></p>
+        <p></p>
 	<div>
-		<table  border="1" id="display"></table>
+		<table>
+			<thead id="thead">
+            </thead>
+        	<tbody id="tbody">
+       		</tbody> 
+		</table>
     </div>
     <div id="paging">
     	<input type="button" onclick="previousPage()" value="上一页">

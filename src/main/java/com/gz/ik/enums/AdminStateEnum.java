@@ -2,7 +2,7 @@ package com.gz.ik.enums;
 
 public enum AdminStateEnum {
 	PASS(1, "通过验证"), QUER_PASS(2,"查询成功"),QUER_ERRO(-4,"查询失败"),NO_ACCOUNT(-1, "账户不存在"), PWD_ERROR(-2, "密码错误"), NULL_INPUT(-3, "输入为空"),
-	PASS_SUPER(0,"超级管理员通过验证");
+	PASS_SUPER(0,"超级管理员通过验证"),GET_FALSE(-4,"获取列表失败"),GET_SECCESS(3,"获取列表成功");
 	private int state;
 
 	private String stateInfo;

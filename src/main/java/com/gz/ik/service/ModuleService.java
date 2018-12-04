@@ -10,8 +10,12 @@ import com.gz.ik.entity.Module;
 
 public interface ModuleService {
 	ModuleAddExecution AddCheck(Module module) throws RuntimeException;
+	
 	ModuleQuerExecution QuerCheck(Module module) throws RuntimeException;
-	ModuleQuerExecution QuerListCheck(Map<String, Object> pageMap) throws RuntimeException;
+	
+	ModuleQuerExecution getModuleList(int pageIndex, int pageSize) throws RuntimeException;
+	
 	ModuleUpdateExecution UpdateCheck(Module module) throws RuntimeException;
+	
 	ModuleDeleteExecution DeleteCheck(Module module) throws RuntimeException;
 }
