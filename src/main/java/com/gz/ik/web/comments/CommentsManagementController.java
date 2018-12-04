@@ -59,7 +59,6 @@ public class CommentsManagementController {
 		if ((pageIndex > -1) && (pageSize > -1)) {
 			CommentsExecution ex = commentsService.getCommentsList(comments, pageIndex, pageSize);
 			if (ex.getState() == CommentsStateEnum.QUERY_SECCESS.getState()) {
-				System.out.println(ex.getEntityList().get(0).getCommentUser().getUserAccount());
 				modelMap.put("list", ex.getEntityList());
 				modelMap.put("count", (ex.getCount() - 1) / pageSize + 1);
 				modelMap.put("success", true);

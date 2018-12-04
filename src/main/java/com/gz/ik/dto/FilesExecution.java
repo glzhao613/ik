@@ -2,10 +2,10 @@ package com.gz.ik.dto;
 
 import java.util.List;
 
-import com.gz.ik.entity.Comments;
-import com.gz.ik.enums.CommentsStateEnum;
+import com.gz.ik.entity.Files;
+import com.gz.ik.enums.FilesStateEnum;
 
-public class CommentsExecution {
+public class FilesExecution {
 	
 	// 结果状态
 	private int state;
@@ -15,23 +15,23 @@ public class CommentsExecution {
 
 	private int count;
 	
-	private Comments entity;
+	private Files entity;
 	
-	private List<Comments> entityList;
+	private List<Files> entityList;
 	
 	
 
-	public CommentsExecution() {
+	public FilesExecution() {
 		super();
 	}
 
-	public CommentsExecution(CommentsStateEnum stateEnum) {
+	public FilesExecution(FilesStateEnum stateEnum) {
 		super();
 		this.state = stateEnum.getState();
 		this.stateInfo = stateEnum.getStateInfo();
 	}
 	
-	public CommentsExecution(CommentsStateEnum stateEnum, Comments entity) {
+	public FilesExecution(FilesStateEnum stateEnum, Files entity) {
 		super();
 		this.state = stateEnum.getState();
 		this.stateInfo = stateEnum.getStateInfo();
@@ -41,7 +41,7 @@ public class CommentsExecution {
 
 
 
-	public CommentsExecution(CommentsStateEnum stateEnum, List<Comments> entityList) {
+	public FilesExecution(FilesStateEnum stateEnum, List<Files> entityList) {
 		super();
 		this.state = stateEnum.getState();
 		this.stateInfo = stateEnum.getStateInfo();
@@ -50,19 +50,20 @@ public class CommentsExecution {
 
 
 
-	public Comments getEntity() {
+	
+	public Files getEntity() {
 		return entity;
 	}
 
-	public void setEntity(Comments entity) {
+	public void setEntity(Files entity) {
 		this.entity = entity;
 	}
 
-	public List<Comments> getEntityList() {
+	public List<Files> getEntityList() {
 		return entityList;
 	}
 
-	public void setEntityList(List<Comments> entityList) {
+	public void setEntityList(List<Files> entityList) {
 		this.entityList = entityList;
 	}
 

@@ -1,40 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>为用户添加课程</title>
-<link rel="stylesheet" href="../resources/css/login.css">
+    <meta charset="UTF-8">
+    <title>添加用户课程</title>
+    <link rel="stylesheet" href="../resources/css/form.css">
 </head>
 <body>
+<div class="smart-green">
+    <h1>添加课程
+        <span>选择要添加的课程</span>
+    </h1>
+    <label>
+        <span>选择课程:</span>
+        <select id="courselist" class="error"></select>
+        <div class="error-msg"></div>
+    </label>
+    
+    <div class="success-msg"></div>
+    <label>
+        <span>&nbsp;</span>
+        <input type="submit" class="button" id="insert-btn" value="确认添加"/>
+    </label>
+</div>
 
-	<div class="login">
-		<div class="header">
-			<h1>
-			</h1>
-			<p><a href="/ik/user/usercourse"><input type="button" value="返回查看课程" ></a></p>
-		</div>
-		<table>
-			<tr>
-				<td class="td1">选择要添加的课程</td>
-				<td><select id="courselist" class="input1"></select></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-			</tr>
-
-			<tr>
-				<td colspan="2">
-					<div class="btn-red">
-						<input type="submit" value="确认添加" id="login-btn">
-					</div>
-				</td>
-			</tr>
-		</table>
-
-	</div>
-
-	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="../resources/js/addusercourse.js"></script>
+
 </body>
 </html>

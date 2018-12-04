@@ -11,7 +11,7 @@ $(function() {
 			if (data.success) {
 				var temp = "";
 				data.courselist.map(function(item, index) {
-					temp += "<option value='" + item.courseTypeId + "'>"
+					temp += "<option value='" + item.courseId + "'>"
 							+ item.courseName + "</option>";
 
 				});
