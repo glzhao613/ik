@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>新闻类型管理</title>
+<link rel="stylesheet" href="../resources/css/table.css">
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../resources/js/newstypemanagement.js"></script>
+</head>
+<body>
+	<h1>资讯类型列表</h1>
+        <p><a href="/ik/newstype/newstypeadd"><input type="button" value="添加"></a></p>
+        <p></p>
+	<div>
+		<table>
+			<thead id="thead">
+            </thead>
+        	<tbody id="tbody">
+       		</tbody> 
+		</table>
+    </div>
+    <div id="paging">
+    	<input type="button" onclick="previousPage()" value="上一页">
+    	<input type="button" onclick="nextPage()" value="下一页">
+    	<br>
+    	当前第<span id="currentPage"></span>页
+    	<br>
+    	总共有<span id="totalPage"></span>页
+    	<br>
+    	<input type="button" onclick="jumpPage()" value="跳转">到第<input type="text" name="jumoPage">页
+    	<br>
+    	当前每页显示<span id="count"></span>条数据
+    </div>
+</body>
+</html>

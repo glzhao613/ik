@@ -17,7 +17,7 @@ public interface NewsService {
 	
 	NewsDeleteExecution deleteCheck(News news) throws RuntimeException;
 	
-	NewsUpdateExecution updateCheck(News news) throws RuntimeException;
+	NewsUpdateExecution updateCheck(News news,CommonsMultipartFile img) throws RuntimeException;
 	
 	NewsQuerExecution querCheck(Map<String,Object> pageMap) throws RuntimeException;
 	

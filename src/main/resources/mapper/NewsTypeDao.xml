@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gz.ik.dao.NewsTypeDao">
+	<select id="querNewsType" resultType="com.gz.ik.entity.NewsType">
+		SELECT *
+		FROM news_type
+		<where>
+			<if test="newsTypeId!=null">
+				AND news_type_id=#{newsTypeId}
+			</if>
+			<if test="newsTypeName!=null">
+				AND news_type_name=#{newsTypeName}
+			</if>
+		</where>
+	</select>
+	
+	<select id="querNewsTypePaging" resultType="com.gz.ik.entity.NewsType">
+		SELECT *
+		FROM news_type
+		LIMIT #{start},#{pageCount}
+	</select>
+	
+	<select id="querAllNewsType" resultType="com.gz.ik.entity.NewsType">
+		SELECT *
+		FROM news_type
+	</select>
+	
+	<select id="querNewsByNewsType" resultType="com.gz.ik.entity.News">
+		SELECT *
+		FROM news
+		WHERE news_type=#{newsTypeId}
+	</select>
+	
+	<update id="updateNewsType" parameterType="com.gz.ik.entity.NewsType">
+		UPDATE news_type
+		SET news_type_name=#{newsTypeName}
+		WHERE news_type_id=#{newsTypeId}
+	</update>
+	
+	<insert id="insertNewsType" useGeneratedKeys="true" keyColumn="news_type_id" keyProperty="newsTypeId">
+		INSERT INTO news_type(news_type_name)
+		VALUES(#{newsTypeName})
+	</insert>
+	
+	<delete id="deleteNewsType">
+		DELETE
+		FROM news_type
+		<where>
+			<if test="newsTypeId">
+				AND news_type_id=#{newsTypeId}
+			</if>
+			<if test="newsTypeName!=null">
+				AND news_type_name=#{newsTypeName}
+			</if>
+		</where>
+	</delete>
+	
+	<delete id="deleteNewsByNewsType">
+		DELETE
+		FROM news
+		WHERE news_type=#{newsTypeId}
+	</delete>
+</mapper>

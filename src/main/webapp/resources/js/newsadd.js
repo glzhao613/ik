@@ -1,5 +1,5 @@
 $(function(){
-	var newsTypeurl = "/ik/newsadm/addnewstype";
+	var newsTypeurl = "/ik/newsadm/quernewstype";
 	var addnewsurl = "/ik/newsadm/addnews";
 	
 	initnewsType();
@@ -39,11 +39,10 @@ $(function(){
 			success : function(data){
 				if(data.success){
 					alert("添加成功！");
-					window.location.href ='/ik/news/addnews';
-					
+					$("#form").attr("action","/ik/news/newspaging");		
 				}else{
 					alert(data.errMsg);
-					window.location.href ='/ik/news/news';
+					window.location.href ="/ik/news/newspaging";
 				}
 			}
 		});

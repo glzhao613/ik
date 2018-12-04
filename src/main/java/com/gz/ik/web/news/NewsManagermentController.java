@@ -20,12 +20,14 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.gz.ik.dto.NewsAddExecution;
 import com.gz.ik.dto.NewsDeleteExecution;
 import com.gz.ik.dto.NewsQuerExecution;
+import com.gz.ik.dto.NewsUpdateExecution;
 import com.gz.ik.entity.Admin;
 import com.gz.ik.entity.News;
 import com.gz.ik.entity.NewsType;
 import com.gz.ik.enums.NewsAddStateEnum;
 import com.gz.ik.enums.NewsDeleteStateEnum;
 import com.gz.ik.enums.NewsQuerStateEnum;
+import com.gz.ik.enums.NewsUpdateStateEnum;
 import com.gz.ik.service.NewsService;
 import com.gz.ik.util.HttpServletRequestUtil;
 
@@ -42,12 +44,16 @@ public class NewsManagermentController {
 		Map<String, Object> newsMap = new HashMap<String, Object>();
 		News news = new News();
 		String newstitle = HttpServletRequestUtil.getString(request, "newstitle");
+		int newsID = HttpServletRequestUtil.getInt(request, "newsid");
+		
 		news.setNewsTitle(newstitle);
+		news.setNewsId(newsID);
+		
 		NewsQuerExecution nqe = newsService.querOneCheck(news);
 		if(nqe.getState() == NewsQuerStateEnum.QUERY_SUCCESS.getState()){
 			newsMap.put("success", 1);
-			// 若查询成功，则加入session中
-			request.getSession().setAttribute("querOneNews", nqe.getNews());
+			// 若查询成功，则加入Map中
+			newsMap.put("querOneNews", nqe.getNews());
 		}
 		else{
 			newsMap.put("success", -1);
@@ -93,7 +99,7 @@ public class NewsManagermentController {
 		return newsPagingMap;
 	}
 	
-	@RequestMapping(value="/addnewstype",method=RequestMethod.GET)
+	@RequestMapping(value="/quernewstype",method=RequestMethod.GET)
 	@ResponseBody
 	private Map<String,Object> addNewsType(HttpServletRequest request){
 		Map<String, Object> addNewsTypeMap = new HashMap<String, Object>();
@@ -156,7 +162,7 @@ public class NewsManagermentController {
 		Map<String, Object> deleteNewsMap = new HashMap<String, Object>();
 		News news = new News();
 		
-		int newsID = HttpServletRequestUtil.getInt(request, "newsID");
+		int newsID = HttpServletRequestUtil.getInt(request, "newsid");
 		news.setNewsId(newsID);
 		
 		NewsDeleteExecution nde = newsService.deleteCheck(news);
@@ -170,5 +176,98 @@ public class NewsManagermentController {
 		return deleteNewsMap;
 	}
 	
+	@RequestMapping(value="/updatenews",method=RequestMethod.POST)
+	@ResponseBody
+	private Map<String,Object> updateNews(HttpServletRequest request){
+		Map<String, Object> updateNewsMap = new HashMap<String, Object>();
+		News news = new News();
+		
+		int newsType = HttpServletRequestUtil.getInt(request, "newstype");
+		String newsTitle = HttpServletRequestUtil.getString(request, "newstitle");
+		String newsArticle = HttpServletRequestUtil.getString(request, "newsarticle");
+		
+		
+		NewsType newsTYpe = new NewsType();
+		newsTYpe.setNewsTypeId(newsType);
+		
+		news.setNewsType(newsTYpe);
+		
+		news.setNewsTitle(newsTitle);
+		news.setNewsArticle(newsArticle);
+		
+		// 图片获取
+		MultipartHttpServletRequest multipartRequest = null;
+		CommonsMultipartFile img = null;
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+		if (multipartResolver.isMultipart(request)) {
+			multipartRequest = (MultipartHttpServletRequest) request;
+			img = (CommonsMultipartFile) multipartRequest.getFile("newsimg");
+		}
+		
+		news.setNewsDate(new Date());
+		
+		int newsID = (int) request.getSession().getAttribute("newsid");
+		news.setNewsId(newsID);
+		
+		News updatenews = (News) request.getSession().getAttribute("updatenews");
+		
+		updateNewsMap.put("updatenews", updatenews);
+		
+/*		Admin admin = (Admin) request.getSession().getAttribute("loginadmin");
+		Admin t_admin = new Admin();
+		Integer adminid = null;
+		if(admin != null){
+			adminid	=	admin.getAdminId();
+		}
+		t_admin.setAdminId(adminid);
+		news.setAdmin(t_admin);*/
+		
+		NewsUpdateExecution nue = newsService.updateCheck(news, img);
+		if(nue.getState()==NewsUpdateStateEnum.UPDATE_SUCCESS.getState()){
+			updateNewsMap.put("success", true);
+			updateNewsMap.put("updatenews", nue.getNews());
+		}else{
+			updateNewsMap.put("success", false);
+			updateNewsMap.put("errMsg",nue.getStateInfo());
+		}
+		
+		return updateNewsMap;
+	}
 	
+	@RequestMapping(value = "/setid", method = RequestMethod.POST)
+	@ResponseBody
+	private Map<String, Object> setByNewsId(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int newsId = HttpServletRequestUtil.getInt(request, "newsid");
+		News t_news = new News();
+		t_news.setNewsId(newsId);
+		if (newsId != -1) {
+			News news = newsService.queryNewsByID(t_news);
+			request.getSession().setAttribute("newsid", newsId);
+			request.getSession().setAttribute("updatenews", news);
+			modelMap.put("success", true);
+		} else {
+			modelMap.put("success", false);
+		}
+		return modelMap;
+
+	}
+	
+	@RequestMapping(value = "/setupdateid", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> setUpdateId(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int newsId = (int) request.getSession().getAttribute("newsid");
+		News t_news = new News();
+		t_news.setNewsId(newsId);
+		if (newsId != -1) {
+			News news = newsService.queryNewsByID(t_news);
+			modelMap.put("updatenews", news);
+			modelMap.put("success", true);
+		} else {
+			modelMap.put("success", false);
+		}
+		return modelMap;
+
+	}
 }

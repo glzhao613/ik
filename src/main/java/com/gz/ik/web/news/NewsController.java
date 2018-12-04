@@ -13,7 +13,7 @@ public class NewsController {
 	}
 	@RequestMapping(value = "/newspaging",method =  RequestMethod.GET)
 	private String getnewspaging(){
-		return "newspaging";
+		return "newsshow";
 	}
 	@RequestMapping(value = "/newsadd",method =  RequestMethod.GET)
 	private String getaddnews(){
@@ -23,6 +23,11 @@ public class NewsController {
 	@RequestMapping(value = "/newsdel",method =  RequestMethod.GET)
 	private String getdeletenews(){
 		return "newsdelete";
+	}
+	
+	@RequestMapping(value = "/newsupdate",method =  RequestMethod.GET)
+	private String getupdatenews(){
+		return "newsupdate";
 	}
 	
 }

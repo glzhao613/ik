@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>修改资讯</title>
+<link rel="stylesheet" href="../resources/css/news.css">
+</head>
+<body>
+<form action="" method="post" class="smart-green">
+    <h1>资讯修改
+        <span>修改资讯信息.</span>
+    </h1>
+    
+        <label>
+    	<span>资讯类型：</span>
+    		<select  id="newsType">
+    		</select>
+    </label>
+    
+    <label>
+        <span>资讯标题 :</span>
+        <input id="newstitle" type="text" name="newsTitle" class="error"/>
+    </label>
+
+    <label>
+        <span>资讯内容 :</span>
+        <textarea id="newsarticle" name="newsarticle"></textarea>
+    </label>
+
+    <label>
+        <span>资讯图片 :</span>
+        <input id="newsImg" type="file"  name="newsImg"/>
+    </label>
+
+    <div class="success-msg"></div>
+    <label>
+        <span>&nbsp;</span>
+        <input type="submit" class="button" value="提交" id="update-btn"/>
+    </label>
+</form>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../resources/js/newsupdate.js"></script>
+</body>
+</html>
