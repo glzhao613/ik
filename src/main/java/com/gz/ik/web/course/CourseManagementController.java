@@ -41,7 +41,7 @@ public class CourseManagementController {
 	private CourseService courseService;
 	
 
-	@RequestMapping(value = "/courselist", method = RequestMethod.POST)
+	@RequestMapping(value = "/courselist", method = {RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
 	private Map<String, Object> getCourseList(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();

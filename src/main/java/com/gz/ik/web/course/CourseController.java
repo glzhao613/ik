@@ -32,4 +32,13 @@ public class CourseController {
 	private String getShowCoursePage() {
 		return "showcourse";
 	}
+	
+	@RequestMapping(value = "/cours", method = RequestMethod.GET)
+	private String getCourseFront() {
+		return "front_html/courses";
+	}
+	@RequestMapping(value = "/dcours", method = RequestMethod.GET)
+	private String getDCourseFront() {
+		return "front_html/detail";
+	}
 }

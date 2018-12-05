@@ -42,5 +42,75 @@ public class UserController {
 	private String getAddUserCoursePage() {
 		return "addusercourse";
 	}
+	
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	private String getmainPage() {
+		return "/manage/main";
+	}
+	
+	@RequestMapping(value = "/nav", method = RequestMethod.GET)
+	private String getnavPage() {
+		return "/manage/nav";
+	}
+	
+	@RequestMapping(value = "/mainuser", method = RequestMethod.GET)
+	private String getmainuserPage() {
+		return "/manage/mainuser";
+	}
+	
+	@RequestMapping(value = "/navuser", method = RequestMethod.GET)
+	private String getnavuserPage() {
+		return "/manage/navuser";
+	}
+	
+	@RequestMapping(value = "/mainnews", method = RequestMethod.GET)
+	private String getmainnewsPage() {
+		return "/manage/mainnews";
+	}
+	
+	@RequestMapping(value = "/navnews", method = RequestMethod.GET)
+	private String getnavnewsPage() {
+		return "/manage/navnews";
+	}
+	
+	@RequestMapping(value = "/mainadmin", method = RequestMethod.GET)
+	private String getmainadminPage() {
+		return "/manage/mainadmin";
+	}
+	
+	@RequestMapping(value = "/navadmin", method = RequestMethod.GET)
+	private String getnavadminPage() {
+		return "/manage/navadmin";
+	}
+	
+	@RequestMapping(value = "/maincourse", method = RequestMethod.GET)
+	private String getmaincoursePage() {
+		return "/manage/maincourse";
+	}
+	
+	@RequestMapping(value = "/navcourse", method = RequestMethod.GET)
+	private String getnavcoursePage() {
+		return "/manage/navcourse";
+	}
+	
+	@RequestMapping(value = "/mainfiles", method = RequestMethod.GET)
+	private String getmainfilesPage() {
+		return "/manage/mainfiles";
+	}
+	
+	@RequestMapping(value = "/navfiles", method = RequestMethod.GET)
+	private String getnavfilesPage() {
+		return "/manage/navfiles";
+	}
+	
+	@RequestMapping(value = "/maincompany", method = RequestMethod.GET)
+	private String getmaincompanyPage() {
+		return "/manage/maincompany";
+	}
+	
+	@RequestMapping(value = "/navcompany", method = RequestMethod.GET)
+	private String getnavcompanyPage() {
+		return "/manage/navcompany";
+	}
 
 }

@@ -3,9 +3,7 @@ package com.gz.ik.dto;
 import java.util.List;
 
 import com.gz.ik.entity.Comments;
-import com.gz.ik.entity.User;
 import com.gz.ik.enums.CommentsStateEnum;
-import com.gz.ik.enums.UserStateEnum;
 
 public class CommentsExecution {
 	

@@ -39,6 +39,7 @@ $(function() {
 			success : function(data) {
 				if (data.success) {
 					alert("添加成功");
+					window.location.href = "/ik/user/showuser";
 				} else {
 					alert(data.errMsg);
 					window.location.href = "/ik/user/adduser";
