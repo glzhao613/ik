@@ -4,13 +4,14 @@ $(function(){
 	initUpdateNews();
 	
 	$('#update-btn').click(function() {
-		var newstypename = $('input[name=newstypename]').val();
+		newstypename = $('input[name=newstypename]').val();
 		var formData = new FormData();
 		formData.append('newstypename', newstypename);
 		
 		$.ajax({
 			async : false,
 			cache : false,
+			contentType : false,
 			processData : false,
 			type : 'post',
 			dataType : 'json',
@@ -19,10 +20,10 @@ $(function(){
 			success : function(data){
 				if(data.success){
 					alert("修改成功！");
-					window.location.href = "/ik/newstype/newstypeman";
+					window.location.href = "/ik/newstype/newstypeupdate";
 				}else{
 					alert(data.errMsg);
-					window.location.href = "/ik/newstype/newstypeman";
+					window.location.href = "/ik/newstype/newstypeupdate";
 				}
 			}	
 		});	

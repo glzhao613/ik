@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gz.ik.dao.CompanyDao">
+	<select id="querCompany" resultType="com.gz.ik.entity.Company">
+		SELECT *
+		FROM company
+		<where>
+			<if test="companyId!=null">
+				AND company_id=#{companyId}
+			</if>
+			<if test="companyName!=null">
+				OR company_name=#{companyName}
+			</if>
+		</where>
+	</select>
+	
+	<select id="querAllCompany" resultType="com.gz.ik.entity.Company">
+		SELECT *
+		FROM company
+	</select>
+	
+	<select id="querCompanyPaging" resultType="com.gz.ik.entity.Company">
+		SELECT *
+		FROM company
+		LIMIT #{start},#{pageCount}
+	</select>
+	
+	<insert id="insertCompany" useGeneratedKeys="true" keyColumn="company_id" keyProperty="companyId">
+		INSERT INTO company(company_img,company_name,company_tel,company_email,company_address,company_des)
+		VALUES(#{companyImg.companyImgId},#{companyName},#{companyTel},#{companyEmail},#{companyAddress},#{companyDes})
+	</insert>
+	
+	<update id="updateCompany" parameterType="com.gz.ik.entity.Company">
+		UPDATE company
+		<set>
+			<if test="companyImg.companyImgId!=null">company_img=#{companyImg.companyImgId},</if>
+			<if test="companyName!=null">company_name=#{companyName},</if>
+			<if test="companyTel!=null">company_tel=#{companyTel},</if>
+			<if test="companyEmail!=null">company_email=#{companyEmail},</if>
+			<if test="companyAddress!=null">company_address=#{companyAddress},</if>
+			<if test="companyDes!=null">company_des=#{companyDes}</if>
+		</set>
+		WHERE company_id=#{companyId}
+	</update>
+	
+	<delete id="deleteCompany">
+		DELETE 
+		FROM company
+		WHERE company_id=#{companyId}
+	</delete>
+</mapper>

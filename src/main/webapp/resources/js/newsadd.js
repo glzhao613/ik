@@ -39,10 +39,10 @@ $(function(){
 			success : function(data){
 				if(data.success){
 					alert("添加成功！");
-					$("#form").attr("action","/ik/news/newspaging");		
+					window.location.href ="/ik/news/newsadd";
 				}else{
 					alert(data.errMsg);
-					window.location.href ="/ik/news/newspaging";
+					window.location.href ="/ik/news/newsadd";
 				}
 			}
 		});

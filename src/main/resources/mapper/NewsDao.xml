@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="newsType.newsTypeId!=null">news_type=#{newsType.newsTypeId},</if>
 			<if test="newsTitle!=null">news_title=#{newsTitle},</if>
 			<if test="newsArticle!=null">news_article=#{newsArticle},</if>
-			<if test="newsImg!=null">news_img=#{newsImg,}</if>
+			<if test="newsImg!=null">news_img=#{newsImg}</if>
 		</set>
 		WHERE news_id=#{newsId}
 	</update>

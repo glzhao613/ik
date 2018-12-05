@@ -8,8 +8,7 @@ $(function(){
 		newstype = $('#newsType option:selected').val();
 		newstitle = $('input[name=newsTitle]').val();
 		newsarticle = $('#newsarticle').val()
-		alert(newsarticle);
-		var newsimg = $('input[name=newsImg]')[0].files[0];
+		newsimg = $('input[name=newsImg]')[0].files[0];
 		var formData = new FormData();
 		formData.append('newstype', newstype);
 		formData.append('newstitle',newstitle);
@@ -28,10 +27,10 @@ $(function(){
 			success : function(data){
 				if(data.success){
 					alert("修改成功！");
-					window.location.href = "/ik/news/newspaging";
+					window.location.href = "/ik/news/newsupdate";
 				}else{
 					alert(data.errMsg);
-					window.location.href = "/ik/news/newspaging";
+					window.location.href = "/ik/news/newsupdate";
 				}
 			}
 		});

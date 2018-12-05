@@ -3,7 +3,6 @@ $(function(){
 	
 	$('#add-btn').click(function(){
 		var newstypename = $('input[name=newstypename]').val();
-		alert(newstypename);
 		var formData = new FormData();
 		formData.append('newstypename',newstypename);
 		
@@ -19,10 +18,10 @@ $(function(){
 			success : function(data){
 				if(data.success){
 					alert("添加成功！");
-					window.location.href ="/ik/newstype/newstypeman";
+					window.location.href ="/ik/newstype/newstypeadd";
 				}else{
 					alert(data.errMsg);
-					window.location.href ="/ik/newstype/newstypeman";
+					window.location.href ="/ik/newstype/newstypeadd";
 				}
 			}
 		});

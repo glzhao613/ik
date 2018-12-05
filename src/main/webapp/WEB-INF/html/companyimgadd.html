@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>添加公司图片</title>
+<link rel="stylesheet" href="../resources/css/style.css">
+</head>
+<body class="smart-green">
+	<h1>公司图片编辑
+        <span>添加公司图片.</span><a href="/ik/companyimg/companyimgman">返回公司图片管理页面</a>
+    </h1>
+    
+     <label>
+        <span>图片描述 :</span>
+        <input id="companyimgdes" type="text" name="companyimgdes" class="error" placeholder="请输入图片描述"/>
+    </label>
+    
+    <label>
+        <span>公司图片 :</span>
+        <input id="companyimg" type="file"  name="companyimg"/>
+    </label>
+    
+    <div class="success-msg"></div>
+    <label>
+        <span>&nbsp;</span>
+        <input type="button" class="button" value="提交" id="add-btn"/>
+    </label>
+    
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../resources/js/companyimgadd.js"></script>
+	<script type="text/javascript" src="../resources/js/common/commonutil.js"></script>
+</body>
+</html>

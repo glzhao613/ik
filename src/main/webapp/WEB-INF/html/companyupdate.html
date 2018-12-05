@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>更新公司信息</title>
+<link rel="stylesheet" href="../resources/css/style.css">
+</head>
+<body class="smart-green">
+	<h1>公司信息编辑
+        <span>更新公司信息.</span><a href="/ik/company/companyman">返回公司信息管理页面</a>
+    </h1>
+    
+    <label>
+        <span>公司图片 :</span>
+        <select  id="companyimg"></select>
+    </label>
+    
+    <label>
+        <span>公司名字 :</span>
+        <input id="companyname" type="text" name="companyname" class="error" placeholder="请输入公司名字"/>
+    </label>
+    
+    <label>
+        <span>公司电话 :</span>
+        <input id="companytel" type="text" name="companytel" class="error" placeholder="请输入公司电话"/>
+    </label>
+    
+    <label>
+        <span>公司邮箱 :</span>
+        <input id="companyemail" type="text" name="companyemail" class="error" placeholder="请输入公司邮箱"/>
+    </label>
+    
+    <label>
+        <span>公司地址 :</span>
+        <input id="companyaddress" type="text" name="companyaddress" class="error" placeholder="请输入公司地址"/>
+    </label>
+    
+    <label>
+        <span>公司信息 :</span>
+        <input id="companydes" type="text" name="companydes" class="error" placeholder="请输入公司信息"/>
+    </label>
+    
+    <div class="success-msg"></div>
+    <label>
+        <span>&nbsp;</span>
+        <input type="button" class="button" value="提交" id="update-btn"/>
+    </label>
+
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../resources/js/companyupdate.js"></script>
+</body>
+</html>

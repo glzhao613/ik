@@ -45,7 +45,6 @@ public class NewsServiceImpl implements NewsService {
 				if(img != null){
 					addNewsImg(news,img);
 				}
-				System.out.println(news.getNewsImg());
 				count = newsDao.insertNews(news);
 				if(count > 0){
 					return new NewsAddExecution(NewsAddStateEnum.ADD_SUCCESS);
@@ -68,6 +67,9 @@ public class NewsServiceImpl implements NewsService {
 				return new NewsDeleteExecution(NewsDeleteStateEnum.ERROR_NOTEXIST);
 			}
 			else{
+				if(t_news.getNewsImg() != null){
+					FileUtil.deleteFile(t_news.getNewsImg());
+				}
 				boolean index = newsDao.deleteNews(news);
 				if(index){
 					return new NewsDeleteExecution(NewsDeleteStateEnum.DELETE_SUCCESS);
