@@ -30,4 +30,13 @@ public class NewsController {
 		return "newsupdate";
 	}
 	
+	@RequestMapping(value = "/news",method =  RequestMethod.GET)
+	private String getFrontNews(){
+		return "front_html/news";
+	}
+
+	@RequestMapping(value = "/dnews",method =  RequestMethod.GET)
+	private String getDFrontNews(){
+		return "front_html/news_detail";
+	}
 }

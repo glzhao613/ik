@@ -27,4 +27,9 @@ public class ContactsController {
 	private String getShowPage() {
 		return "showcontacts";
 	}
+	
+	@RequestMapping(value = "/contact", method = RequestMethod.GET)
+	private String getShowFront() {
+		return "front_html/contact";
+	}
 }

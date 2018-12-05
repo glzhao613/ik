@@ -32,4 +32,13 @@ public class TeacherController {
 	private String getShowTeacherPage() {
 		return "showteacher";
 	}
+	
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	private String getDFrontTeaher() {
+		return "front_html/detail";
+	}
+	@RequestMapping(value = "/teacher", method = RequestMethod.GET)
+	private String getFrontTeaher() {
+		return "front_html/teacher";
+	}
 }
