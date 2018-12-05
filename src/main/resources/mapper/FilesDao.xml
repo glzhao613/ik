@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gz.ik.dao.FilesDao">
+
+	<select id="queryFiles" parameterType="com.gz.ik.entity.Files"
+		resultMap="filesMap">
+		SELECT
+		f.file_id,f.file_name,f.file_path,c.course_id,c.course_name,t.file_type_id,t.file_type_name
+		FROM files f LEFT JOIN course c ON f.file_course=c.course_id LEFT JOIN
+		file_type t ON f.file_type=t.file_type_id
+		<where>
+			<if test="fileId!=null">AND file_id=#{fileId}</if>
+			<if test="fileCourse!=null and fileCourse.courseId!=null">AND file_course=#{fileCourse.courseId}</if>
+			<if test="fileType!=null and fileType.fileTypeId!=null">AND file_type=#{fileType.fileTypeId}</if>
+		</where>
+	</select>
+
+	<delete id="delFiles" parameterType="com.gz.ik.entity.Files">
+		DELETE
+		FROM files
+		<where>
+			<if test="fileId!=null">AND file_id=#{fileId}</if>
+			<if test="fileCourse!=null and fileCourse.courseId!=null">AND file_course=#{fileCourse.courseId}</if>
+			<if test="fileType!=null and fileType.fileTypeId!=null">AND file_type=#{fileType.fileTypeId}</if>
+		</where>
+	</delete>
+
+
+	<resultMap id="filesMap" type="com.gz.ik.entity.Files">
+		<id column="file_id" property="fileId" />
+		<result column="file_name" property="fileName" />
+		<result column="file_path" property="filePath" />
+		<association property="fileCourse" column="file_course"
+			javaType="com.gz.ik.entity.Course">
+			<id column="course_id" property="courseId" />
+			<result column="course_name" property="courseName" />
+		</association>
+		<association property="fileType" column="file_type"
+			javaType="com.gz.ik.entity.FileType">
+			<id column="file_type_id" property="fileTypeId" />
+			<result column="file_type_name" property="fileTypeName" />
+		</association>
+	</resultMap>
+	<select id="queryFilesList"
+		parameterType="com.gz.ik.entity.Files" resultMap="filesMap">
+		SELECT
+		f.file_id,f.file_name,f.file_path,c.course_id,c.course_name,t.file_type_id,t.file_type_name
+		FROM files f LEFT JOIN course c ON f.file_course=c.course_id LEFT JOIN
+		file_type t ON f.file_type=t.file_type_id
+		<where>
+			<if test="files.fileId!=null">AND file_id=#{files.fileId}</if>
+			<if
+				test="files.fileCourse!=null and files.fileCourse.courseId!=null">AND file_course=#{files.fileCourse.courseId}</if>
+			<if
+				test="files.fileType!=null and files.fileType.fileTypeId!=null">AND file_type=#{files.fileType.fileTypeId}</if>
+		</where>
+		ORDER BY
+		file_id
+		LIMIT #{rowIndex},#{pageSize}
+	</select>
+
+
+	<insert id="insertFiles" parameterType="com.gz.ik.entity.Files"
+		useGeneratedKeys="true" keyProperty="fileId" keyColumn="file_id">
+		INSERT
+		INTO
+		files(file_name,file_path,file_course,file_type)
+		VALUES
+		(#{fileName},#{filePath},#{fileCourse.courseId},#{fileType.fileTypeId})
+	</insert>
+
+	<update id="updateFiles"
+		parameterType="com.gz.ik.entity.Files">
+		UPDATE
+		files
+		<set>
+			<if test="fileCourse!=null and fileCourse.courseId!=null">file_course=#{fileCourse.courseId},</if>
+			<if test="fileType!=null and fileType.fileTypeId!=null">file_type=#{fileType.fileTypeId},</if>
+			<if test="fileName!=null">file_name=#{fileName},</if>
+			<if test="filePath!=null">file_path=#{filePath},</if>
+		</set>
+		WHERE file_id=#{fileId}
+	</update>
+
+
+</mapper>

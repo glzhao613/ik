@@ -23,8 +23,7 @@ $(function() {
 
 	}
 
-	$("#login-btn").click(function() {
-
+	$("#insert-btn").click(function() {
 		$.ajax({
 			async : false,
 			cache : false,

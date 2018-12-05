@@ -4,9 +4,9 @@
 $(function() {
 	var updatainfourl = '/ik/useradmin/userupdatainfo';
 	$('#btn').click(function() {
-		userName = $('#name').val();
-		userTel = $('#tel').val();
-		userDes = $('#des').val();
+		var userName = $('#name').val();
+		var userTel = $('#tel').val();
+		var userDes = $('#des').val();
 		var uImg = $("#uimg")[0].files[0];
 		var formData = new FormData();
 		formData.append('uImg', uImg);
