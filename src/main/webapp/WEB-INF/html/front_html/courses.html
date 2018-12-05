@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>培训课程</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">	
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<meta name="keywords" content="Bootstrap Responsive Templates, Iphone Compatible Templates, Smartphone Compatible Templates, Ipad Compatible Templates, Flat Responsive Templates"/>
+<link href="../resources/css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="../resources/css/front_style.css" rel='stylesheet' type='text/css' />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<script src="../resources/js/front_js/jquery.min.js"></script> 
+<script src="../resources/js/front_js/right.js"></script> 
+<!---- start-smoth-scrolling---->
+<script type="text/javascript" src="../resources/js/front_js/move-top.js"></script>
+<script type="text/javascript" src="../resources/js/front_js/easing.js"></script>
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+				});
+			});
+		</script>
+
+<!---- start-smoth-scrolling---->
+<script type="text/javascript" src="../resources/js/front_js/jquery.mixitup.min.js"></script>
+<script type="text/javascript">
+$(function () {
+	
+	var filterList = {
+	
+		init: function () {
+		
+			// MixItUp plugin
+			// http://mixitup.io
+			$('#portfoliolist').mixitup({
+				targetSelector: '.portfolio',
+				filterSelector: '.filter',
+				effects: ['fade'],
+				easing: 'snap',
+				// call the hover effect
+				onMixEnd: filterList.hoverEffect()
+			});				
+		
+		},
+		
+		hoverEffect: function () {
+		
+			// Simple parallax effect
+			$('#portfoliolist .portfolio').hover(
+				function () {
+					$(this).find('.label').stop().animate({bottom: 0}, 200, 'easeOutQuad');
+					$(this).find('img').stop().animate({top: -30}, 500, 'easeOutQuad');				
+				},
+				function () {
+					$(this).find('.label').stop().animate({bottom: -40}, 200, 'easeInQuad');
+					$(this).find('img').stop().animate({top: 0}, 300, 'easeOutQuad');								
+				}		
+			);				
+		
+		}
+
+	};
+	
+	// Run the show!
+	filterList.init();
+	
+	
+});	
+</script>
+</head>
+<body>
+	<div class="banner1" id="home">
+		<div class="container">
+			<div class="header">
+				<div class="menu">
+                                     <a class="toggleMenu" href="#"><img src="../resources/images/menu-icon.png" alt="" /> </a>
+					<ul class="nav" id="nav">
+					<li><a href="../index.html">首页</a></li>
+					<li><a href="center.html">中心简介</a></li>
+					<li><a href="../news/news.html">新闻资讯</a></li>
+					<li><a href="source.html">教学资源</a></li>
+					<li class="active"><a href="cours.html" class="active">培训课程</a></li>
+					<li><a href="../contacts/contact.html">联系我们</a></li>
+					</ul>
+                                  <!----start-top-nav-script---->
+		                      <script type="text/javascript" src="js/responsive-nav.js"></script>
+					<script type="text/javascript">
+					jQuery(document).ready(function($) {
+						$(".scroll").click(function(event){		
+							event.preventDefault();
+							$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+						});
+					});
+					</script>
+		<!----//End-top-nav-script---->
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- Portfolio Starts Here -->
+	<div class="portfolios" id="portfolio">
+		<div class="container">
+			<h3 class="top-head w_hd">课程</h3>
+			<span class="line w_l_1">
+				<span class="sub-line w_l_1"></span>
+			</span>
+			<ul id="filters" class="clearfix">
+						<li><span class="filter active" data-filter="app card icon logo web">所有</span></li>
+						<li><span class="filter" data-filter="app">分类 app</span></li>
+						<li><span class="filter" data-filter="card">分类 card</span></li>
+						<li><span class="filter" data-filter="icon">分类 icon</span></li>
+						<li><span class="filter" data-filter="logos">分类 logos</span></li>
+					</ul>
+					<div id="portfoliolist">
+					<div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="../course/dcours.html" class="b-link-stripe b-animate-go  thickbox">
+						    <div class="port-1">
+						    	<h5>app</h5>
+						    	<p>which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.Eum cu tantas legere complectitur, hinc utamur ea eam.</p>
+						    	<div class="port-bttn">
+						    		<a href="../course/dcours.html">阅读更多</a>
+						    	</div>
+						    </div>
+						     <div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "></h2>
+						  		</div></a>
+		                </div>
+					</div>				
+					<div class="portfolio icon mix_all" data-cat="icon" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="../course/dcours.html" class="b-link-stripe b-animate-go  thickbox">
+						     <div class="port-1">
+						    	<h5>icon</h5>
+						    	<p>which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.Eum cu tantas legere complectitur, hinc utamur ea eam.</p>
+						    	<div class="port-bttn">
+						    		<a href="../course/dcours.html">阅读更多</a>
+						    	</div>
+						    </div>
+						     <div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "></h2>
+						  	 </div></a>
+		                </div>
+					</div>		
+					<div class="portfolio card mix_all" data-cat="card" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="../course/dcours.html" class="b-link-stripe b-animate-go  thickbox">
+						    <div class="port-1">
+						    	<h5>card</h5>
+						    	<p>which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.Eum cu tantas legere complectitur, hinc utamur ea eam.</p>
+						    	<div class="port-bttn">
+						    		<a href="../course/dcours.html">阅读更多</a>
+						    	</div>
+						    </div>
+						     <div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "></h2>
+						  	 </div></a>
+		                </div>
+					</div>				
+					<div class="portfolio logos mix_all" data-cat="logo" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="../course/dcours.html" class="b-link-stripe b-animate-go  thickbox">
+						     <div class="port-1">
+						    	<h5>logo</h5>
+						    	<p>which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.Eum cu tantas legere complectitur, hinc utamur ea eam.</p>
+						    	<div class="port-bttn">
+						    		<a href="../course/dcours.html">阅读更多</a>
+						    	</div>
+						    </div>
+						     <div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "></h2>
+						  	 </div></a>
+		                </div>
+					</div>	
+					<div class="portfolio card mix_all" data-cat="card" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="../course/dcours.html" class="b-link-stripe b-animate-go  thickbox">
+						     <div class="port-1">
+						    	<h5>card</h5>
+						    	<p>which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.Eum cu tantas legere complectitur, hinc utamur ea eam.</p>
+						    	<div class="port-bttn">
+						    		<a href="../course/dcours.html">阅读更多</a>
+						    	</div>
+						    </div>
+						     <div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "></h2>
+						  	 </div></a>
+		                </div>
+					</div>			
+					<div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="../course/dcours.html" class="b-link-stripe b-animate-go  thickbox">
+						     <div class="port-1">
+						    	<h5>app</h5>
+						    	<p>which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.Eum cu tantas legere complectitur, hinc utamur ea eam.</p>
+						    	<div class="port-bttn">
+						    		<a href="../course/dcours.html">阅读更多</a>
+						    	</div>
+						    </div>
+						     <div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "></h2>
+						  	 </div></a>
+		                </div>
+					</div>	
+					<div class="portfolio logos mix_all" data-cat="app" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="../course/dcours.html" class="b-link-stripe b-animate-go  thickbox">
+						     <div class="port-1">
+						    	<h5>app</h5>
+						    	<p>which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.Eum cu tantas legere complectitur, hinc utamur ea eam.</p>
+						    	<div class="port-bttn">
+						    		<a href="../course/dcours.html">阅读更多</a>
+						    	</div>
+						    </div>
+						     <div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "></h2>
+						  	 </div></a>
+		                </div>
+					</div>
+					<div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="../course/dcours.html" class="b-link-stripe b-animate-go  thickbox">
+						     <div class="port-1">
+						    	<h5>app</h5>
+						    	<p>which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.Eum cu tantas legere complectitur, hinc utamur ea eam.</p>
+						    	<div class="port-bttn">
+						    		<a href="../course/dcours.html">阅读更多</a>
+						    	</div>
+						    </div>
+						     <div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "></h2>
+						  	 </div></a>
+		                </div>
+					</div>
+					<div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a href="../course/dcours.html" class="b-link-stripe b-animate-go  thickbox">
+						     <div class="port-1">
+						    	<h5>app</h5>
+						    	<p>which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.Eum cu tantas legere complectitur, hinc utamur ea eam.</p>
+						    	<div class="port-bttn">
+						    		<a href="../course/dcours.html">阅读更多</a>
+						    	</div>
+						    </div>
+						     <div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "></h2>
+						  	 </div></a>
+		                </div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+		</div>
+	</div>
+	<!-- Portfolio Ends Here -->
+	<!--start-footer-->
+	<div class="foot">
+		<div class="foot1">
+			<p>本站发布的视频与图片仅为个人学习使用，不得用于任何商业用途，否则后果自负，请支持购买正版软件！如侵犯到您的权益,请及时通知我们,我们会及时处理。</p>
+			<p>报名地址:贵州省贵阳市花溪区贵州大学10栋502室 &nbsp&nbsp&nbsp培训地址：贵州省贵阳市花溪区贵州大学7栋628室</p>
+			<p>报名电话：13984842424 &nbsp&nbsp&nbsp邮箱：2962626094@qq.com</p>
+		</div>
+	</div>
+	<!--end-footer-->
+</body>
+</html>
