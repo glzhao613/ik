@@ -22,9 +22,9 @@ public class FilesController {
 	private String getUpdateFilesPage() {
 		return "updatefiles";
 	}
-	
-	@RequestMapping(value = "/source", method = RequestMethod.GET)
-	private String getSourcePage() {
+
+	@RequestMapping(value = "/sfiles", method = RequestMethod.GET)
+	private String getDSourcefiles() {
 		return "front_html/source";
 	}
 }

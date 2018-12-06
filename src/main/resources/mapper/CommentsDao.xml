@@ -12,6 +12,8 @@
 			javaType="com.gz.ik.entity.User">
 			<id column="user_id" property="userId" />
 			<result column="user_account" property="userAccount" />
+			<result column="user_name" property="userName" />
+			<result column="user_img" property="userImg" />
 		</association>
 		<association property="commentCourse"
 			column="comment_course" javaType="com.gz.ik.entity.Course">
@@ -23,7 +25,7 @@
 	<select id="queryCommentsList"
 		parameterType="com.gz.ik.entity.Comments" resultMap="commentsMap">
 		SELECT
-		cm.comment_id,cm.comment_article,cm.comment_date,u.user_id,u.user_account,c.course_id,c.course_name
+		cm.comment_id,cm.comment_article,cm.comment_date,u.user_id,u.user_account,u.user_name,u.user_img,c.course_id,c.course_name
 		FROM comments cm LEFT JOIN user u ON cm.comment_user=u.user_id LEFT
 		JOIN course c ON cm.comment_course=c.course_id
 		<where>
