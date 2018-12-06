@@ -10,7 +10,7 @@ import com.gz.ik.entity.Teacher;
 
 public interface TeacherService {
 	
-	TeacherExecution getTeacherList() throws RuntimeException;
+	TeacherExecution getTeacherList(Teacher teacher) throws RuntimeException;
 	
 	TeacherExecution getTeacher(Teacher teacher) throws RuntimeException;
 	

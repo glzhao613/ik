@@ -24,5 +24,11 @@ public interface CourseService {
 	CourseExecution updateCourse(Course course,CommonsMultipartFile img) throws RuntimeException;
 	
 	CourseExecution showCourseList(Course course,int pageIndex, int pageSize) throws RuntimeException;
+	
+	CourseExecution showCourse(Course course,int pageIndex, int pageSize) throws RuntimeException;
+	
+	CourseExecution querCourseList(Course course) throws RuntimeException;
+	
+	CourseExecution frontCourseList(Course course) throws RuntimeException;
 
 }

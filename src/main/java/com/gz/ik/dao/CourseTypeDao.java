@@ -11,9 +11,11 @@ public interface CourseTypeDao {
 	
 	List<CourseType> queryCourseTypelist(CourseType courseType);
 	
-	CourseType queryCourseType(String courseTypeName);
-	
+	CourseType queryCourseType(CourseType courseType);
+	/*后端分页*/
 	List<CourseType> queryCourseTypeList(@Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
+	/*前端分页*/
+	List<CourseType> getCourseTypeList(@Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
 	
 	int queryCourseTypeCount();
 	

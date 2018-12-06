@@ -17,6 +17,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.gz.ik.dto.CourseExecution;
 import com.gz.ik.dto.TeacherExecution;
+import com.gz.ik.entity.Module;
 import com.gz.ik.entity.Teacher;
 import com.gz.ik.enums.CourseStateEnum;
 import com.gz.ik.enums.TeacherStateEnum;
@@ -36,9 +37,14 @@ public class TeacherManagementController {
 	@ResponseBody
 	private Map<String, Object> getTeacherList(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		TeacherExecution ce=teacherService.getTeacherList();
+		Teacher teacher=new Teacher();
+		if (request.getSession().getAttribute("byteacherid") != null) {
+			teacher.setTeacherId((int)request.getSession().getAttribute("byteacherid"));
+		}
+				
+		TeacherExecution ce=teacherService.getTeacherList(teacher);
 		if(ce.getState() == TeacherStateEnum.QUERY_SECCESS.getState()) {
-			List<Teacher> teacherlist=ce.getTeacherList();
+			Teacher teacherlist=ce.getTeacher();
 			modelMap.put("success", true);
 			modelMap.put("teacherlist", teacherlist);
 			
@@ -149,7 +155,7 @@ public class TeacherManagementController {
 		if ((pageIndex > -1) && (pageSize > -1)) {
 			TeacherExecution ce = teacherService.showTeacherList(pageIndex, pageSize);
 			if (ce.getState() == TeacherStateEnum.GET_SECCESS.getState()) {
-				modelMap.put("courseList", ce.getTeacherList());
+				modelMap.put("teacherList", ce.getTeacherList());
 				modelMap.put("count", (ce.getCount() - 1) / pageSize + 1);
 				modelMap.put("success", true);
 			} else {

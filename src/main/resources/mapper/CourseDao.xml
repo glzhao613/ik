@@ -66,6 +66,15 @@
 		LIMIT #{rowIndex},#{pageSize}
 	</select>
 	
+	<select id="getCourseList" resultType="com.gz.ik.entity.Course" >
+		SELECT course_name,course_des
+		FROM course
+		WHERE course_type=#{course.courseType.courseTypeId}
+		ORDER BY
+		course_id
+		LIMIT #{rowIndex},#{pageSize}
+	</select>
+	
 	<select id="queryCourseCount" resultType="int">
 		SELECT COUNT(*)
 		FROM course
@@ -100,5 +109,22 @@
 		</set>
 		where course_id=#{courseId}
 	</update>
+	
+	<select id="frontCourseList" resultType="com.gz.ik.entity.Course" resultMap="CourseMap">
+		SELECT co.course_name,co.course_des,co.course_price,co.course_img,co.course_hour,cty.course_type_name,ct.teacher_name
+		FROM course co LEFT JOIN course_type cty ON co.course_type=cty.course_type_id LEFT
+		JOIN teacher ct ON co.course_teacher=ct.teacher_id
+		<where>
+			<if test="course.courseId!=null">AND co.course_id=#{course.courseId}</if>
+			<if test="course.courseType!=null">
+				<if test="course.courseType.courseTypeId!=null">AND co.course_type=#{course.courseType.courseTypeId}</if>
+			</if>
+			<if test="course.courseTeacher!=null">
+				<if test="course.courseTeacher.teacherId!=null">AND co.course_teacher=#{course.courseTeacher.teacherId}</if>
+			</if>
+		</where>
+		ORDER BY
+		course_id
+	</select>
 
 </mapper>

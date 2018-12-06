@@ -37,28 +37,26 @@ public class AdminManagementController {
 		Admin admin=new Admin();
 		String adminAct = HttpServletRequestUtil.getString(request, "adminaccount");
 		String adminPwd = HttpServletRequestUtil.getString(request, "adminpwd");
+		if (request.getSession().getAttribute("bymoduleid") != null) {
+			Module module=new Module();
+			module.setModuleId((int)request.getSession().getAttribute("bymoduleid"));
+			admin.setAdminModule(module);
+		}
 		if (adminAct != null && adminPwd != null) {
 			admin.setAdminAccount(adminAct);
 			admin.setAdminPwd(adminPwd);
 			AdminExecution ad = adminService.loginCheck(admin);
 			if (ad.getState() == AdminStateEnum.PASS.getState()) {
-				modelMap.put("success", 1);
+				modelMap.put("success", true);
 				// 若密码验证通过，则加入session中
-				request.getSession().setAttribute("loginadmin", ad.getAdmin());
-
+				modelMap.put("loginadmin", ad.getAdmin().getAdminModule().getModuleManageUrl());
 			} 
-			else if(ad.getState()==AdminStateEnum.PASS_SUPER.getState()) {
-				modelMap.put("success",0);
-				request.getSession().setAttribute("loginsuperadmin", ad.getAdmin());
-			}
-			
 			else {
-				modelMap.put("success", -1);
+				modelMap.put("success", false);
 				modelMap.put("errMsg", ad.getStateInfo());
 			}
-
 		}else {
-			modelMap.put("success", -2);
+			modelMap.put("success", false);
 			modelMap.put("errMsg", "请输入信息");
 		}
 
@@ -167,7 +165,7 @@ public class AdminManagementController {
 		Admin admin=new Admin();
 		if (request.getSession().getAttribute("bymoduleid") != null) {
 			Module module=new Module();
-			module.setModuleId((int)request.getSession().getAttribute("bycourseid"));
+			module.setModuleId((int)request.getSession().getAttribute("bymoduleid"));
 			admin.setAdminModule(module);
 		}
 		if ((pageIndex > -1) && (pageSize > -1)) {

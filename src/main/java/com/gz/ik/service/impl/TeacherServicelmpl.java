@@ -27,9 +27,9 @@ public class TeacherServicelmpl implements TeacherService {
 	TeacherDao teacherDao;
 
 	@Override
-	public TeacherExecution getTeacherList() throws RuntimeException {
-		List<Teacher> teacherList=teacherDao.queryteacherlist(new Teacher());
-		if(teacherList==null||teacherList.size()<=0) {
+	public TeacherExecution getTeacherList(Teacher teacher) throws RuntimeException {
+		Teacher teacherList=teacherDao.queryteacherlist(teacher);
+		if(teacherList==null||teacherList==null) {
 			return new TeacherExecution(TeacherStateEnum.QUERY_NULL);
 		}else {
 			return new TeacherExecution(TeacherStateEnum.QUERY_SECCESS,teacherList);	

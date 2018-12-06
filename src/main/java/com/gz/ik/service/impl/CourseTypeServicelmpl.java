@@ -39,7 +39,7 @@ public class CourseTypeServicelmpl implements CourseTypeService {
 			return new CourseTypeExecution(CourseTypeStateEnum.INPUT_NULL);
 		}
 		else {
-			q_courseType=courseTypeDao.queryCourseType(courseType.getCourseTypeName());
+			q_courseType=courseTypeDao.queryCourseType(courseType);
 			if(q_courseType!=null) {
 				return new CourseTypeExecution(CourseTypeStateEnum.QUERY_PASS,q_courseType);
 			}
@@ -56,7 +56,7 @@ public class CourseTypeServicelmpl implements CourseTypeService {
 			return new CourseTypeExecution(CourseTypeStateEnum.INPUT_NULL);
 		}
 		else {
-			i_courseType=courseTypeDao.queryCourseType(courseType.getCourseTypeName());
+			i_courseType=courseTypeDao.queryCourseType(courseType);
 			if(i_courseType==null) {
 				int count=0;
 				count=courseTypeDao.insertCourseType(courseType);

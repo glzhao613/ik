@@ -10,6 +10,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE contact_id=#{contactId}
 	</select>
 	
+	<select id="quercontactsTel" resultType="com.gz.ik.entity.Contacts">
+		SELECT contact_id,contact_tel,contact_name,contact_email,contact_article
+		FROM contacts
+		WHERE contact_tel=#{contactTel}
+	</select>
+	
 	<select id="queryContactsList" resultType="com.gz.ik.entity.Contacts">
 		SELECT *
 		FROM contacts
@@ -24,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insertcontacts" useGeneratedKeys="true" keyColumn="contact_id" keyProperty="contactId">
-		INSER INTO contacts(
+		INSERT INTO contacts(
 		contact_tel,contact_name,contact_email,contact_article
 		)
 		VALUES(

@@ -13,8 +13,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			javaType="com.gz.ik.entity.Module">
 			<id column="module_id" property="moduleId" />
 			<result column="module_name" property="moduleName" />
+			<result column="module_manage_url" property="moduleManageUrl"/>
 		</association>
 	</resultMap>
+	
+	<select id="querAdminModuleUrl" resultMap="adminMap">
+		SELECT mo.module_manage_url
+		FROM admin ad LEFT JOIN module mo ON ad.admin_module=mo.module_id
+		<where>
+			<if test="admin.adminAccount!=null">AND ad.admin_account=#{admin.adminAccount}</if>
+			<if test="admin.adminModule!=null">
+				<if test="admin.adminModule.moduleId!=null">AND ad.admin_module=#
+				{admin.adminModule.moduleId}</if>
+			</if>
+		</where>
+	</select>
+	
 		
 	<select id="queryAdminList" resultType="com.gz.ik.entity.Admin" resultMap="adminMap">
 		SELECT ad.admin_id,ad.admin_account,ad.admin_type,ad.admin_name,mo.module_name

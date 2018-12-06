@@ -79,7 +79,6 @@ public class CourseTypeManagementController {
 		CourseType courseType=new CourseType();
 		String courseTypeName=HttpServletRequestUtil.getString(request, "coursetypename");
 		courseType.setCourseTypeName(courseTypeName);
-		
 		CourseTypeExecution ce=courseTypeService.updateCourseType(courseType);
 		if(ce.getState() == CourseTypeStateEnum.UPDATE_PASS.getState()) {
 			modelMap.put("success", true);
@@ -154,6 +153,27 @@ public class CourseTypeManagementController {
 		}
 		return modelMap;
 
+	}
+	
+	@RequestMapping(value = "/quercoursetype", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> querCourseType(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		CourseType courseType=new CourseType();
+		int courseTypeId=HttpServletRequestUtil.getInt(request, "coursetypeid");
+		courseType.setCourseTypeId(courseTypeId);
+		
+		CourseTypeExecution ce=courseTypeService.getCourseType(courseType);
+		if(ce.getState() == CourseTypeStateEnum.DELETE_PASS.getState()) {
+			modelMap.put("success", true);
+			modelMap.put("bycoursetypename", ce.getCourseType().getCourseTypeName());
+		}else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", ce.getStateInfo());
+			
+		}
+
+		return modelMap;
 	}
 	
 }

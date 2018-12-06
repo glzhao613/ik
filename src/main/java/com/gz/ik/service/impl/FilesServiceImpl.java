@@ -79,5 +79,22 @@ public class FilesServiceImpl implements FilesService {
 		}
 	}
 
+	@Override
+	public FilesExecution getFilesListByUId(int uId, int pageIndex, int pageSize) throws RuntimeException {
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		List<Files> list = null;
+		list=filesDao.getFilesListByUId(uId, rowIndex, pageSize);
+		int count =filesDao.getFilesByUId(uId).size();
+		FilesExecution ex = new FilesExecution();
+		if (list != null && list.size() > 0) {
+			ex.setState(FilesStateEnum.QUERY_SECCESS.getState());
+			ex.setEntityList(list);
+			ex.setCount(count);
+		} else {
+			ex.setState(FilesStateEnum.QUERY_FALSE.getState());
+		}
+		return ex;
+	}
+
 
 }

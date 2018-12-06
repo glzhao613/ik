@@ -41,11 +41,15 @@ public class CourseManagementController {
 	private CourseService courseService;
 	
 
-	@RequestMapping(value = "/courselist", method = {RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value = "/courseList", method = {RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
 	private Map<String, Object> getCourseList(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-		CourseExecution ce=courseService.getCourseList();
+		Course course=new Course();
+		if (request.getSession().getAttribute("bycourseid") != null) {
+			course.setCourseId((int)request.getSession().getAttribute("bycourseid"));
+		}
+		CourseExecution ce=courseService.querCourseList(course);
 		if(ce.getState() == CourseStateEnum.QUERY_SECCESS.getState()) {
 			List<Course> clist=ce.getCourseList();
 			modelMap.put("success", true);
@@ -227,6 +231,9 @@ public class CourseManagementController {
 		int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
 		int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
 		Course course=new Course();
+		if (request.getSession().getAttribute("bycourseid") != null) {
+			course.setCourseId((int)request.getSession().getAttribute("bycourseid"));
+		}
 		if (request.getSession().getAttribute("bycoursetypeid") != null) {
 			CourseType courseType=new CourseType();
 			courseType.setCourseTypeId((int)request.getSession().getAttribute("bycoursetypeid"));
@@ -256,4 +263,64 @@ public class CourseManagementController {
 		return modelMap;
 	}
 	
+	@RequestMapping(value = "/courselist", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> showCourse(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+		int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+		Course course=new Course();
+		if (request.getSession().getAttribute("bycoursetypeid") != null) {
+			CourseType courseType=new CourseType();
+			courseType.setCourseTypeId((int)request.getSession().getAttribute("bycoursetypeid"));
+			course.setCourseType(courseType);
+		}
+		if ((pageIndex > -1) && (pageSize > -1)) {
+			CourseExecution ce = courseService.showCourse(course, pageIndex, pageSize);
+			if (ce.getState() == CourseStateEnum.GET_SECCESS.getState()) {
+				modelMap.put("bycourseList", ce.getCourseList());
+				modelMap.put("bycount", (ce.getCount() - 1) / pageSize + 1);
+				modelMap.put("success", true);
+			} else {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", ce.getStateInfo());
+
+			}
+
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty pageSize or pageIndex");
+		}
+		return modelMap;
+	}
+	
+	@RequestMapping(value = "/front", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> frontCourseList(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		Course course=new Course();
+		if (request.getSession().getAttribute("bycourseid") != null) {
+			course.setCourseId((int)request.getSession().getAttribute("bycourseid"));
+		}
+		if (request.getSession().getAttribute("bycoursetypeid") != null) {
+			CourseType courseType=new CourseType();
+			courseType.setCourseTypeId((int)request.getSession().getAttribute("bycoursetypeid"));
+			course.setCourseType(courseType);
+		}
+		if (request.getSession().getAttribute("byteacherid") != null) {
+			Teacher teacher=new Teacher();
+			teacher.setTeacherId((int)request.getSession().getAttribute("byteacherid"));
+			course.setCourseTeacher(teacher);
+		}
+			CourseExecution ce = courseService.frontCourseList(course);
+			if (ce.getState() == CourseStateEnum.GET_SECCESS.getState()) {
+				modelMap.put("frontcourse", ce.getCourseList());
+				modelMap.put("success", true);
+			} else {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", ce.getStateInfo());
+
+			}
+		return modelMap;
+	}
 }

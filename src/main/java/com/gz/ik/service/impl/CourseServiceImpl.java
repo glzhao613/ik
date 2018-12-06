@@ -34,6 +34,7 @@ public class CourseServiceImpl implements CourseService {
 	@Autowired
 	private CommentsDao commentsDao;
 	
+	@Autowired
 	private UCDao ucDao;
 	
 	
@@ -144,7 +145,25 @@ public class CourseServiceImpl implements CourseService {
 	public CourseExecution showCourseList(Course course,int pageIndex, int pageSize) throws RuntimeException {
 		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
 		List<Course> courseList = null;
-		courseList = courseDao.queryCourseList(course,rowIndex, pageSize);
+		courseList =  courseDao.queryCourseList(course, rowIndex, pageSize);
+		int count = courseDao.queryCourseCount();
+		CourseExecution ce = new CourseExecution();
+		if (courseList != null && courseList.size()>0) {
+			ce.setState(CourseStateEnum.GET_SECCESS.getState());
+			ce.setCourseList(courseList);
+			ce.setCount(count);
+		} else {
+			ce.setState(CourseStateEnum.GET_FALSE.getState());
+		}
+		return ce;
+	}
+
+	@Override
+	public CourseExecution showCourse(Course course, int pageIndex, int pageSize) throws RuntimeException {
+		
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		List<Course> courseList = null;
+		courseList = courseDao.getCourseList(course,rowIndex, pageSize);
 		int count = courseDao.queryCourseCount();
 		CourseExecution ce = new CourseExecution();
 		if (courseList != null && courseList.size() > 0) {
@@ -156,4 +175,30 @@ public class CourseServiceImpl implements CourseService {
 		}
 		return ce;
 	}
+
+	@Override
+	public CourseExecution querCourseList(Course course) throws RuntimeException {
+		List<Course> c_course=courseDao.queryCourse(course);
+		if(c_course==null||c_course.size()<=0) {
+			return new CourseExecution(CourseStateEnum.QUERY_NULL);
+		}else {
+			return new CourseExecution(CourseStateEnum.QUERY_SECCESS,c_course);		
+		}
+	}
+
+	@Override
+	public CourseExecution frontCourseList(Course course) throws RuntimeException {
+		List<Course> courseList = null;
+		courseList=courseDao.frontCourseList(course);
+		CourseExecution ce = new CourseExecution();
+		if (courseList != null && courseList.size()>0) {
+			ce.setState(CourseStateEnum.GET_SECCESS.getState());
+			ce.setCourseList(courseList);
+		} else {
+			ce.setState(CourseStateEnum.GET_FALSE.getState());
+		}
+		return ce;
+	}
+	
+	
 }

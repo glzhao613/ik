@@ -33,6 +33,7 @@ public class AdminServicelmpl implements AdminService{
 	public AdminExecution loginCheck(Admin admin) throws RuntimeException {
 		
 		Admin t_admin=null;
+		Admin a_admin=null;
 		if(admin==null) {
 			return new AdminExecution(AdminStateEnum.NULL_INPUT);
 		}
@@ -45,13 +46,16 @@ public class AdminServicelmpl implements AdminService{
 				if(!(admin.getAdminPwd().equals(t_admin.getAdminPwd()))) {
 					return new AdminExecution(AdminStateEnum.PWD_ERROR);
 				}
-				else if(admin.getAdminType()==0) {
-					return new AdminExecution(AdminStateEnum.PASS_SUPER);
+				a_admin=adminDao.querAdminModuleUrl(admin);
+				if(a_admin!=null) {
+					return new AdminExecution(AdminStateEnum.PASS,a_admin);
+				}
+				else {
+					return new AdminExecution(AdminStateEnum.GET_FALSE);
 				}
 			}
 			
 		}
-		return new AdminExecution(AdminStateEnum.PASS,t_admin);
 	}
 
 	@Override

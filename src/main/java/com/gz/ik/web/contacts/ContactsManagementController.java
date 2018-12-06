@@ -49,12 +49,12 @@ public class ContactsManagementController {
 		ContactsInsertExecution ad=contactService.inserCheck(contact);
 		
 		if(ad.getState() == ContactsInsertStateEnum.PASS.getState()) {
-			modelMap.put("success", 1);
+			modelMap.put("success", true);
 			// 若插入成功，则加入session中
 			request.getSession().setAttribute("insertcontacts", ad.getContacts());
 		}
 		else {
-			modelMap.put("success", -1);
+			modelMap.put("success", false);
 			modelMap.put("errMsg", ad.getStateInfo());
 		}
 		return modelMap;

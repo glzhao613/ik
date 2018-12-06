@@ -3,81 +3,71 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>师资力量</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">	
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="../resources/css/front_style.css" rel='stylesheet'
 	type='text/css' />
 <style type="text/css">
-	.comment input{
-		
-    width: 860px;
-    height: 30px;
-    border-radius: 1em;
+.comment input {
+	width: 860px;
+	height: 30px;
+	border-radius: 1em;
+}
 
-	}
-.comment button{
-	
+.comment button {
 	width: 100px;
 	height: 30px;
 	margin-top: 10px;
-	
 	border-radius: 1em;
-	
 }
-
-	
 </style>
+ <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+ <script type="text/javascript" src="../resources/js/front_js/coursedetail.js"></script>
 </head>
 <body>
-<div  class="back">
-	<a href="../course/cours" >返回课程</a>
-</div>
-	
+	<div class="back">
+		<a href="../course/cours">返回课程</a>
+	</div>
+
 	<div class="success">
 		<div class="container">
 			<div class="success-main">
 				<div class="col-md-8 success-left">
 					<h3>课程详情</h3>
 					<div class="success-bottom">
-						<div class="success-bottom-left">
-							<img src="../resources/images/p-1.jpg">
+						<div class="success-bottom-left" id="courimg">
+							
 						</div>
-						<div class="success-bottom-right">
-							<h5>课程名称：语文</h5>
-							<h5>授课老师：李世超</h5>
-							<h5>课程种类：初中</h5>
-							<h5>课程时长：5小时</h5>
-							<h5>课程价格：￥100</h5>
-							<p>课程详情。，，，，，，，，，，，，，，，
-							，，，，，，，，，，，，，，，，，，，，，，，，，，，，，，，，
-						   </p>
+						<div class="success-bottom-right" id="cc">
+
 						</div>
-						
+
 					</div>
-		</div>
-	</div>
-	<!--end-vision-->
-	<!--评价开始-->
-	<div class="comment">
-		<input id="comment" type="text" value="" placeholder="你的评论：" maxlength="100" />
-		<button type="submit" >发表评论<tton>
-	</div>
-	<!--评价开始-->
-	<div >
-	<table border="1px" width="100%" bordercolor="#f1f1f1" class="tablecss">
-		<tr>
-			<td width="80px" rowspan="2" class="tdimg"><img src="../resources/images/admi-1.jpg"></td>
-			<td >罗雪</td>
-			<td class="detail-time">2018.9.6</td>
-		</tr>
-		<tr>	
-			<td colspan="2" class="tdheight">goodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgoodgood</td>	
-		</tr>
-	</table>
-	</div>
+				</div>
+			</div>
+			<!--end-vision-->
+			<!--评价开始-->
+			<div class="comment">
+				<input id="comment" type="text" placeholder="你的评论" maxlength="100" />
+				<button type="button"id="subbtn">发表评论</button>
+			</div>
+			<!--评价开始-->
+			<div>
+				<table border="1px" width="100%" bordercolor="#f1f1f1"
+					class="tablecss" id="clist">
+				</table>
+				<div id="nav">
+					<input id="pre" type="button" value="&lt;">&nbsp;&nbsp;&nbsp;
+					<span id="index"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+						id="count"></span>&nbsp;&nbsp;&nbsp; <input id="next"
+						type="button" value="&gt;">
+				</div>
+			</div>
 
 
-	<!--评价结束-->
-
+			<!--评价结束-->
+			<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+			<script type="text/javascript"
+				src="../resources/js/front_js/detailcomments.js"></script>
 </body>
 </html>
 

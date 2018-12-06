@@ -17,5 +17,9 @@ public interface FilesDao {
 	
 	int updateFiles(Files files);
 	
+	List<Files> getFilesListByUId(@Param("uId") int uId,@Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
+	
+	List<Files> getFilesByUId(@Param("uId") int uId);
+	
 
 }

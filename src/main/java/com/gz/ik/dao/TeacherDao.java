@@ -9,7 +9,7 @@ import com.gz.ik.entity.Teacher;
 
 
 public interface TeacherDao {
-	List<Teacher> queryteacherlist(Teacher teacher);
+	Teacher queryteacherlist(Teacher teacher);
 	
 	
 	Teacher queryteacher (String teacherName);

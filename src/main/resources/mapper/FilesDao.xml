@@ -60,6 +60,25 @@
 		file_id
 		LIMIT #{rowIndex},#{pageSize}
 	</select>
+	
+	<select id="getFilesListByUId" resultMap="filesMap">
+		SELECT
+		f.file_id,f.file_name,f.file_path,c.course_id,c.course_name,t.file_type_id,t.file_type_name
+		FROM files f LEFT JOIN course c ON f.file_course=c.course_id LEFT JOIN
+		file_type t ON f.file_type=t.file_type_id LEFT JOIN u_c uc ON c.course_id=uc.c_id
+		WHERE uc.u_id=#{uId}
+		ORDER BY
+		c.course_id
+		LIMIT #{rowIndex},#{pageSize}
+	</select>
+	
+	<select id="getFilesByUId" resultMap="filesMap">
+		SELECT
+		f.file_id,f.file_name,f.file_path,c.course_id,c.course_name,t.file_type_id,t.file_type_name
+		FROM files f LEFT JOIN course c ON f.file_course=c.course_id LEFT JOIN
+		file_type t ON f.file_type=t.file_type_id LEFT JOIN u_c uc ON c.course_id=uc.c_id
+		WHERE uc.u_id=#{uId}
+	</select>
 
 
 	<insert id="insertFiles" parameterType="com.gz.ik.entity.Files"
