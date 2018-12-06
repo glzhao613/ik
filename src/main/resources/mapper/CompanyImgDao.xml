@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gz.ik.dao.CompanyImgDao">
+	<select id="querCompanyImgById" resultType="com.gz.ik.entity.CompanyImg">
+		SELECT *
+		FROM company_img
+		WHERE company_img_id=#{companyImgId}
+	</select>
+	
+	<select id="querCompanyImgPaging" resultType="com.gz.ik.entity.CompanyImg">
+		SELECT *
+		FROM company_img
+		LIMIT #{start},#{pageCount}
+	</select>
+	
+	<select id="querAllCompanyImg" resultType="com.gz.ik.entity.CompanyImg">
+		SELECT *
+		FROM company_img
+	</select>
+	
+	<select id="querCompanyByCompanyImgId" resultType="com.gz.ik.entity.Company">
+		SELECT *
+		FROM company
+		WHERE company_img=#{companyImgId}
+	</select>
+	
+	<insert id="insertCompanyImg" useGeneratedKeys="true" keyColumn="company_img_id" keyProperty="companyImgId">
+		INSERT INTO company_img(company_img_path,company_img_des)
+		VALUES(#{companyImgPath},#{companyImgDes})
+	</insert>
+	
+	<update id="updateCompanyImg" parameterType="com.gz.ik.entity.CompanyImg">
+		UPDATE company_img
+		SET company_img_des=#{companyImgDes}
+		WHERE company_img_id=#{companyImgId}
+	</update>
+	
+	<delete id="deleteCompanyImgById">
+		DELETE
+		FROM company_img
+		WHERE company_img_id=#{companyImgId}
+	</delete>
+</mapper>

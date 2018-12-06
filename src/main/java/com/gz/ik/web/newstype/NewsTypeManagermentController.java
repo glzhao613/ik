@@ -68,7 +68,7 @@ public class NewsTypeManagermentController {
 		NewsTypeExecution nte = newstypeService.insertcheck(newsType);
 		if(nte.getState() == NewsTypeStateEnum.SUCCESS.getState()){
 			newsTypeMap.put("success", true);
-			newsTypeMap.put("newstypelist", nte.getNewsType());		
+			newsTypeMap.put("newstype", nte.getNewsType());		
 		}else{
 			newsTypeMap.put("success", false);
 			newsTypeMap.put("errMsg", nte.getStateInfo());
@@ -87,6 +87,7 @@ public class NewsTypeManagermentController {
 		
 		newsType.setNewsTypeId(newsTypeId);
 		newsType.setNewsTypeName(newsTypeName);
+		System.out.println(newsTypeId);
 		System.out.println(newsTypeName);
 		NewsTypeExecution nte = newstypeService.updatecheck(newsType);
 		if(nte.getState() == NewsTypeStateEnum.SUCCESS.getState()){
