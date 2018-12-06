@@ -56,7 +56,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public UserExecution userAdd(User user) throws RuntimeException {
-		String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
 		User t_user = null;
 		int num = 0;
 		if (user == null || user.getUserAccount() == null || user.getUserPwd() == null || user.getCourseList() == null
@@ -67,7 +66,6 @@ public class UserServiceImpl implements UserService {
 			if (t_user != null) {
 				return new UserExecution(UserStateEnum.EXIST_ACCOUNT);
 			} else {
-				user.setUserImg(basePath + "default.png");
 				num = userDao.insertUser(user);
 				if (num <= 0) {
 					return new UserExecution(UserStateEnum.REG_FAlSE);
@@ -197,7 +195,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public UserExecution updataUserInfo(User user, CommonsMultipartFile img) throws RuntimeException {
-		String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+		String defaultImg="/ik/src/main/resources/default.png";
 		User t_user = null;
 		int num = 0;
 		if (user == null && img == null) {
@@ -208,7 +206,7 @@ public class UserServiceImpl implements UserService {
 			} else {
 				if (img != null) {
 					t_user = userDao.queryUserByUserAccount(user.getUserAccount());
-					if (!t_user.getUserImg().equals(basePath + "default.png")) {
+					if (!(t_user.getUserImg()==null)) {
 						FileUtil.deleteFile(t_user.getUserImg());
 					}
 					addUserImg(user, img);

@@ -18,7 +18,7 @@ $(function() {
 			success : function(data) {
 				if (data.success) {
 					alert('登录成功');
-					window.location.href ='/ik/user/updatainfo';
+					window.location.href ='/ik/index.html';
 				} else {
 					alert(data.errMsg);
 					$('#kaptcha_img').click();

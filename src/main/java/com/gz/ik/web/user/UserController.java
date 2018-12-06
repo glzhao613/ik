@@ -42,5 +42,10 @@ public class UserController {
 	private String getAddUserCoursePage() {
 		return "addusercourse";
 	}
+	
+	@RequestMapping(value = "/userinfo", method = RequestMethod.GET)
+	private String getUserInfoPage() {
+		return "userinfo";
+	}
 
 }
