@@ -48,7 +48,7 @@ public class ContactsServiceImpl implements ContactsService {
 			return new ContactsInsertExecution(ContactsInsertStateEnum.NULL_INPUT);
 		}
 		else {
-			Contacts i_contact=contactsDao.quercontacts(contacts.getContactId());
+			Contacts i_contact=contactsDao.quercontactsTel(contacts.getContactTel());
 			if(i_contact==null) {
 				int count=contactsDao.insertcontacts(contacts);
 				if(count>0) {

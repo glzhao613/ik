@@ -66,6 +66,15 @@
 		LIMIT #{rowIndex},#{pageSize}
 	</select>
 	
+	<select id="getCourseListCourseList" resultType="com.gz.ik.entity.Course" >
+		SELECT course_name,course_des
+		FROM course
+		WHERE course_type=#{course.courseType.courseTypeId}
+		ORDER BY
+		course_id
+		LIMIT #{rowIndex},#{pageSize}
+	</select>
+	
 	<select id="queryCourseCount" resultType="int">
 		SELECT COUNT(*)
 		FROM course

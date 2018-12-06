@@ -256,4 +256,34 @@ public class CourseManagementController {
 		return modelMap;
 	}
 	
+	@RequestMapping(value = "/courselist", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> showCourse(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+		int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+		Course course=new Course();
+		if (request.getSession().getAttribute("bycoursetypeid") != null) {
+			CourseType courseType=new CourseType();
+			courseType.setCourseTypeId((int)request.getSession().getAttribute("bycoursetypeid"));
+			course.setCourseType(courseType);
+		}
+		if ((pageIndex > -1) && (pageSize > -1)) {
+			CourseExecution ce = courseService.showCourse(course, pageIndex, pageSize);
+			if (ce.getState() == CourseStateEnum.GET_SECCESS.getState()) {
+				modelMap.put("bycourseList", ce.getCourseList());
+				modelMap.put("bycount", (ce.getCount() - 1) / pageSize + 1);
+				modelMap.put("success", true);
+			} else {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", ce.getStateInfo());
+
+			}
+
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty pageSize or pageIndex");
+		}
+		return modelMap;
+	}
 }

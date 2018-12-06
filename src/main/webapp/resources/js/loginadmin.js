@@ -15,18 +15,14 @@ $(function() {
 				adminpwd : $('input[name=password]').val()
 			},
 			success : function(data) {
-				switch (data.success){
-				case 0:
-					alert('超级管理员登录成功');
-					window.location.href ='';
-				case 1:
-					alert('管理员登录成功');
-					window.location.href ='';
-				case -1:
+				if(data.success){
+					alert("管理员登陆成功");
+					var manageurl=data.loginadmin
+					window.location.href =manageurl;
+				}else {
 					alert(data.errMsg);
-				case -2:
-					alert(data.errMsg);
-				}
+					window.location.href ='/ik/admin/login';
+				}				
 			}
 		});
 	});

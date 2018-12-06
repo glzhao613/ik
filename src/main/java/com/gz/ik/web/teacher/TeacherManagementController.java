@@ -149,7 +149,7 @@ public class TeacherManagementController {
 		if ((pageIndex > -1) && (pageSize > -1)) {
 			TeacherExecution ce = teacherService.showTeacherList(pageIndex, pageSize);
 			if (ce.getState() == TeacherStateEnum.GET_SECCESS.getState()) {
-				modelMap.put("courseList", ce.getTeacherList());
+				modelMap.put("teacherList", ce.getTeacherList());
 				modelMap.put("count", (ce.getCount() - 1) / pageSize + 1);
 				modelMap.put("success", true);
 			} else {

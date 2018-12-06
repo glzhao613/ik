@@ -16,6 +16,8 @@ public interface CourseDao {
 	
 	List<Course> queryCourseList(@Param("course") Course course,@Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
 	
+	List<Course> getCourseList(@Param("course") Course course,@Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
+	
 	int queryCourseCount();
 	
 	int insertCourse(Course course);

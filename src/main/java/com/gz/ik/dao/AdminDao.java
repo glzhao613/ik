@@ -19,6 +19,9 @@ public interface AdminDao {
 	
 	int queryAdminCount();
 	
+	/*查询管理员所管理的模块URL*/
+	Admin querAdminModuleUrl(@Param("admin") Admin admin);
+	
 	/*注册新的管理员*/
 	int insertadmin(Admin admin);
 	

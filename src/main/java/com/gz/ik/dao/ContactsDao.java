@@ -11,6 +11,8 @@ public interface ContactsDao {
 	/*根据联系人ID进行查询*/
 	Contacts quercontacts(int contactid);
 	
+	Contacts quercontactsTel(String contactTel);
+	
 	List<Contacts> queryContactsList(@Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
 	
 	int queryContactsCount();

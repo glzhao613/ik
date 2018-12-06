@@ -7,7 +7,6 @@ $(function() {
 	$('#teacher-btn').click(function() {
 		teachername = $('input[name=teachername]').val();
 		teacherdes = $('#teacherdes').val();
-		alert(teacherdes);
 		var timg = $('input[name=timg]')[0].files[0];
 		var formData = new FormData();
 		formData.append('teachername', teachername);
