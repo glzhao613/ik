@@ -159,4 +159,9 @@ public class NewsServiceImpl implements NewsService {
 		return newsDao.queryNewsByID(news);
 	}
 
+	@Override
+	public List<News> querNewsByDate() throws RuntimeException {
+		return newsDao.querNewsByDate();
+	}
+
 }

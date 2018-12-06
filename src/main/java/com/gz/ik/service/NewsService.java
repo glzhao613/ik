@@ -28,4 +28,6 @@ public interface NewsService {
 	List<NewsType> queryNewsType() throws RuntimeException;
 	
 	News queryNewsByID(News news) throws RuntimeException;
+	
+	List<News> querNewsByDate() throws RuntimeException;
 } 

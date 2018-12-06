@@ -30,4 +30,8 @@ public interface NewsDao {
 	boolean deleteNews(News news);
 	//查询资讯类型
 	List<NewsType> queryNewsType();
+	
+	
+	//根据时间排序查询前八条数据
+	List<News> querNewsByDate();
 }

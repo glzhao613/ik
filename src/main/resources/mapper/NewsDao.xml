@@ -30,6 +30,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE news_id=#{newsId}
 	</select>
 	
+	<select id="querNewsByDate" resultType="com.gz.ik.entity.News">
+		SELECT  *
+		FROM news
+		ORDER BY news_date
+		LIMIT 0,8
+	</select>
+	
 	<insert id="insertNews" useGeneratedKeys="true" keyColumn="news_id" keyProperty="newsId">
 		INSERT INTO news(news_type,news_editor,news_title,news_article,news_date,news_img)
 		VALUES(#{newsType.newsTypeId},#{admin.adminId},#{newsTitle},#{newsArticle},#{newsDate},#{newsImg})

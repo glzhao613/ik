@@ -242,9 +242,7 @@ public class NewsManagermentController {
 		News t_news = new News();
 		t_news.setNewsId(newsId);
 		if (newsId != -1) {
-			News news = newsService.queryNewsByID(t_news);
 			request.getSession().setAttribute("newsid", newsId);
-			request.getSession().setAttribute("updatenews", news);
 			modelMap.put("success", true);
 		} else {
 			modelMap.put("success", false);
@@ -269,5 +267,17 @@ public class NewsManagermentController {
 		}
 		return modelMap;
 
+	}
+	
+	@RequestMapping(value = "/getnewsbydate", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getNewsByDate(HttpServletRequest request) {
+		Map<String, Object> newsMap = new HashMap<String, Object>();
+		
+		List<News> newsList = newsService.querNewsByDate();
+		
+		newsMap.put("newslist", newsList);
+		
+		return newsMap;
 	}
 }
