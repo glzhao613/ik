@@ -15,4 +15,6 @@ public interface FilesService {
 	
 	FilesExecution updateFiles(Files files)throws RuntimeException;
 	
+	FilesExecution getFilesListByUId(int uId,int pageIndex, int pageSize)throws RuntimeException;
+	
 }

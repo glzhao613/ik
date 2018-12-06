@@ -73,7 +73,7 @@ public class CommentsManagementController {
 			modelMap.put("errMsg", "empty pageSize or pageIndex");
 		}
 		return modelMap;
-	}
+	} 
 	
 	@RequestMapping(value = "/delcomments", method = RequestMethod.POST)
 	@ResponseBody

@@ -1,7 +1,6 @@
 package com.gz.ik.web.files;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,16 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.gz.ik.dto.CourseExecution;
-import com.gz.ik.dto.FileTypeExecution;
+
 import com.gz.ik.dto.FilesExecution;
 import com.gz.ik.entity.Course;
 import com.gz.ik.entity.FileType;
 import com.gz.ik.entity.Files;
-import com.gz.ik.enums.CourseStateEnum;
-import com.gz.ik.enums.FileTypeStateEnum;
+import com.gz.ik.entity.User;
+
+
 import com.gz.ik.enums.FilesStateEnum;
-import com.gz.ik.service.FileTypeService;
+
 import com.gz.ik.service.FilesService;
 import com.gz.ik.util.HttpServletRequestUtil;
 
@@ -49,6 +48,38 @@ public class FilesManagementController {
 		return modelMap;
 	}
 
+	@RequestMapping(value = "/listbyuid", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getListByUId(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+		int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+		User user=(User)request.getSession().getAttribute("loginuser");
+		if (user == null) {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "如需访问课程资源请先登录");
+		}else {
+			int uId=user.getUserId();
+			if ((pageIndex > -1) && (pageSize > -1)) {
+				FilesExecution ex = filesService.getFilesListByUId(uId, pageIndex, pageSize);
+				if (ex.getState() == FilesStateEnum.QUERY_SECCESS.getState()) {
+					modelMap.put("list", ex.getEntityList());
+					modelMap.put("count", (ex.getCount() - 1) / pageSize + 1);
+					modelMap.put("success", true);
+				} else {
+					modelMap.put("success", false);
+					modelMap.put("errMsg", ex.getStateInfo());
+
+				}
+			} else {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", "empty pageSize or pageIndex");
+			}
+			
+		}
+		return modelMap;
+	}
+	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> getList(HttpServletRequest request) {
