@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+    <link rel="stylesheet" href="../resources/css/form.css">
+    <style type="text/css">
+    	ul{
+        	list-style-type: none;
+        	font-size: 18px;
+    	}
+		ul li{
+    		margin: 20px;
+
+		}
+	</style>
+</head>
+<body>
+<div class="smart-green">
+    <h1>信息
+        <span></span>
+    </h1>
+    
+    
+   <ul>
+        <li></li>
+        <li><span>账号:&nbsp;&nbsp;&nbsp;&nbsp;</span><span id="account"></span></li>
+        <li><span>昵称:&nbsp;&nbsp;&nbsp;&nbsp;</span><span id="name"></span></li>
+        <li><span>电话:&nbsp;&nbsp;&nbsp;&nbsp;</span><span id="tel"></span></li>
+        <li><span>签名:&nbsp;&nbsp;&nbsp;&nbsp;</span><span id="des"></span></li>
+        <li><a href="/ik/user/updatainfo"><input type="button" class="button" id="infobtn" value="修改信息"/></a><a href="/ik/user/updatapwd"><input type="submit" class="button" id="pwdbtn" value="修改密码"/></a><input type="submit" class="button" id="quitbtn" value="退出登录"/></li>
+        <li></li>
+    </ul>
+</div>
+
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../resources/js/userinfo.js"></script>
+
+</body>
+</html>

@@ -9,6 +9,7 @@ import com.gz.ik.dto.NewsAddExecution;
 import com.gz.ik.dto.NewsDeleteExecution;
 import com.gz.ik.dto.NewsQuerExecution;
 import com.gz.ik.dto.NewsUpdateExecution;
+import com.gz.ik.entity.Admin;
 import com.gz.ik.entity.News;
 import com.gz.ik.entity.NewsType;
 

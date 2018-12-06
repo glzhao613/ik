@@ -1,21 +1,3 @@
-/*--开始--右边悬浮框--*/
-var w3c = (document.getElementById) ? true : false; 
-var agt = navigator.userAgent.toLowerCase(); 
-var ie = ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1) && (agt.indexOf("omniweb") == -1)); 
-var mymovey = new Number(); 
-function IeTrueBody(){ 
-                        return (document.compatMode && document.compatMode!="BackCompat") ? document.documentElement : document.body;
-                        } 
-function GetScrollTop(){ 
-                        return ie ? IeTrueBody().scrollTop : window.pageYOffset; 
-                        } 
-function heartBeat(){ 
-                        diffY=GetScrollTop(); 
-                        mymovey += Math.floor((diffY-document.getElementById('backi').style.top.replace("px","")+50)*0.1); 
-                        document.getElementById('backi').style.top = mymovey+"px"; } 
-                        window.setInterval("heartBeat()",1); 
-/*--结束--右边悬浮框--*/
-
 /*--开始--分页--*/
 $(document).ready(function(){
      

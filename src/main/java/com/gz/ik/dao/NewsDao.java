@@ -6,6 +6,9 @@ package com.gz.ik.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.gz.ik.entity.Admin;
 import com.gz.ik.entity.News;
 import com.gz.ik.entity.NewsType;
 

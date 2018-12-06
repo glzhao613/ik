@@ -83,8 +83,7 @@ public class NewsManagermentController {
 			newsPagingMap.put("success", true);
 			List<News> newslist = nqe.getNewsList();
 			// 若查询成功，则加入Map中
-			newsPagingMap.put("newsList",newslist );
-			
+			newsPagingMap.put("newsList",newslist );		
 		}
 		else{
 			newsPagingMap.put("success", false);

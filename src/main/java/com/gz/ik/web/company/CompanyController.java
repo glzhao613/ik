@@ -21,4 +21,9 @@ public class CompanyController {
 	private String getupdatecompany(){
 		return "companyupdate";
 	}
+	
+	@RequestMapping(value = "/center", method = RequestMethod.GET)
+	private String getCentercompany(){
+		return "front_html/center";
+	}
 }

@@ -118,6 +118,6 @@ function showData(){
 
 
 function getDate(tm){
-	var time = new Date(parseInt(tm)).toLocaleString();
+	var time = new Date(parseInt(tm)).toLocaleString().substr(0,10);
 	return time;
 }

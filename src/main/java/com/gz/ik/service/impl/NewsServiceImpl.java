@@ -12,6 +12,7 @@ import com.gz.ik.dto.NewsAddExecution;
 import com.gz.ik.dto.NewsDeleteExecution;
 import com.gz.ik.dto.NewsQuerExecution;
 import com.gz.ik.dto.NewsUpdateExecution;
+import com.gz.ik.entity.Admin;
 import com.gz.ik.entity.News;
 import com.gz.ik.entity.NewsType;
 import com.gz.ik.enums.NewsAddStateEnum;
@@ -163,5 +164,4 @@ public class NewsServiceImpl implements NewsService {
 	public List<News> querNewsByDate() throws RuntimeException {
 		return newsDao.querNewsByDate();
 	}
-
 }

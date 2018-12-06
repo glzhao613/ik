@@ -22,4 +22,8 @@ public class FilesController {
 	private String getUpdateFilesPage() {
 		return "updatefiles";
 	}
+	@RequestMapping(value = "/sfiles", method = RequestMethod.GET)
+	private String getDSourcefiles() {
+		return "front_html/source";
+	}
 }

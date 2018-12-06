@@ -30,6 +30,35 @@ public class UserManagementController {
 
 	@Autowired
 	private UserService userService;
+	
+	@RequestMapping(value = "/islogin", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> isLogin(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		User user=(User)request.getSession().getAttribute("loginuser");
+		if(user==null) {
+			modelMap.put("success", false);
+		}else {
+			modelMap.put("success", true);
+			modelMap.put("user", user);
+		}
+		return modelMap;
+	}
+	
+	@RequestMapping(value = "/quitlogin", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> quitLogin(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		request.getSession().removeAttribute("loginuser");
+		User user=(User)request.getSession().getAttribute("loginuser");
+		if(user!=null) {
+			modelMap.put("success", false);
+		}else {
+			modelMap.put("success", true);
+		}
+		return modelMap;
+	}
+
 
 	@RequestMapping(value = "/userlogin", method = RequestMethod.POST)
 	@ResponseBody
@@ -105,7 +134,6 @@ public class UserManagementController {
 		String account = HttpServletRequestUtil.getString(request, "useraccount");
 		String pwd = HttpServletRequestUtil.getString(request, "userpwd");
 		int courseId = HttpServletRequestUtil.getInt(request, "course");
-		// System.out.println(account + pwd + courseId + "");
 		user.setUserAccount(account);
 		user.setUserPwd(pwd);
 		Course course = new Course();
