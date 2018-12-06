@@ -26,5 +26,9 @@ public interface CourseService {
 	CourseExecution showCourseList(Course course,int pageIndex, int pageSize) throws RuntimeException;
 	
 	CourseExecution showCourse(Course course,int pageIndex, int pageSize) throws RuntimeException;
+	
+	CourseExecution querCourseList(Course course) throws RuntimeException;
+	
+	CourseExecution frontCourseList(Course course) throws RuntimeException;
 
 }

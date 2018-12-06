@@ -23,7 +23,7 @@ public class CompanyController {
 	}
 	
 	@RequestMapping(value = "/center", method = RequestMethod.GET)
-	private String getcenter(){
+	private String getCentercompany(){
 		return "front_html/center";
 	}
 }

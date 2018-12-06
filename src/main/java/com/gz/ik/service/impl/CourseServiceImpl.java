@@ -175,6 +175,30 @@ public class CourseServiceImpl implements CourseService {
 		}
 		return ce;
 	}
+
+	@Override
+	public CourseExecution querCourseList(Course course) throws RuntimeException {
+		List<Course> c_course=courseDao.queryCourse(course);
+		if(c_course==null||c_course.size()<=0) {
+			return new CourseExecution(CourseStateEnum.QUERY_NULL);
+		}else {
+			return new CourseExecution(CourseStateEnum.QUERY_SECCESS,c_course);		
+		}
+	}
+
+	@Override
+	public CourseExecution frontCourseList(Course course) throws RuntimeException {
+		List<Course> courseList = null;
+		courseList=courseDao.frontCourseList(course);
+		CourseExecution ce = new CourseExecution();
+		if (courseList != null && courseList.size()>0) {
+			ce.setState(CourseStateEnum.GET_SECCESS.getState());
+			ce.setCourseList(courseList);
+		} else {
+			ce.setState(CourseStateEnum.GET_FALSE.getState());
+		}
+		return ce;
+	}
 	
 	
 }

@@ -3,6 +3,7 @@ $(function() {
 	var pageSize = 4;
 	var listUrl = '/ik/coursetypeadmin/list';
 	var setUrl='/ik/coursetypeadmin/setid';
+	var setcUrl='/ik/courseadmin/setid';
 	var courseUrl='/ik/courseadmin/list';
 	var pageNum = 1;
 	var pageSizeC=3;
@@ -40,7 +41,7 @@ $(function() {
 				count=data.count;
 				var ctemp='';
 				data.courseList.map(function(item,index) {
-					ctemp+='<div class="port-1"><tr><td>'+item.courseName+'</td></tr><div class="port-bttn"><a href="../course/dcours.html">阅读更多</a></div></div><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "></h2></div></a>'
+					ctemp+='<div class="port-1"><tr><td>'+item.courseName+'</td></tr><div><input type="button" value="更多" class="qc" id="'+item.courseId+'"></div></div><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "></h2></div></a>'
 				});
 				$('#course').html(ctemp);
 			} else {
@@ -48,6 +49,29 @@ $(function() {
 			}
 		});
 	}
+	
+	$('#course').on('click','.qc',function() {
+		var courseid=$(this).attr('id');
+		var formData = new FormData();
+		formData.append('courseid', courseid);
+		alert(courseid);
+		$.ajax({
+			url : setcUrl,
+			type : 'post',
+			data : formData,
+			contentType : false,
+			processData : false,
+			cache : false,
+			success : function(data) {
+				if (data.success) {
+					window.location.href ="/ik/course/dcours ";
+				} else {
+					alert(data.errMsg);
+				}
+			}
+		});
+
+	});
 	
 
 

@@ -52,7 +52,6 @@ $(function() {
 	$('#showteacher').on('click',"#teacherimg",function() {
 		var teacherid=$(this).attr('class');
 		var formData = new FormData();
-		alert(teacherid);
 		formData.append('teacherid', teacherid);
 		$.ajax({
 			url : setUrl,
@@ -63,7 +62,7 @@ $(function() {
 			cache : false,
 			success : function(data) {
 				if (data.success) {
-					window.location.href ='/ik/teacher/update';
+					window.location.href ='/ik/teacher/teacher';
 					
 				}
 			}
