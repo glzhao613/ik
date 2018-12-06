@@ -73,7 +73,7 @@ public class CommentsManagementController {
 			modelMap.put("errMsg", "empty pageSize or pageIndex");
 		}
 		return modelMap;
-	}
+	} 
 	
 	@RequestMapping(value = "/delcomments", method = RequestMethod.POST)
 	@ResponseBody
@@ -112,14 +112,14 @@ public class CommentsManagementController {
 				course.setCourseId((Integer)request.getSession().getAttribute("bycourseid"));
 				comments.setCommentCourse(course);
 				comments.setCommentUser(user);
+				CommentsExecution ex =commentsService.addComments(comments);
+				if(ex.getState()==CommentsStateEnum.INSERT_SUCCESS.getState()) {
+					modelMap.put("success", true);
+				}else {
+					modelMap.put("success", false);
+					modelMap.put("errMsg", ex.getStateInfo());
+				}
 			}
-		}
-		CommentsExecution ex =commentsService.addComments(comments);
-		if(ex.getState()==CommentsStateEnum.INSERT_SUCCESS.getState()) {
-			modelMap.put("success", true);
-		}else {
-			modelMap.put("success", false);
-			modelMap.put("errMsg", ex.getStateInfo());
 		}
 		return modelMap;
 	}

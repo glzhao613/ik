@@ -54,7 +54,6 @@ $(function() {
 		var courseid=$(this).attr('id');
 		var formData = new FormData();
 		formData.append('courseid', courseid);
-		alert(courseid);
 		$.ajax({
 			url : setcUrl,
 			type : 'post',
