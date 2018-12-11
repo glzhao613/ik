@@ -20,9 +20,12 @@ $(function() {
 				switch (data.success){
 				case 1:
 					alert('管理员更新成功');
-					window.location.href ='';
+					window.location.href ='/ik/admin/showadmin';
+					break;
 				case -1:
 					alert(data.errMsg);
+					window.location.href ='/ik/admin/showadmin';
+					break;
 				}
 			}
 		});

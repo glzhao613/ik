@@ -113,7 +113,7 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	private void addCourseImg(Course course, CommonsMultipartFile img) {
-		String dest = FileUtil.getUserImgPath();
+		String dest = FileUtil.getCourseImgPath();
 		String imgAddr = ImageUtil.generateThumbnail(img, dest);
 		course.setCourseImg(imgAddr);
 	}
@@ -189,7 +189,7 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public CourseExecution frontCourseList(Course course) throws RuntimeException {
 		List<Course> courseList = null;
-		courseList=courseDao.frontCourseList(course);
+		//courseList=courseDao.frontCourseList(course);
 		CourseExecution ce = new CourseExecution();
 		if (courseList != null && courseList.size()>0) {
 			ce.setState(CourseStateEnum.GET_SECCESS.getState());

@@ -4,7 +4,7 @@
 var data
 
 $(function(){
-	initTopDisplayNews()
+	initTopDisplayNews();
 	initNewsByDate();
 
 	getData(1);
@@ -128,7 +128,7 @@ function nextPage(){
 
 function jumpPage(){
 	var jumpPage = $('#paging input[name=jumoPage]').val();
-	if(jumpPage > (data.totalNews / data.pageCount)){
+	if(jumpPage > (Math.ceil(data.totalNews / data.pageCount))){
 		alert("超出页面总数！");
 		return ;
 	}

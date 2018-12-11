@@ -6,12 +6,13 @@ $(function() {
 	
 	$('#updateteacher-btn').click(function() {
 		teachername = $('input[name=teachername]').val();
-		teacherdes = $('input[name=teacherdes]').val();
+		teacherdes = $('#teacherdes').val();
 		var timg = $('input[name=timg]')[0].files[0];
 		var formData = new FormData();
 		formData.append('teachername', teachername);
 		formData.append('teacherdes',teacherdes);
 		formData.append('timg',timg);
+		alert(teacherdes);
 		$.ajax({
 			async : false,
 			cache : false,

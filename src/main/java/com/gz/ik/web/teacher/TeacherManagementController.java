@@ -44,7 +44,7 @@ public class TeacherManagementController {
 				
 		TeacherExecution ce=teacherService.getTeacherList(teacher);
 		if(ce.getState() == TeacherStateEnum.QUERY_SECCESS.getState()) {
-			Teacher teacherlist=ce.getTeacher();
+			List<Teacher> teacherlist=ce.getTeacherList();
 			modelMap.put("success", true);
 			modelMap.put("teacherlist", teacherlist);
 			
@@ -95,8 +95,17 @@ public class TeacherManagementController {
 	private Map<String, Object> updateteacher(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		Teacher teacher=new Teacher();
-		String teacherName=HttpServletRequestUtil.getString(request, "teachername");
-		String teacherDes=HttpServletRequestUtil.getString(request, "teacherdes");
+		if(HttpServletRequestUtil.getString(request, "teachername")!=null) {
+			String teacherName=HttpServletRequestUtil.getString(request, "teachername");
+			teacher.setTeacherName(teacherName);
+		}
+		if(HttpServletRequestUtil.getString(request, "teacherdes")!=null) {
+			String teacherDes=HttpServletRequestUtil.getString(request, "teacherdes");
+			teacher.setTeacherDes(teacherDes);
+		}
+		if (request.getSession().getAttribute("byteacherid") != null) {
+			teacher.setTeacherId((int)request.getSession().getAttribute("byteacherid"));
+		}
 		
 		// 图片获取
 		MultipartHttpServletRequest multipartRequest = null;
@@ -107,8 +116,7 @@ public class TeacherManagementController {
 			img = (CommonsMultipartFile) multipartRequest.getFile("timg");
 		}
 		
-		teacher.setTeacherName(teacherName);
-		teacher.setTeacherDes(teacherDes);
+		
 		
 		TeacherExecution ad=teacherService.updateTeacher(teacher,img);
 		if(ad.getState() == TeacherStateEnum.UPDATE_PASS.getState()) {

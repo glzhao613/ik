@@ -28,8 +28,8 @@ public class TeacherServicelmpl implements TeacherService {
 
 	@Override
 	public TeacherExecution getTeacherList(Teacher teacher) throws RuntimeException {
-		Teacher teacherList=teacherDao.queryteacherlist(teacher);
-		if(teacherList==null||teacherList==null) {
+		List<Teacher> teacherList=teacherDao.getteacherlist(teacher);
+		if(teacherList==null) {
 			return new TeacherExecution(TeacherStateEnum.QUERY_NULL);
 		}else {
 			return new TeacherExecution(TeacherStateEnum.QUERY_SECCESS,teacherList);	
@@ -80,17 +80,17 @@ public class TeacherServicelmpl implements TeacherService {
 
 	@Override
 	public TeacherExecution updateTeacher(Teacher teacher,CommonsMultipartFile img) throws RuntimeException {
-		Teacher u_teacher=null;
+		List<Teacher> u_teacher=null;
 		if(teacher==null) {
 			return new TeacherExecution(TeacherStateEnum.INPUT_NULL);
 		}
 		else {
 			if(img!=null) {
-				u_teacher=teacherDao.queryteacher(teacher.getTeacherName());
+/*				u_teacher=teacherDao.queryteacherlist(teacher);
 				if(u_teacher==null) {
 					return new TeacherExecution(TeacherStateEnum.UPDATE_ERRO);
 				}
-				FileUtil.deleteFile(u_teacher.getTeacherImg());
+				FileUtil.deleteFile(u_teacher.);*/
 				addTeacherImg(teacher,img);
 			}
 			int count=0;
@@ -130,7 +130,7 @@ public class TeacherServicelmpl implements TeacherService {
 	}
 
 	private void addTeacherImg(Teacher teacher, CommonsMultipartFile img) {
-		String dest = FileUtil.getUserImgPath();
+		String dest = FileUtil.getTeacherImgPath();
 		String imgAddr = ImageUtil.generateThumbnail(img, dest);
 		teacher.setTeacherImg(imgAddr);
 	}

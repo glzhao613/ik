@@ -49,7 +49,7 @@ public class UserController {
 		return "userinfo";
 	}
 
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	@RequestMapping(value = "/main", method = {RequestMethod.GET,RequestMethod.POST})
 	private String getmainPage() {
 		return "/manage/main";
 	}

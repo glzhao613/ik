@@ -13,6 +13,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 	
+	<select id="getteacherlist" resultType="com.gz.ik.entity.Teacher" parameterType="com.gz.ik.entity.Teacher">
+		SELECT *
+		FROM teacher
+	</select>
+	
 	<select id="queryteacher" resultType="com.gz.ik.entity.Teacher">
 		SELECT *
 		FROM teacher
@@ -47,6 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="teacherDes!=null">teacher_des=#{teacherDes},</if>
 			<if test="teacherImg!=null">teacher_img=#{teacherImg},</if>
 		</set>
+		where teacher_id=#{teacherId}
 	</update>
 	
 	<delete id="deleteteacher">

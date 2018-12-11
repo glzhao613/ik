@@ -195,7 +195,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public UserExecution updataUserInfo(User user, CommonsMultipartFile img) throws RuntimeException {
-		String defaultImg="/ik/src/main/resources/default.png";
 		User t_user = null;
 		int num = 0;
 		if (user == null && img == null) {

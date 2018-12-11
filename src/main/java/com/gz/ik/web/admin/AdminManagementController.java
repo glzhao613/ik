@@ -70,13 +70,12 @@ public class AdminManagementController {
 		Admin admin=new Admin();
 		Module module=new Module();
 		String adminAct = HttpServletRequestUtil.getString(request, "adminaccount");
-		String adminPwd = HttpServletRequestUtil.getString(request, "adminpwd");
-		int adminTy=HttpServletRequestUtil.getInt(request, "admintype");	
+		String adminPwd = HttpServletRequestUtil.getString(request, "adminpwd");	
 		int moduleId=HttpServletRequestUtil.getInt(request, "moduleid");
-		if (adminAct != null && adminPwd != null && adminTy !=-1) {
+		if (adminAct != null && adminPwd != null) {
 			admin.setAdminAccount(adminAct);
 			admin.setAdminPwd(adminPwd);
-			admin.setAdminType(adminTy);
+			admin.setAdminType(1);
 			module.setModuleId(moduleId);
 			admin.setAdminModule(module);
 			AdminRegisterExecution ad = adminService.registerCheck(admin);
@@ -104,18 +103,22 @@ public class AdminManagementController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		Admin admin=new Admin();
 		Module module=new Module();
-		int adminId = HttpServletRequestUtil.getInt(request, "adminid");
 		String adminAct = HttpServletRequestUtil.getString(request, "adminaccount");
 		String adminPwd = HttpServletRequestUtil.getString(request, "adminpwd");
-		Integer moduleId=HttpServletRequestUtil.getInt(request, "moduleid");
+		if(HttpServletRequestUtil.getInt(request, "moduleid")>=0) {
+			Integer moduleId=HttpServletRequestUtil.getInt(request, "moduleid");
+			module.setModuleId(moduleId);
+			admin.setAdminModule(module);
+		}
+
 		String adminName=HttpServletRequestUtil.getString(request, "adminname");
-		
-		admin.setAdminId(adminId);
-		module.setModuleId(moduleId);
+		if (request.getSession().getAttribute("byadminid") != null) {
+			admin.setAdminId((int)request.getSession().getAttribute("byadminid"));
+		}
 		admin.setAdminAccount(adminAct);
 		admin.setAdminPwd(adminPwd);
 		admin.setAdminType(1);
-		admin.setAdminModule(module);
+	/*	admin.setAdminModule(module);*/
 		admin.setAdminName(adminName);
 		
 		AdminUpdateExecution ad = adminService.updateCheck(admin);
@@ -167,6 +170,7 @@ public class AdminManagementController {
 			Module module=new Module();
 			module.setModuleId((int)request.getSession().getAttribute("bymoduleid"));
 			admin.setAdminModule(module);
+			System.out.println(admin.getAdminModule().getModuleId());
 		}
 		if ((pageIndex > -1) && (pageSize > -1)) {
 			AdminExecution ae = adminService.showAdminList(admin,pageIndex, pageSize);

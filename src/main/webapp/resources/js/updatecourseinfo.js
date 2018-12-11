@@ -27,13 +27,13 @@ $(function() {
 	function initTeacher() {
 		$.getJSON(initteacherurl, function(data) {
 			if (data.success) {
-				var temp = "";
+				var cemp = "";
 				data.teacherlist.map(function(item, index) {
-					temp += "<option value='" + item.teacherId + "'>"
+					cemp += "<option value='" + item.teacherId + "'>"
 							+ item.teacherName + "</option>";
 
 				});
-				$("#teacherlist").html(temp);
+				$("#teacherlist").html(cemp);
 
 			}
 

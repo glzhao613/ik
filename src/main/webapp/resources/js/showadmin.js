@@ -64,7 +64,7 @@ $(function() {
 			cache : false,
 			success : function(data) {
 				if (data.success) {
-					alert(data.adminname+'删除成功');
+					alert('删除成功');
 					window.location.href ='/ik/admin/showadmin';
 					
 				} else {

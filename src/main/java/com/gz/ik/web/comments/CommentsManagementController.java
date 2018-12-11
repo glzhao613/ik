@@ -1,5 +1,6 @@
 package com.gz.ik.web.comments;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class CommentsManagementController {
 	
 	@RequestMapping(value = "/setcourseid", method = RequestMethod.POST)
 	@ResponseBody
-	private Map<String, Object> setByUserId(HttpServletRequest request) {
+	private Map<String, Object> setByCourseId(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		int id = HttpServletRequestUtil.getInt(request, "courseid");
 		if (id != -1) {
@@ -50,8 +51,8 @@ public class CommentsManagementController {
 		int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
 		int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
 		Comments comments=new Comments();
+		Course course=new Course();
 		if (request.getSession().getAttribute("bycourseid") != null) {
-			Course course=new Course();
 			course.setCourseId((Integer)request.getSession().getAttribute("bycourseid"));
 			comments.setCommentCourse(course);
 			
@@ -112,6 +113,7 @@ public class CommentsManagementController {
 				course.setCourseId((Integer)request.getSession().getAttribute("bycourseid"));
 				comments.setCommentCourse(course);
 				comments.setCommentUser(user);
+				comments.setCommentDate(new Date());
 				CommentsExecution ex =commentsService.addComments(comments);
 				if(ex.getState()==CommentsStateEnum.INSERT_SUCCESS.getState()) {
 					modelMap.put("success", true);
