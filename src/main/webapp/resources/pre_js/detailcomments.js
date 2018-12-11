@@ -22,7 +22,7 @@ $(function() {
 					addItems(pageSize, pageNum);
 				} else {
 					alert(data.errMsg);
-					window.location.href = "/ik/course/dcours";
+					window.location.href = "/ik/pre/t_detail";
 				}
 			}
 		});
@@ -41,7 +41,7 @@ $(function() {
 				count=data.count;
 				var btemp='';
 				data.list.map(function(item,index) {
-					btemp+="<tr><td width='80px' rowspan='2' class='tdimg'><img src='"+item.commentUser.userImg+"'></td><td>"+item.commentUser.userName+"</td><td class='detail-time'>"+getDate(item.commentDate)+"</td></tr><tr><td colspan='2' class='tdheight'>"+item.commentArticle+"</td></tr>";
+					btemp+="<table border='0px' width='100%' bordercolor='#f1f1f1' class='tablecss'><tr><td width='80px' rowspan='2' class='tdimg'><img src='"+item.commentUser.userImg+"'></td><td>"+item.commentUser.userName+"</td><td class='detail-time'>"+getDate(item.commentDate)+"</td></tr><tr><td colspan='2' class='tdheight'>"+item.commentArticle+"</td></tr></table>";
 				});
 				$('#clist').html(btemp);
 				$('#index').html('第'+pageNum+'页');
@@ -76,8 +76,6 @@ $(function() {
 		}
 
 	});
-	
-	
 	
 	
 });
