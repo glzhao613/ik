@@ -1,0 +1,37 @@
+*{
+	margin: 0px;
+}
+body{
+	width: 1000px;
+	margin: 0 auto;
+}
+img {
+float:left;
+width:200px;
+height:200px;
+margin:20px;
+}
+.tdetail{
+	width:40%;
+	margin: 50px auto;
+	box-shadow:0 0 10px #9c2189;
+	padding: 20px;
+}
+.tdetail h1{
+	text-align: center;
+	color: green;
+}
+.tdetail p{
+	font-size: 25px;
+}
+.back a{
+	font-weight: bolder;
+	color: #1793d1;
+	font-size: 20px;
+
+}
+.back a:hover{
+	color: red;
+	text-decoration: none;
+
+}

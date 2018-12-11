@@ -1,0 +1,40 @@
+.bigkuang{
+	float: center;
+	width: 100%;
+	height: 500px;
+	border: 1px;
+	margin-left: 500px;
+}
+.min1{
+	width:7%;
+	height: 300px
+	border: 1px;
+	font-size: 40px;
+	margin-right:100px;
+	float: left;
+
+}
+.min1 ul li{
+	line-height: 70px;
+}
+.min2{
+	width:93%;
+	height: 300px
+	border: 1px;
+	margin-right:10px;
+	margin-top: 30px;
+}
+.min2 div{
+	height:300px;
+	width:350px;
+	float:left;
+	margin-left:50px;
+
+}
+.min2 div img{
+	height:300px;
+	width:350px;
+}
+.neirong{
+	float: 
+}

@@ -1,0 +1,42 @@
+.showbox{
+	width: 79%;
+	margin: 50px auto;
+	border: 0px;
+}
+.titlebox{
+	margin: 25px auto;
+	text-align: center;
+
+}
+.titlebox h2{
+	font-size: 1.45em;
+	color: #1793d1;
+	font-weight: 600;
+}
+
+
+.boxlist{
+	width: 99%;
+}
+
+.content{
+	width: 19%;
+	height: 300px;
+	display: inline-block;
+}
+.imgbox{
+	width: 99%;
+	height: 200px;
+	text-align: center;
+}
+
+.imgbox img{
+	width: 99%;
+	height: 200px;
+	border-radius: 2px;
+}
+.textbox{
+	width: 99%;
+	height: 100px;
+	text-align: center;
+}

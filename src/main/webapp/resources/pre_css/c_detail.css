@@ -1,0 +1,79 @@
+*{
+	margin: 0px;
+}
+body{
+	width: 1000px;
+	margin: 0 auto;
+}
+.back a{
+	font-weight: bolder;
+	color: #1793d1;
+	font-size: 20px;
+
+}
+.back a:hover{
+	color: red;
+	text-decoration: none;
+
+}
+
+.banner h3{
+	font-size: 25px;
+	text-align: center;
+	margin-top: 20px;
+}
+.banner1{
+	margin-top: 20px;
+}
+.banner-left{
+	float: left;
+	width: 250px;
+   	height: 250px;
+}
+.banner-left img{
+   width: 250px;
+   height: 250px;
+}
+.banner-right{
+	margin-left: 280px;
+}
+.banner-right li{
+	list-style-type: none;
+	margin-top: 10px;
+}
+.detail-time{
+	text-align: right;
+}
+.tablecss{
+	margin-top: 20px;
+	border-radius:1em;
+}
+.tdimg{
+	text-align: center;
+
+}
+.tdimg img{
+	width: 60px;
+	height:60px;
+}
+.tdheight{
+	word-wrap: break-word;
+	word-break: break-all;
+	padding: 10px;
+}
+
+.comment input{
+		
+    width: 880px;
+    height: 30px;
+    border-radius: 1em;
+
+	}
+.comment button{
+	
+	width: 100px;
+	height: 30px;
+	margin-top: 10px;
+	border-radius: 1em;
+	
+}
