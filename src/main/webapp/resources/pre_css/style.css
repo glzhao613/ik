@@ -2704,7 +2704,7 @@ h5.s1 {
 }
 }
 /*--end-media-quaries--*/
-/*--开始--右边悬浮框--*/
+/*--寮�濮�--鍙宠竟鎮诞妗�--*/
 ul{
                 padding: 0;
                 margin: 0;
@@ -2743,7 +2743,7 @@ ul{
                 height: 50px;
                 margin-top:10px;
                 border-radius: 50%;
-                /*向框添加一个或多个阴影*/
+                /*鍚戞娣诲姞涓�涓垨澶氫釜闃村奖*/
                 box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06); 
             }
             .number{
@@ -2768,18 +2768,18 @@ ul{
                 visibility: visible;
                 transition: opacity .15s ease-out 0s;
             }
- /*--结束--右边悬浮框--*/
+ /*--缁撴潫--鍙宠竟鎮诞妗�--*/
 
-/*--开始--分页--*/
+/*--寮�濮�--鍒嗛〉--*/
 .ppager{
 	margin:50px;
 }
-/*--结束--分页--*/
+/*--缁撴潫--鍒嗛〉--*/
 /*--start--news_detail--*/
 body {
 	margin: 0;
 	padding: 0;
-	font-family:"Microsoft YaHei", "微软雅黑", "consolas";
+	font-family:"Microsoft YaHei", "寰蒋闆呴粦", "consolas";
 }
 a {
 	text-decoration: none;
@@ -2924,7 +2924,7 @@ a {
 body {
 	margin: 0;
 	padding: 0;
-	font-family:"Microsoft YaHei", "微软雅黑", "consolas";
+	font-family:"Microsoft YaHei", "寰蒋闆呴粦", "consolas";
 }
 a {
 	text-decoration: none;
@@ -3098,3 +3098,6 @@ a {
 	margin-bottom: 0px;
 }
 
+.nav-show{
+	text-align:center;
+}

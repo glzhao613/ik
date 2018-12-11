@@ -40,8 +40,7 @@ public class TeacherManagementController {
 		Teacher teacher=new Teacher();
 		if (request.getSession().getAttribute("byteacherid") != null) {
 			teacher.setTeacherId((int)request.getSession().getAttribute("byteacherid"));
-		}
-				
+		}		
 		TeacherExecution ce=teacherService.getTeacherList(teacher);
 		if(ce.getState() == TeacherStateEnum.QUERY_SECCESS.getState()) {
 			List<Teacher> teacherlist=ce.getTeacherList();
