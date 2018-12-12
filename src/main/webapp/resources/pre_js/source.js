@@ -16,7 +16,7 @@ $(function() {
 				count=data.count;
 				var temp='';
 				data.list.map(function(item,index) {
-					temp="<div class='content'><a href='"+item.filePath+"'><ul><li>资源名称：</li><li>&nbsp;&nbsp;"+item.fileName+"</li><li>资源类型：</li><li>&nbsp;&nbsp;"+item.fileType.fileTypeName+"</li><li>所属课程：</li><li>&nbsp;&nbsp;"+item.fileCourse.courseName+"</li></ul></a></div>";
+					temp+="<div class='content'><a href='"+item.filePath+"'><ul><li><b>资源名称：</b></li><li>&nbsp;&nbsp;"+item.fileName+"</li><li><b>资源类型：</b></li><li>&nbsp;&nbsp;"+item.fileType.fileTypeName+"</li><li><b>所属课程：</b></li><li>&nbsp;&nbsp;"+item.fileCourse.courseName+"</li></ul></a></div>";
 				});
 				$('#boxlist').html(temp);
 				$('#index').html('第'+pageNum+'页');
