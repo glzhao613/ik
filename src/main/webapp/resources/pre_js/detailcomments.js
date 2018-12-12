@@ -22,7 +22,7 @@ $(function() {
 					addItems(pageSize, pageNum);
 				} else {
 					alert(data.errMsg);
-					window.location.href = "/ik/pre/t_detail";
+					window.location.href = "/ik/user/login";
 				}
 			}
 		});
