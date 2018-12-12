@@ -234,16 +234,22 @@ public class CourseManagementController {
 /*		if (request.getSession().getAttribute("bycourseid") != null) {
 			request.getSession().removeAttribute("bycourseid");
 		}*/
+/*		if (request.getSession().getAttribute("bycourseid") != null) {
+			int courseId=(int) request.getSession().getAttribute("bycourseid") ;
+			course.setCourseId(courseId);
+		}*/
+		
+		
 		if (request.getSession().getAttribute("bycoursetypeid") != null) {
 			CourseType courseType=new CourseType();
 			courseType.setCourseTypeId((int)request.getSession().getAttribute("bycoursetypeid"));
 			course.setCourseType(courseType);
 		}
-		if (request.getSession().getAttribute("byteacherid") != null) {
+/*		if (request.getSession().getAttribute("byteacherid") != null) {
 			Teacher teacher=new Teacher();
 			teacher.setTeacherId((int)request.getSession().getAttribute("byteacherid"));
 			course.setCourseTeacher(teacher);
-		}
+		}*/
 		if ((pageIndex > -1) && (pageSize > -1)) {
 			CourseExecution ce = courseService.showCourseList(course,pageIndex, pageSize);
 			if (ce.getState() == CourseStateEnum.GET_SECCESS.getState()) {
@@ -323,6 +329,90 @@ public class CourseManagementController {
 				modelMap.put("errMsg", ce.getStateInfo());
 
 			}
+		return modelMap;
+	}
+	
+	@RequestMapping(value = "/prelist", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> showPreCourseList(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+		int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+		Course course=new Course();
+/*		if (request.getSession().getAttribute("bycourseid") != null) {
+			request.getSession().removeAttribute("bycourseid");
+		}*/
+/*		if (request.getSession().getAttribute("bycoursetypeid") != null) {
+			request.getSession().removeAttribute("bycoursetypeid");
+		}*/
+/*		if (request.getSession().getAttribute("byteacherid") != null) {
+			request.getSession().removeAttribute("byteacherid");
+		}*/
+		
+/*		if (request.getSession().getAttribute("bycourseid") != null) {
+			int courseId=(int) request.getSession().getAttribute("bycourseid") ;
+			course.setCourseId(courseId);
+		}*/
+		
+		if ((pageIndex > -1) && (pageSize > -1)) {
+			CourseExecution ce = courseService.showCourseList(course,pageIndex, pageSize);
+			if (ce.getState() == CourseStateEnum.GET_SECCESS.getState()) {
+				modelMap.put("precourseList", ce.getCourseList());
+				modelMap.put("count", (ce.getCount() - 1) / pageSize + 1);
+				modelMap.put("success", true);
+			} else {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", ce.getStateInfo());
+
+			}
+
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty pageSize or pageIndex");
+		}
+		return modelMap;
+	}
+	
+	@RequestMapping(value = "/predetaillist", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> showPreDetailCourseList(HttpServletRequest request) {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+		int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+		Course course=new Course();
+		if (request.getSession().getAttribute("bycourseid") != null) {
+			int courseId=(int) request.getSession().getAttribute("bycourseid") ;
+			course.setCourseId(courseId);
+			System.out.println(course.getCourseId());
+		}
+		if (request.getSession().getAttribute("bycoursetypeid") != null) {
+			request.getSession().removeAttribute("bycoursetypeid");
+		}
+/*		if (request.getSession().getAttribute("byteacherid") != null) {
+			request.getSession().removeAttribute("byteacherid");
+		}*/
+		
+/*		if (request.getSession().getAttribute("bycourseid") != null) {
+			int courseId=(int) request.getSession().getAttribute("bycourseid") ;
+			course.setCourseId(courseId);
+		}*/
+		
+		if ((pageIndex > -1) && (pageSize > -1)) {
+			CourseExecution ce = courseService.showCourseList(course,pageIndex, pageSize);
+			if (ce.getState() == CourseStateEnum.GET_SECCESS.getState()) {
+				modelMap.put("predetailcourseList", ce.getCourseList());
+				modelMap.put("count", (ce.getCount() - 1) / pageSize + 1);
+				modelMap.put("success", true);
+			} else {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", ce.getStateInfo());
+
+			}
+
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty pageSize or pageIndex");
+		}
 		return modelMap;
 	}
 }

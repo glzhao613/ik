@@ -56,7 +56,7 @@ $(function() {
 	$('#course').on('click','.qc',function() {
 		var courseid=$(this).attr('id');
 		var formData = new FormData();
-		alert(111);
+		alert(courseid);
 		formData.append('courseid', courseid);
 		$.ajax({
 			url : setcUrl,
