@@ -16,6 +16,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getteacherlist" resultType="com.gz.ik.entity.Teacher" parameterType="com.gz.ik.entity.Teacher">
 		SELECT *
 		FROM teacher
+		<where>
+			<if test="teacherId!=null">AND teacher_id=#{teacherId}</if>
+		</where>
 	</select>
 	
 	<select id="queryteacher" resultType="com.gz.ik.entity.Teacher">

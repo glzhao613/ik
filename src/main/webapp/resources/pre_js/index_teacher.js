@@ -1,7 +1,7 @@
 $(function() {
 	var count = 1;
-	var setcUrl='/ik/courseadmin/setid';
-	var courseUrl='/ik/courseadmin/prelist';
+	var setcUrl='/ik/teacheradmin/setid';
+	var teacherUrl='/ik/teacheradmin/list';
 	var pageNum = 1;
 	var pageSizeC=5;
 	var pageIndexC=1;
@@ -12,17 +12,17 @@ $(function() {
 
 	
 	function showItems(pageSize, pageIndex) {
-		var url = courseUrl + '?' + 'pageIndex=' + pageIndex + '&pageSize='
+		var url = teacherUrl + '?' + 'pageIndex=' + pageIndex + '&pageSize='
 				+ pageSize;
 		$.getJSON(url, function(data) {
 			if (data.success) {
 				count=data.count;
 				
 				var atemp='';
-				data.precourseList.map(function(item,index) {
-					atemp+='<div class="content"><div class="imgbox"><img class="qc" id='+item.courseId+' src="'+item.courseImg+'"></div><div class="textbox"><span>'+item.courseName+'</span></div></div>';
+				data.teacherList.map(function(item,index) {
+					atemp+='<div class="content"><div class="imgbox"><img class="qc" id='+item.teacherId+' src="'+item.teacherImg+'"></div><div class="textbox"><span>'+item.teacherName+'</span></div></div>';
 				});
-				$('#index_course').html(atemp);
+				$('#index_teacher').html(atemp);
 				
 			} else {
 				alert(data.errMsg);
@@ -30,11 +30,11 @@ $(function() {
 		});
 	}
 	
-	$('#index_course').on('click','.qc',function() {
-		var courseid=$(this).attr('id');
+	$('#index_teacher').on('click','.qc',function() {
+		var teacherid=$(this).attr('id');
 		var formData = new FormData();
-		alert(courseid);
-		formData.append('courseid', courseid);
+		alert(teacherid);
+		formData.append('teacherid', teacherid);
 		$.ajax({
 			url : setcUrl,
 			type : 'post',
@@ -44,7 +44,7 @@ $(function() {
 			cache : false,
 			success : function(data) {
 				if (data.success) {
-					window.location.href ="/ik/pre/coursedetail";
+					window.location.href ="/ik/pre/td";
 				} else {
 					alert(data.errMsg);
 				}
