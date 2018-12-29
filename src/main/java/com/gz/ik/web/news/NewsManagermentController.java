@@ -71,7 +71,7 @@ public class NewsManagermentController {
 			currentPage = 1;
 		}
 		newsPagingMap.put("currentPage", currentPage);
-		int pageCount = 2;
+		int pageCount = 10;
 		
 		
 		newsPagingMap.put("pageCount", pageCount);

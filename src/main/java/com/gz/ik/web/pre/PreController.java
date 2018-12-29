@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class PreController {
 	@RequestMapping(value = "/coursedetail", method = RequestMethod.GET)
 	private String getcoursedmanagement(){
-		return "coursedetail";
+		return "/pre_html/";
+	}
+	
+	@RequestMapping(value = "/t", method = RequestMethod.GET)
+	private String getcousrsedmanagement(){
+		return "/pre_html/t_detail";
 	}
 	
 }
