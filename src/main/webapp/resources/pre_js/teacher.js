@@ -1,6 +1,6 @@
 $(function() {
 	var count = 1;
-	var pageSize = 1;
+	var pageSize = 5;
 	var listUrl = '/ik/teacheradmin/list';
 	var setUrl='/ik/teacheradmin/setid';
 	var pageNum = 1;
@@ -17,9 +17,9 @@ $(function() {
 				count=data.count;
 				var btemp='';
 				data.teacherList.map(function(item,index) {
-					btemp+='<div style="display:inline-block; width:200px; height:350px;"><img id="teacherimg" src="'+item.teacherImg+'" class="'+item.teacherId+'" style="width:200x; height:350px;"></div>';
+					btemp+='<div class="content"><div class="imgbox"><img id="teacherimg" src='+item.teacherImg+' class="'+item.teacherId+'"></div><div class="textbox"><span>'+item.teacherName+'</span></div></div>'
 				});
-				$('#showteacher').html(btemp);
+				$('#teacher').html(btemp);
 				$('#index').html('第'+pageNum+'页');
 				$('#count').html('共'+count+'页');
 			} else {
@@ -49,7 +49,7 @@ $(function() {
 	});
 	
 	
-	$('#showteacher').on('click',"#teacherimg",function() {
+	$('#teacher').on('click',"#teacherimg",function() {
 		var teacherid=$(this).attr('class');
 		var formData = new FormData();
 		formData.append('teacherid', teacherid);
@@ -62,7 +62,7 @@ $(function() {
 			cache : false,
 			success : function(data) {
 				if (data.success) {
-					window.location.href ='/ik/teacher/teacher';
+					window.location.href ='/ik/pre/td';
 					
 				}
 			}

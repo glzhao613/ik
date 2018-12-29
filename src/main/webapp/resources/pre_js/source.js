@@ -1,6 +1,6 @@
 $(function() {
 	var count = 1;
-	var pageSize = 2;
+	var pageSize = 10;
 	var listUrl = '/ik/filesadmin/listbyuid';
 	var pageNum = 1;
 
@@ -16,9 +16,9 @@ $(function() {
 				count=data.count;
 				var temp='';
 				data.list.map(function(item,index) {
-					temp+="<div class='success-bottom'><a href='"+item.filePath+"'><div class='success-bottom-rights'><h4>所属课程："+item.fileCourse.courseName+"</h4><h4>资源类型："+item.fileType.fileTypeName+"</h4><h3>资源名称："+item.fileName+"</h3></div></a><div class='clearfix'></div></div>";
+					temp+="<div class='content'><a href='"+item.filePath+"'><ul><li><b>资源名称：</b></li><li>&nbsp;&nbsp;"+item.fileName+"</li><li><b>资源类型：</b></li><li>&nbsp;&nbsp;"+item.fileType.fileTypeName+"</li><li><b>所属课程：</b></li><li>&nbsp;&nbsp;"+item.fileCourse.courseName+"</li></ul></a></div>";
 				});
-				$('#box').html(temp);
+				$('#boxlist').html(temp);
 				$('#index').html('第'+pageNum+'页');
 				$('#count').html('共'+count+'页');
 			} else {

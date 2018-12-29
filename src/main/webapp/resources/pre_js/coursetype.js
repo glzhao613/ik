@@ -22,10 +22,10 @@ $(function() {
 				var btemp='';
 				var ctemp='';
 				data.coursetypeList.map(function(item,index) {
-					btemp+='<input type="button" value="'+item.courseTypeName+'" class="edit" id="'+item.courseTypeId+'" style=margin:20px>';
+					btemp+='<div class="edit" id="'+item.courseTypeId+'">'+item.courseTypeName+' </div>';
 					/*ctemp+='<tr><td>'+item.courseName+'</td><td>'+item.courseDes+'</td></tr>';*/
 				});
-				$('#filters').html(btemp);
+				$('#coursetype').html(btemp);
 				/*$('#course').html(ctemp);*/
 			} else {
 				alert(data.errMsg);
@@ -40,9 +40,12 @@ $(function() {
 			if (data.success) {
 				count=data.count;
 				var ctemp='';
+				var atemp='';
 				data.courseList.map(function(item,index) {
-					ctemp+='<div class="port-1"><tr><td>'+item.courseName+'</td></tr><div><input type="button" value="更多" class="qc" id="'+item.courseId+'"></div></div><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 "></h2></div></a>'
+					atemp+='<td><img src='+item.courseImg+'></td>';
+					ctemp+='<td><a class="qc" id='+item.courseId+'>'+item.courseName+'</a></td>'
 				});
+				$('#courseimg').html(atemp);
 				$('#course').html(ctemp);
 			} else {
 				alert(data.errMsg);
@@ -53,6 +56,7 @@ $(function() {
 	$('#course').on('click','.qc',function() {
 		var courseid=$(this).attr('id');
 		var formData = new FormData();
+		alert(courseid);
 		formData.append('courseid', courseid);
 		$.ajax({
 			url : setcUrl,
@@ -63,7 +67,7 @@ $(function() {
 			cache : false,
 			success : function(data) {
 				if (data.success) {
-					window.location.href ="/ik/course/dcours ";
+					window.location.href ="/ik/pre/coursedetail";
 				} else {
 					alert(data.errMsg);
 				}
@@ -76,7 +80,7 @@ $(function() {
 
 
 	
-	$('#filters').on('click','.edit',function() {
+	$('#coursetype').on('click','.edit',function() {
 		var coursetypeid=$(this).attr('id');
 		var formData = new FormData();
 		formData.append('coursetypeid', coursetypeid);
